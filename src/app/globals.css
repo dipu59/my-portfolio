@@ -167,6 +167,11 @@
   }
 }
 
+*{
+      -webkit-box-sizing: border-box;
+      scrollbar-width: thin;
+    scrollbar-color: #8750f7 #2a1454;
+}
 html {
   scroll-behavior: smooth;
 }
