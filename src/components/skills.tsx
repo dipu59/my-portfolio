@@ -89,7 +89,7 @@ export default function Skill() {
       <div className=" flex flex-wrap max-w-[1100px] mx-auto justify-center gap-5 items-center">
         {SkillInfo.slice(13, 14).map((items, index) => (
           <div key={index}>
-            <div className="w-[170px] group transition-all duration-500 cursor-pointer  h-[170px] dark:hover:bg-[#8750F7]/30 hover:bg-[#8750F7]/30 dark:bg-[#140c1c] rounded-2xl hover:border hover:border-[#8750F7]/60 flex flex-col bg-[#f1effa] shadow-md justify-center items-center">
+            <div className="w-[170px] group transition-all duration-500 cursor-pointer  h-[170px] dark:hover:bg-[#8750F7]/30 hover:bg-[#8750F7]/30 active:bg-[#8750F7]/30 dark:active:bg-[#8750F7]/30 dark:bg-[#140c1c] rounded-2xl hover:border hover:border-[#8750F7]/60 active:border-[#8750F7]/60 active:border flex flex-col bg-[#f1effa] shadow-md justify-center items-center">
               <Image
                 src={items.path}
                 width={62}
