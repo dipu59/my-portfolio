@@ -1,38 +1,48 @@
 "use client";
 import React from "react";
 import { FloatingNav } from "../components/ui/floating-navbar";
-import { IconHome, IconMessage, IconPresentation, } from "@tabler/icons-react";
-import { ModeToggle } from "./darkmood";
+import { IconHome, IconMessage, IconMoodUnamused, IconPresentation, } from "@tabler/icons-react";
+
+export const NavItems = [
+  {
+    name: "Home",
+    link: "#hero",
+    icon: (
+      <IconHome className="h-[18px] w-[18px] text-neutral-500 dark:text-white" />
+    ),
+  },
+  {
+    name: "Works",
+    link: "#works",
+    icon: (
+      <IconPresentation
+        stroke={2}
+        className="h-[18px] w-[18px] text-neutral-500 dark:text-white"
+      />
+    ),
+  },
+  {
+    name: "Skill",
+    link: "#skill",
+    icon: (
+      <IconMoodUnamused
+        stroke={2}
+        className="h-[18px] w-[18px] text-neutral-500 dark:text-white"
+      />
+    ),
+  },
+  {
+    name: "Contact",
+    link: "#contact",
+    icon: (
+      <IconMessage className="h-[18px] w-[18px] text-neutral-500 dark:text-white" />
+    ),
+  },
+];
 export function FloatingNavDemo() {
-  const navItems = [
-    {
-      name: "Home",
-      link: "/",
-      icon: <IconHome className="h-4 w-4 text-neutral-500 dark:text-white" />,
-    },
-    {
-      name: "Works",
-      link: "#works",
-      icon: <IconPresentation stroke={2} className="h-4 w-4 text-neutral-500 dark:text-white" />,
-    },
-    {
-      name: "Contact",
-      link: "/contact",
-      icon: (
-        <IconMessage className="h-4 w-4 text-neutral-500 dark:text-white" />
-      ),
-    },
-    {
-      name: <ModeToggle/>,
-      link: "/",
-      icon: (
-        <ModeToggle/>
-      ),
-    },
-  ];
   return (
     <div className="relative  w-full">
-      <FloatingNav navItems={navItems}  />
+      <FloatingNav navItems={NavItems}  />
       
     </div>
   );

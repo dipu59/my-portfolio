@@ -3,7 +3,7 @@ import React from "react";
 
 export default function Skill() {
   return (
-    <div className="dark:bg-[#0d0b14] bg-[#f2eefc] py-32">
+    <div id="skill" className="dark:bg-[#0d0b14] bg-[#f2eefc] py-32">
       <h1 className="text-4xl md:text-7xl font-bold   text-center bg-clip-text text-transparent bg-gradient-to-l dark:from-neutral-50 dark:to-purple-800 from-purple-900 to-purple-800  bg-opacity-50 ">
         My Skills
       </h1>
@@ -26,9 +26,9 @@ export default function Skill() {
                 width={62}
                 height={62}
                 alt="jslogo"
-                className="rounded-lg saturate-0 group-hover:saturate-100 group-hover:scale-110 transition-all duration-500 "
+                className="rounded-lg saturate-100 md:saturate-0 group-hover:saturate-100 group-hover:scale-110 transition-all duration-500 "
               />
-              <p className="text-[#8750F7]  saturate-0 group-hover:saturate-100 font-semibold pt-3 text-base md:text-lg transition-all duration-500">
+              <p className="text-[#8750F7]  saturate-100 md:saturate-0 group-hover:saturate-100 font-semibold pt-3 text-base md:text-lg transition-all duration-500">
                 {items.name}
               </p>
             </div>
@@ -49,9 +49,9 @@ export default function Skill() {
                 width={62}
                 height={62}
                 alt="jslogo"
-                className="rounded-lg saturate-0 group-hover:saturate-100 group-hover:scale-110 transition-all duration-500 "
+                className="rounded-lg saturate-100 md:saturate-0 group-hover:saturate-100 group-hover:scale-110 transition-all duration-500 "
               />
-              <p className="text-[#8750F7]  saturate-0 group-hover:saturate-100 font-semibold pt-3 text-base md:text-lg transition-all duration-500">
+              <p className="text-[#8750F7]  saturate-100 md:saturate-0 group-hover:saturate-100 font-semibold pt-3 text-base md:text-lg transition-all duration-500">
                 {items.name}
               </p>
             </div>
@@ -72,9 +72,9 @@ export default function Skill() {
                 width={62}
                 height={62}
                 alt="jslogo"
-                className="rounded-lg saturate-0 group-hover:saturate-100 group-hover:scale-110 transition-all duration-500 "
+                className="rounded-lg saturate-100 md:saturate-0 group-hover:saturate-100 group-hover:scale-110 transition-all duration-500 "
               />
-              <p className="text-[#8750F7]  saturate-0 group-hover:saturate-100 font-semibold pt-3 text-base md:text-lg transition-all duration-500">
+              <p className="text-[#8750F7]  saturate-100 md:saturate-0 group-hover:saturate-100 font-semibold pt-3 text-base md:text-lg transition-all duration-500">
                 {items.name}
               </p>
             </div>
@@ -95,9 +95,9 @@ export default function Skill() {
                 width={62}
                 height={62}
                 alt="jslogo"
-                className="rounded-lg saturate-0 group-hover:saturate-100 group-hover:scale-110 transition-all duration-500 "
+                className="rounded-lg saturate-100 md:saturate-0 group-hover:saturate-100 group-hover:scale-110 transition-all duration-500 "
               />
-              <p className="text-[#8750F7]  saturate-0 group-hover:saturate-100 font-semibold pt-3 text-base md:text-lg transition-all duration-500">
+              <p className="text-[#8750F7]  saturate-100 md:saturate-0 group-hover:saturate-100 font-semibold pt-3 text-base md:text-lg transition-all duration-500">
                 {items.name}
               </p>
             </div>
@@ -107,6 +107,7 @@ export default function Skill() {
     </div>
   );
 }
+
 
 const SkillInfo = [
   // Core Web Tech 0-3

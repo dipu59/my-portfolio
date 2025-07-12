@@ -1,3 +1,5 @@
+import Contact from "@/components/contact";
+import Footer from "@/components/footer";
 import Hero from "@/components/hero";
 import { FloatingNavDemo } from "@/components/navbar";
 import Skill from "@/components/skills";
@@ -11,7 +13,8 @@ export default function Home() {
         <Hero />
         <Works />
         <Skill />
-        {/* <Skills/> */}
+        <Contact/>
+        <Footer/>
       </main>
     </>
   );
