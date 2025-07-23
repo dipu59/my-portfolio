@@ -9,7 +9,7 @@ const Hero = () => {
 
   return (
     <HeroHighlight >
-      <div id="hero" className="h-[68rem] md:h-[45rem] w-full rounded-md flex-col md:flex-row flex items-center md:justify-between  antialiased  relative overflow-hidden md:pt-20">
+      <div id="hero" className="h-[60rem] md:h-[45rem] pb-4 w-full rounded-md flex-col md:flex-row flex items-center md:justify-between  antialiased  relative overflow-hidden md:pt-20">
         <div className=" p-4 flex flex-col items-center md:items-start justify-start   relative z-10 md:w-[70%] top-20 md:top-0 pt-20 md:pt-0">
           <motion.h1
             initial={{
