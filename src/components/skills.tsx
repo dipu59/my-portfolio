@@ -1,5 +1,17 @@
 import Image from "next/image";
 import React from "react";
+import { motion } from "framer-motion";
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 50 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+    },
+  },
+};
 
 export default function Skill() {
   return (
@@ -19,7 +31,13 @@ export default function Skill() {
       </h3>
       <div className=" flex flex-wrap max-w-[1100px] mx-auto justify-center gap-5 items-center">
         {SkillInfo.slice(0, 3).map((items, index) => (
-          <div key={index}>
+          <motion.div
+            variants={cardVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0 }}
+            key={index}
+          >
             <div className="w-[170px] group transition-all duration-500 cursor-pointer  h-[170px] dark:hover:bg-[#8750F7]/30 hover:bg-[#8750F7]/30 dark:bg-[#140c1c] rounded-2xl hover:border hover:border-[#8750F7]/60 flex flex-col bg-[#f1effa] shadow-md justify-center items-center ">
               <Image
                 src={items.path}
@@ -32,7 +50,7 @@ export default function Skill() {
                 {items.name}
               </p>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
 
@@ -42,8 +60,14 @@ export default function Skill() {
       </h3>
       <div className=" flex flex-wrap max-w-[1100px] mx-auto justify-center gap-5 items-center">
         {SkillInfo.slice(4, 12).map((items, index) => (
-          <div key={index}>
-            <div className="w-[170px] group transition-all duration-500 cursor-pointer  h-[170px] dark:hover:bg-[#8750F7]/30 hover:bg-[#8750F7]/30 dark:bg-[#140c1c] rounded-2xl hover:border hover:border-[#8750F7]/60 flex flex-col bg-[#f1effa] shadow-md justify-center items-center">
+          <motion.div key={index}>
+            <motion.div
+              variants={cardVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, amount: 0.2 }}
+              className="w-[170px] group transition-all duration-500 cursor-pointer  h-[170px] dark:hover:bg-[#8750F7]/30 hover:bg-[#8750F7]/30 dark:bg-[#140c1c] rounded-2xl hover:border hover:border-[#8750F7]/60 flex flex-col bg-[#f1effa] shadow-md justify-center items-center"
+            >
               <Image
                 src={items.path}
                 width={62}
@@ -54,8 +78,8 @@ export default function Skill() {
               <p className="text-[#8750F7]  saturate-100 md:saturate-0 group-hover:saturate-100 font-semibold pt-3 text-base md:text-lg transition-all duration-500">
                 {items.name}
               </p>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         ))}
       </div>
 
@@ -65,7 +89,13 @@ export default function Skill() {
       </h3>
       <div className=" flex flex-wrap max-w-[1100px] mx-auto justify-center gap-5 items-center">
         {SkillInfo.slice(11, 13).map((items, index) => (
-          <div key={index}>
+          <motion.div
+            variants={cardVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.2 }}
+            key={index}
+          >
             <div className="w-[170px] group transition-all duration-500 cursor-pointer  h-[170px] dark:hover:bg-[#8750F7]/30 hover:bg-[#8750F7]/30 dark:bg-[#140c1c] rounded-2xl hover:border hover:border-[#8750F7]/60 flex flex-col bg-[#f1effa] shadow-md justify-center items-center">
               <Image
                 src={items.path}
@@ -78,7 +108,7 @@ export default function Skill() {
                 {items.name}
               </p>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
 
@@ -88,7 +118,13 @@ export default function Skill() {
       </h3>
       <div className=" flex flex-wrap max-w-[1100px] mx-auto justify-center gap-5 items-center">
         {SkillInfo.slice(13, 14).map((items, index) => (
-          <div key={index}>
+          <motion.div
+            variants={cardVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.2 }}
+            key={index}
+          >
             <div className="w-[170px] group transition-all duration-500 cursor-pointer  h-[170px] dark:hover:bg-[#8750F7]/30 hover:bg-[#8750F7]/30 active:bg-[#8750F7]/30 dark:active:bg-[#8750F7]/30 dark:bg-[#140c1c] rounded-2xl hover:border hover:border-[#8750F7]/60 active:border-[#8750F7]/60 active:border flex flex-col bg-[#f1effa] shadow-md justify-center items-center">
               <Image
                 src={items.path}
@@ -101,13 +137,12 @@ export default function Skill() {
                 {items.name}
               </p>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
     </div>
   );
 }
-
 
 const SkillInfo = [
   // Core Web Tech 0-3

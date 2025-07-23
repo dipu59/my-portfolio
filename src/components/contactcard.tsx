@@ -3,21 +3,39 @@ import React from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
+import { useRef } from "react";
+import { useInView } from "framer-motion";
+
 
 export default function Contactcard() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("Form submitted");
   };
+
+    const ref = useRef(null);
+    const isInView = useInView(ref, { once: false }); // only animate once
+  
   return (
-    <div className="w-full h-auto">
-      <div
+    <div className="w-full h-auto p-4">
+      <motion.div
+        ref={ref}
+        initial={{ y: 140, opacity: 0 }}
+        animate={isInView ? { y: 0, opacity: 1 } : {}}
+        transition={{ duration: 0.8, ease: "easeInOut", delay: 0.1 }}
         className="shadow-input mx-auto   max-w-md md:max-w-[34rem]  bg-[#ece6f9]
- p-4 my-4 rounded-2xl md:p-8 dark:bg-[#1a0f25] dark:border dark:border-[#2a1f3d] transition-color cursor-pointer "
+ p-8 my-4 rounded-2xl md:p-8 dark:bg-[#1a0f25] dark:border dark:border-[#2a1f3d] transition-color cursor-pointer "
       >
-        <h2 className="text-4xl  md:text-5xl font-bold h-16  bg-clip-text text-transparent bg-gradient-to-l dark:from-neutral-50 dark:to-purple-800 from-purple-900 to-purple-800">
+        <motion.h2
+          ref={ref}
+          initial={{ y: 140, opacity: 0 }}
+          animate={isInView ? { y: 0, opacity: 1 } : {}}
+          transition={{ duration: 0.8, ease: "easeInOut", delay: 0.1 }}
+          className="text-4xl  md:text-5xl font-bold h-16  bg-clip-text text-transparent bg-gradient-to-l dark:from-neutral-50 dark:to-purple-800 from-purple-900 to-purple-800"
+        >
           Let’s work together!
-        </h2>
+        </motion.h2>
 
         <p className="mt-4 text-sm md:text-base font-sans leading-tight font-medium  max-w-lg  text-neutral-600 dark:text-neutral-300">
           Contact with me for your advice and feedback or any other query. I
@@ -57,15 +75,19 @@ export default function Contactcard() {
             ></textarea>
           </LabelInputContainer>
 
-          <button
+          <motion.button
+            ref={ref}
+            initial={{ y: 120, opacity: 0 }}
+            animate={isInView ? { y: 0, opacity: 1 } : {}}
+            transition={{ duration: 0.5, ease: "easeInOut", delay: 0.7 }}
             className="group/btn relative block h-13 py-4 w-full rounded-md bg-gradient-to-br from-black to-neutral-600 font-medium text-white shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:bg-zinc-800 dark:from-zinc-900 dark:to-zinc-900 dark:shadow-[0px_1px_0px_0px_#27272a_inset,0px_-1px_0px_0px_#27272a_inset]"
             type="submit"
           >
             Send Message &rarr;
             <BottomGradient />
-          </button>
+          </motion.button>
         </form>
-      </div>
+      </motion.div>
     </div>
   );
 }

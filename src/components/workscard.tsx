@@ -5,6 +5,18 @@ import { AnimatePresence, motion } from "motion/react";
 import { useOutsideClick } from "@/hooks/use-outside-click";
 import Image from "next/image";
 
+const cardVariants = {
+  hidden: { opacity: 0, y: 80 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      // ease: "easeInOut", // Use a valid string for easing
+    },
+  },
+};
+
 export function ExpandableCardDemo() {
   const [active, setActive] = useState<(typeof cards)[number] | boolean | null>(
     null
@@ -119,7 +131,7 @@ export function ExpandableCardDemo() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    className="text-neutral-600 text-xs md:text-sm lg:text-base h-40 md:h-fit pb-10 flex flex-col items-start gap-4 overflow-auto dark:text-neutral-400 [mask:linear-gradient(to_bottom,white,white,transparent)] [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch] overflow-y-scroll"
+                    className="text-neutral-600 text-xs md:text-sm lg:text-base h-40 md:h-fit pb-10 flex flex-col items-start gap-4 overflow-auto dark:text-neutral-400 "
                   >
                     {typeof active.content === "function"
                       ? active.content()
@@ -138,6 +150,10 @@ export function ExpandableCardDemo() {
           <motion.div
             whileHover={{ scale: 1.03 }}
             transition={{ type: "spring", stiffness: 300 }}
+            variants={cardVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0 }}
             layoutId={`card-${card.title}-${id}`}
             key={index}
             onClick={() => setActive(card)}
@@ -214,96 +230,234 @@ export const CloseIcon = () => {
   );
 };
 
-
 // Cards Details
 const cards = [
   {
     description: "Lana Del Rey",
-    title: "Summertime Sadness",
+    title: "Music Portfolio",
     src: "/musicSchool.png",
-    ctaText: "Visit",
+    ctaText: "Live Link",
     ctaLink: "https://music-s-portfolio.vercel.app/",
     content: () => {
       return (
-        <p>
-          Lana Del Rey, an iconic American singer-songwriter, is celebrated for
-          her melancholic and cinematic music style. Born Elizabeth Woolridge
-          Grant in New York City, she has captivated audiences worldwide with
-          her haunting voice and introspective lyrics. <br /> <br /> Her songs
-          often explore themes of tragic romance, glamour, and melancholia,
-          drawing inspiration from both contemporary and vintage pop culture.
-          With a career that has seen numerous critically acclaimed albums, Lana
-          Del Rey has established herself as a unique and influential figure in
-          the music industry, earning a dedicated fan base and numerous
-          accolades.
-        </p>
+        <>
+          <p>
+            I designed and developed a dynamic and user-friendly website for a
+            local music school. The site showcases their courses, instructors,
+            events options in a clean, engaging layout.
+          </p>
+          <h2 className="text-2xl text-gray-900 font-semibold">Technology</h2>
+          <ul className="flex flex-col gap-2">
+            <li className="flex gap-1 hover:text-blue-500 cursor-pointer transition-all  items-center">
+              Html{" "}
+              <Image src="/htmllogo.webp" width={22} height={22} alt="HTML" />
+            </li>
+            <li className="flex gap-1 hover:text-blue-500 cursor-pointer transition-all  items-center">
+              CSS
+              <Image src="/css3.png" width={22} height={22} alt="HTML" />
+            </li>
+            <li className="flex gap-1 hover:text-blue-500 cursor-pointer transition-all  items-center">
+              TypeScript
+              <Image src="/tslogo.svg" width={22} height={22} alt="tslogo" />
+            </li>
+            <li className="flex gap-1 hover:text-blue-500 cursor-pointer transition-all  items-center">
+              Tailwind CSS
+              <Image
+                src="/tailwind.svg"
+                width={22}
+                height={22}
+                alt="tailwind"
+              />
+            </li>
+            <li className="flex gap-1 hover:text-blue-500 cursor-pointer transition-all  items-center">
+              Aceternity UI
+              <Image
+                src="/aceternity.png"
+                width={22}
+                height={22}
+                alt="aceternity"
+              />
+            </li>
+            <li className="flex gap-1 hover:text-blue-500 cursor-pointer transition-all items-center">
+              Next JS
+              <Image
+                src="/nextlogo.svg"
+                width={22}
+                height={22}
+                alt="nextlogo"
+              />
+            </li>
+          </ul>
+        </>
       );
     },
   },
   {
     description: "Babbu Maan",
-    title: "Mitran Di Chhatri",
+    title: "AI Governing Docs",
     src: "/governing.png",
     ctaText: "Visit",
     ctaLink: "https://governing-docs-eight.vercel.app/",
     content: () => {
       return (
-        <p>
-          Babu Maan, a legendary Punjabi singer, is renowned for his soulful
-          voice and profound lyrics that resonate deeply with his audience. Born
-          in the village of Khant Maanpur in Punjab, India, he has become a
-          cultural icon in the Punjabi music industry. <br /> <br /> His songs
-          often reflect the struggles and triumphs of everyday life, capturing
-          the essence of Punjabi culture and traditions. With a career spanning
-          over two decades, Babu Maan has released numerous hit albums and
-          singles that have garnered him a massive fan following both in India
-          and abroad.
-        </p>
+        <>
+          <p>
+            I built a clean, modern, and responsive single landing page for a
+            government-related documentation portal. The main focus was clarity,
+            simplicity, and trust — perfect for an official government site.
+          </p>
+          <h2 className="text-2xl text-gray-900 font-semibold">Technology</h2>
+          <ul className="flex flex-col gap-2">
+            <li className="flex gap-1 hover:text-blue-500 cursor-pointer transition-all  items-center">
+              Html{" "}
+              <Image src="/htmllogo.webp" width={22} height={22} alt="HTML" />
+            </li>
+            <li className="flex gap-1 hover:text-blue-500 cursor-pointer transition-all  items-center">
+              CSS
+              <Image src="/css3.png" width={22} height={22} alt="HTML" />
+            </li>
+            <li className="flex gap-1 hover:text-blue-500 cursor-pointer transition-all  items-center">
+              JavaScript
+              <Image src="/jslogo.svg" width={22} height={22} alt="tslogo" />
+            </li>
+            <li className="flex gap-1 hover:text-blue-500 cursor-pointer transition-all  items-center">
+              Tailwind CSS
+              <Image
+                src="/tailwind.svg"
+                width={22}
+                height={22}
+                alt="tailwind"
+              />
+            </li>
+            <li className="flex gap-1 hover:text-blue-500 cursor-pointer transition-all items-center">
+              React JS
+              <Image
+                src="/reactlogo.svg"
+                width={22}
+                height={22}
+                alt="nextlogo"
+              />
+            </li>
+          </ul>
+        </>
       );
     },
   },
 
   {
     description: "Metallica",
-    title: "For Whom The Bell Tolls",
+    title: "Finance Website",
     src: "/finance.png",
     ctaText: "Visit",
     ctaLink: "https://finance-website-dipu59.netlify.app/",
     content: () => {
       return (
-        <p>
-          Metallica, an iconic American heavy metal band, is renowned for their
-          powerful sound and intense performances that resonate deeply with
-          their audience. Formed in Los Angeles, California, they have become a
-          cultural icon in the heavy metal music industry. <br /> <br /> Their
-          songs often reflect themes of aggression, social issues, and personal
-          struggles, capturing the essence of the heavy metal genre. With a
-          career spanning over four decades, Metallica has released numerous hit
-          albums and singles that have garnered them a massive fan following
-          both in the United States and abroad.
-        </p>
+        <>
+          <p>
+            {" "}
+            I developed a clean and modern landing page for a finance company,
+            focused on promoting financial services and building user trust. The
+            site presents key offerings, company values, and client engagement
+            elements in a professional layout.
+          </p>
+          <h2 className="text-2xl text-gray-900 font-semibold">Technology</h2>
+          <ul className="flex flex-col gap-2">
+            <li className="flex gap-1 hover:text-blue-500 cursor-pointer transition-all  items-center">
+              Html{" "}
+              <Image src="/htmllogo.webp" width={22} height={22} alt="HTML" />
+            </li>
+            <li className="flex gap-1 hover:text-blue-500 cursor-pointer transition-all  items-center">
+              CSS
+              <Image src="/css3.png" width={22} height={22} alt="HTML" />
+            </li>
+            <li className="flex gap-1 hover:text-blue-500 cursor-pointer transition-all  items-center">
+              JavaScript
+              <Image src="/jslogo.svg" width={22} height={22} alt="tslogo" />
+            </li>
+            <li className="flex gap-1 hover:text-blue-500 cursor-pointer transition-all  items-center">
+              Tailwind CSS
+              <Image
+                src="/tailwind.svg"
+                width={22}
+                height={22}
+                alt="tailwind"
+              />
+            </li>
+            <li className="flex gap-1 hover:text-blue-500 cursor-pointer transition-all items-center">
+              React JS
+              <Image
+                src="/nextlogo.svg"
+                width={22}
+                height={22}
+                alt="reactlogo"
+              />
+            </li>
+            <li className="flex gap-1 hover:text-blue-500 cursor-pointer transition-all items-center">
+              Famer Motion
+            </li>
+          </ul>
+        </>
       );
     },
   },
   {
     description: "Lord57",
-    title: "Aap Ka Suroor",
+    title: "Car Business",
     src: "/carbusiness.png",
     ctaText: "Visit",
     ctaLink: "https://car-business-dipu59.netlify.app/",
     content: () => {
       return (
-        <p>
-          Himesh Reshammiya, a renowned Indian music composer, singer, and
-          actor, is celebrated for his distinctive voice and innovative
-          compositions. Born in Mumbai, India, he has become a prominent figure
-          in the Bollywood music industry. <br /> <br /> His songs often feature
-          a blend of contemporary and traditional Indian music, capturing the
-          essence of modern Bollywood soundtracks. With a career spanning over
-          two decades, Himesh Reshammiya has released numerous hit albums and
-          singles that have garnered him a massive fan following both in India
-          and abroad.
-        </p>
+        <>
+          <p>
+            I created a sleek and professional landing page for a car
+            dealership/business website. The design showcases car models,
+            services, and business info in a clean and modern layout, optimized
+            for user engagement and mobile responsiveness.
+          </p>
+          <h2 className="text-2xl text-gray-900 font-semibold">Technology</h2>
+          <ul className="flex flex-col gap-2">
+            <li className="flex gap-1 hover:text-blue-500 cursor-pointer transition-all  items-center">
+              Html{" "}
+              <Image src="/htmllogo.webp" width={22} height={22} alt="HTML" />
+            </li>
+            <li className="flex gap-1 hover:text-blue-500 cursor-pointer transition-all  items-center">
+              CSS
+              <Image src="/css3.png" width={22} height={22} alt="HTML" />
+            </li>
+            <li className="flex gap-1 hover:text-blue-500 cursor-pointer transition-all  items-center">
+              JavaScript
+              <Image src="/jslogo.svg" width={22} height={22} alt="tslogo" />
+            </li>
+            <li className="flex gap-1 hover:text-blue-500 cursor-pointer transition-all  items-center">
+              Tailwind CSS
+              <Image
+                src="/tailwind.svg"
+                width={22}
+                height={22}
+                alt="tailwind"
+              />
+            </li>
+            <li className="flex gap-1 hover:text-blue-500 cursor-pointer transition-all  items-center">
+              Hero Ui
+              <Image
+                src="/aceternity.png"
+                width={22}
+                height={22}
+                alt="aceternity"
+              />
+            </li>
+            <li className="flex gap-1 hover:text-blue-500 cursor-pointer transition-all items-center">
+              React JS
+              <Image
+                src="/reactlogo.svg"
+                width={22}
+                height={22}
+                alt="nextlogo"
+              />
+            </li>
+          </ul>
+        </>
       );
     },
   },
@@ -312,20 +466,62 @@ const cards = [
     title: "disears",
     src: "/disears.png",
     ctaText: "Visit",
-    ctaLink: "https://wizias-dipu.vercel.app/",
+    ctaLink: "https://disastersio-umber.vercel.app/",
     content: () => {
       return (
-        <p>
-          Himesh Reshammiya, a renowned Indian music composer, singer, and
-          actor, is celebrated for his distinctive voice and innovative
-          compositions. Born in Mumbai, India, he has become a prominent figure
-          in the Bollywood music industry. <br /> <br /> His songs often feature
-          a blend of contemporary and traditional Indian music, capturing the
-          essence of modern Bollywood soundtracks. With a career spanning over
-          two decades, Himesh Reshammiya has released numerous hit albums and
-          singles that have garnered him a massive fan following both in India
-          and abroad.
-        </p>
+        <>
+          <p>
+            I designed and developed a disaster awareness landing page that
+            delivers real-time emergency info in a clear and impactful layout.
+            Built for high visibility and fast user understanding, this site is
+            ideal for disaster management agencies or emergency services.
+          </p>
+          <h2 className="text-2xl text-gray-900 font-semibold">Technology</h2>
+          <ul className="flex flex-col gap-2">
+            <li className="flex gap-1 hover:text-blue-500 cursor-pointer transition-all  items-center">
+              Html{" "}
+              <Image src="/htmllogo.webp" width={22} height={22} alt="HTML" />
+            </li>
+            <li className="flex gap-1 hover:text-blue-500 cursor-pointer transition-all  items-center">
+              CSS
+              <Image src="/css3.png" width={22} height={22} alt="HTML" />
+            </li>
+            <li className="flex gap-1 hover:text-blue-500 cursor-pointer transition-all  items-center">
+              JavaScript
+              <Image src="/jslogo.svg" width={22} height={22} alt="tslogo" />
+            </li>
+            <li className="flex gap-1 hover:text-blue-500 cursor-pointer transition-all  items-center">
+              Tailwind CSS
+              <Image
+                src="/tailwind.svg"
+                width={22}
+                height={22}
+                alt="tailwind"
+              />
+            </li>
+            <li className="flex gap-1 hover:text-blue-500 cursor-pointer transition-all  items-center">
+              Hero Ui
+              <Image
+                src="/aceternity.png"
+                width={22}
+                height={22}
+                alt="aceternity"
+              />
+            </li>
+            <li className="flex gap-1 hover:text-blue-500 cursor-pointer transition-all items-center">
+              React JS
+              <Image
+                src="/reactlogo.svg"
+                width={22}
+                height={22}
+                alt="nextlogo"
+              />
+            </li>
+            <li className="flex gap-1 hover:text-blue-500 cursor-pointer transition-all items-center">
+              Famer Motion
+            </li>
+          </ul>
+        </>
       );
     },
   },
@@ -337,17 +533,47 @@ const cards = [
     ctaLink: "https://wizias-dipu.vercel.app/",
     content: () => {
       return (
-        <p>
-          Himesh Reshammiya, a renowned Indian music composer, singer, and
-          actor, is celebrated for his distinctive voice and innovative
-          compositions. Born in Mumbai, India, he has become a prominent figure
-          in the Bollywood music industry. <br /> <br /> His songs often feature
-          a blend of contemporary and traditional Indian music, capturing the
-          essence of modern Bollywood soundtracks. With a career spanning over
-          two decades, Himesh Reshammiya has released numerous hit albums and
-          singles that have garnered him a massive fan following both in India
-          and abroad.
-        </p>
+        <>
+          <p>
+            I built a sleek and modern landing page for Wizias, a digital
+            business/AI solution platform. The design focuses on minimalism,
+            bold typography, and conversion-focused layout to highlight services
+            and attract clients.
+          </p>
+          <h2 className="text-2xl text-gray-900 font-semibold">Technology</h2>
+          <ul className="flex flex-col gap-2">
+            <li className="flex gap-1 hover:text-blue-500 cursor-pointer transition-all  items-center">
+              Html{" "}
+              <Image src="/htmllogo.webp" width={22} height={22} alt="HTML" />
+            </li>
+            <li className="flex gap-1 hover:text-blue-500 cursor-pointer transition-all  items-center">
+              CSS
+              <Image src="/css3.png" width={22} height={22} alt="HTML" />
+            </li>
+            <li className="flex gap-1 hover:text-blue-500 cursor-pointer transition-all  items-center">
+              JavaScript
+              <Image src="/jslogo.svg" width={22} height={22} alt="tslogo" />
+            </li>
+            <li className="flex gap-1 hover:text-blue-500 cursor-pointer transition-all  items-center">
+              Tailwind CSS
+              <Image
+                src="/tailwind.svg"
+                width={22}
+                height={22}
+                alt="tailwind"
+              />
+            </li>
+            <li className="flex gap-1 hover:text-blue-500 cursor-pointer transition-all items-center">
+              React JS
+              <Image
+                src="/reactlogo.svg"
+                width={22}
+                height={22}
+                alt="nextlogo"
+              />
+            </li>
+          </ul>
+        </>
       );
     },
   },
