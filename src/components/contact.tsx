@@ -1,3 +1,4 @@
+"use client"
 import React from "react";
 import Contactcard from "./contactcard";
 import { BackgroundBeamsWithCollision } from "./ui/background-beams-with-collision";

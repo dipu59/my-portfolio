@@ -41,7 +41,7 @@ export const NavItems = [
 ];
 export function FloatingNavDemo() {
   return (
-    <div className="relative  w-full">
+    <div className="relative  w-full ">
       <FloatingNav navItems={NavItems}  />
       
     </div>
