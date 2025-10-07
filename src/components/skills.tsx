@@ -1,7 +1,9 @@
+"use client"
 import Image from "next/image";
 import React from "react";
 import { motion } from "framer-motion";
-
+import Lenis from "lenis";
+import { useEffect } from "react";
 const cardVariants = {
   hidden: { opacity: 0, y: 50 },
   visible: {
@@ -14,6 +16,16 @@ const cardVariants = {
 };
 
 export default function Skill() {
+   useEffect(() => {
+        const lenis = new Lenis({
+          autoRaf: true,
+          duration: 1,
+        });
+  
+        lenis.on("scroll", (e) => {
+          console.log(e);
+        });
+      }, []);
   return (
     <div id="skill" className="dark:bg-[#0d0b14] bg-[#f2eefc] py-32">
       <h1 className="text-4xl md:text-7xl font-bold   text-center bg-clip-text text-transparent bg-gradient-to-l dark:from-neutral-50 dark:to-purple-800 from-purple-900 to-purple-800  bg-opacity-50 ">

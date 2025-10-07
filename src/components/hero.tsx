@@ -8,8 +8,11 @@ const Hero = () => {
   const words = ["A Creative", "Frontend", "Developer"];
 
   return (
-    <HeroHighlight >
-      <div id="hero" className="h-[60rem] md:h-[45rem] pb-4 w-full rounded-md flex-col md:flex-row flex items-center md:justify-between  antialiased  relative overflow-hidden md:pt-20">
+    <HeroHighlight>
+      <div
+        id="hero"
+        className="h-[60rem] md:h-[45rem] pb-4 w-full rounded-md flex-col md:flex-row flex items-center md:justify-between  antialiased  relative overflow-hidden md:pt-20"
+      >
         <div className=" p-4 flex flex-col items-center md:items-start justify-start   relative z-10 md:w-[70%] top-20 md:top-0 pt-20 md:pt-0">
           <motion.h1
             initial={{
@@ -83,9 +86,9 @@ const Hero = () => {
           className="rounded-b-3xl mt-20 md:mt-0 dark:flex hidden justify-center justify-self-center items-center md:w-1/3 rotate-6 hover:rotate-0 transition-all duration-300 cursor-pointer md:mr-20 rounded-tl-[4rem] rounded-tr-3xl border border-purple-500 overflow-hidden h-auto mx-10 md:mx-0 "
         >
           <Image
-            src="/dipu.jpg"
+            src="/dipu.png"
             alt="hero"
-            className="h-auto"
+            className="h-auto brightness-90"
             width={600}
             height={600}
           />
@@ -104,12 +107,12 @@ const Hero = () => {
           transition={{
             duration: 0.6,
           }}
-          className="rounded-b-3xl hover:ring-4 mt-20 md:mt-0 flex dark:hidden justify-center justify-self-center items-center md:w-1/3 rotate-6 active:rotate-0 active:ring-4 ring-2 ring-purple-900 hover:rotate-0 transition-all duration-300 cursor-pointer md:mr-20 rounded-tl-[4rem] rounded-tr-3xl border border-purple-500 overflow-hidden h-auto mx-10 md:mx-0 shadow-2xl shadow-black/95"
+          className="rounded-b-3xl hover:ring-4 mt-20 md:mt-0 flex dark:hidden justify-center justify-self-center items-center md:w-1/3 rotate-6 active:rotate-0 active:ring-4 ring-2 ring-purple-900 hover:rotate-0 transition-all duration-300 cursor-pointer md:mr-20 rounded-tl-[4rem] rounded-tr-3xl border border-purple-500 overflow-hidden h-auto mx-10 md:mx-0 shadow-2xl shadow-black/95 "
         >
           <Image
             src="/lightdipu.jpg"
             alt="hero"
-            className="h-auto"
+            className="h-auto "
             width={600}
             height={600}
           />
