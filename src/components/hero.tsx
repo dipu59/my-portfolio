@@ -4,6 +4,7 @@ import { FlipWords } from "./ui/flip-words";
 import { HeroHighlight } from "./ui/hero-highlight";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import SocialFloat from "./socialMedia";
 const Hero = () => {
   const words = ["A Creative", "Frontend", "Developer"];
 
@@ -68,6 +69,7 @@ const Hero = () => {
               </div>
             </motion.button>
           </div>
+          <SocialFloat className="md:flex hidden mt-12 gap-4" />
         </div>
 
         {/* For Dark Mood */}
@@ -144,6 +146,7 @@ const Hero = () => {
               </div>
             </button>
           </div>
+          <SocialFloat className="flex md:hidden mt-10 gap-4 justify-center items-center py-4" />
         </div>
       </div>
     </HeroHighlight>
