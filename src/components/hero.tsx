@@ -5,6 +5,7 @@ import { HeroHighlight } from "./ui/hero-highlight";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import SocialFloat from "./socialMedia";
+import { FaDownload } from "react-icons/fa";
 const Hero = () => {
   const words = ["A Creative", "Frontend", "Developer"];
 
@@ -12,7 +13,7 @@ const Hero = () => {
     <HeroHighlight>
       <div
         id="hero"
-        className="h-[60rem] md:h-[45rem] pb-4 w-full rounded-md flex-col md:flex-row flex items-center md:justify-between  antialiased  relative overflow-hidden md:pt-20"
+        className="h-[68rem] md:h-[45rem] pb-4 w-full rounded-md flex-col md:flex-row flex items-center md:justify-between  antialiased  relative overflow-hidden md:pt-20"
       >
         <div className=" p-4 flex flex-col items-center md:items-start justify-start   relative z-10 md:w-[70%] top-20 md:top-0 pt-20 md:pt-0">
           <motion.h1
@@ -46,13 +47,13 @@ const Hero = () => {
             }}
             className="mt-4 font-normal py-5 hidden md:flex md:text-lg text-base text-neutral-600 dark:text-neutral-300 max-w-lg "
           >
-            &quot;I build sleek, responsive, and user-first web interfaces with
-            React, Next.js, and a touch of creative madness. Turning pixels into
-            smooth experiences—one component at a time.&quot;
+            I build sleek, responsive, and user-first web interfaces with React,
+            Next.js, and a touch of creative madness. Turning pixels into smooth
+            experiences—one component at a time.
           </motion.p>
-          <div className="pt-5">
+          <div className="pt-5 flex gap-3">
             <motion.button
-              initial={{ opacity: 0, y: 50 }}
+              initial={{ opacity: 0, y: -50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.4 }}
               transition={{
@@ -64,60 +65,98 @@ const Hero = () => {
               className="p-[3px] relative hidden md:flex cursor-pointer hover:rotate-6 transition-all duration-300 "
             >
               <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg" />
-              <div className="px-8 py-2  bg-black rounded-[10px] font-bold  relative group transition duration-300 text-white hover:bg-transparent">
+              <div className="px-8 py-2  bg-[#6A00FF] dark:bg-black rounded-[10px] font-bold  relative group transition duration-300 text-white hover:bg-transparent dark:hover:bg-transparent">
                 Hire Me !
               </div>
             </motion.button>
+            <motion.a
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.4 }}
+              transition={{
+                duration: 0.6,
+                // type: "spring",
+                // stiffness: 100,
+                // damping: 10,
+              }}
+              href="/Resume.pdf"
+              download="Dipu_Resume.pdf"
+              className="md:flex hidden items-center text-gray-800 bg-gray-100 gap-2 px-5 py-2 rounded-lg border-2 border-purple-600 hover:bg-purple-600 hover:text-white transition"
+            >
+              <FaDownload />
+              Resume
+            </motion.a>
           </div>
           <SocialFloat className="md:flex hidden mt-12 gap-4" />
         </div>
 
         {/* For Dark Mood */}
         <motion.div
-          initial={{
-            opacity: 0,
-            y: 100,
-          }}
-          animate={{
-            opacity: 1,
-            y: [30, -20, 0],
-          }}
-          transition={{
-            duration: 0.6,
-          }}
           className="rounded-b-3xl mt-20 md:mt-0 dark:flex hidden justify-center justify-self-center items-center md:w-1/3 rotate-6 hover:rotate-0 transition-all duration-300 cursor-pointer md:mr-20 rounded-tl-[4rem] rounded-tr-3xl border border-purple-500 overflow-hidden h-auto mx-10 md:mx-0 "
+          animate={{ y: [0, -23, 0] }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
         >
-          <Image
-            src="/dipu.png"
-            alt="hero"
-            className="h-auto brightness-90"
-            width={600}
-            height={600}
-          />
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: 100,
+            }}
+            animate={{
+              opacity: 1,
+              y: [30, -20, 0],
+            }}
+            transition={{
+              duration: 0.6,
+            }}
+            className=""
+          >
+            <Image
+              src="/dipu.png"
+              alt="hero"
+              className="h-auto brightness-90"
+              width={600}
+              height={600}
+            />
+          </motion.div>
         </motion.div>
 
         {/* For Light Mood */}
         <motion.div
-          initial={{
-            opacity: 0,
-            y: 100,
-          }}
-          animate={{
-            opacity: 1,
-            y: [30, -20, 0],
-          }}
+          animate={{ y: [0, -23, 0] }}
           transition={{
-            duration: 0.6,
+            duration: 4,
+            repeat: Infinity,
+            ease: "easeInOut",
           }}
+          whileTap={{ scale: 0.95 }}
           className="rounded-b-3xl hover:ring-4 mt-20 md:mt-0 flex dark:hidden justify-center justify-self-center items-center md:w-1/3 rotate-6 active:rotate-0 active:ring-4 ring-2 ring-purple-900 hover:rotate-0 transition-all duration-300 cursor-pointer md:mr-20 rounded-tl-[4rem] rounded-tr-3xl border border-purple-500 overflow-hidden h-auto mx-10 md:mx-0 shadow-2xl shadow-black/95 "
         >
-          <Image
-            src="/lightdipu.jpg"
-            alt="hero"
-            className="h-auto "
-            width={600}
-            height={600}
-          />
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: 100,
+            }}
+            animate={{
+              opacity: 1,
+              y: [30, -20, 0],
+            }}
+            transition={{
+              duration: 0.6,
+            }}
+            className=""
+          >
+            <Image
+              src="/lightdipu.jpg"
+              alt="hero"
+              className="h-auto "
+              width={600}
+              height={600}
+            />
+          </motion.div>
         </motion.div>
 
         {/* For Mobile Responsive */}
@@ -134,17 +173,34 @@ const Hero = () => {
             }}
             className="mt-4 font-normal py-5  md:text-lg text-base text-neutral-600 dark:text-neutral-300 max-w-lg "
           >
-            &quot;I build sleek, responsive, and user-first web interfaces with
-            React, Next.js, and a touch of creative madness. Turning pixels into
-            smooth experiences—one component at a time.&quot;
+            I build sleek, responsive, and user-first web interfaces with React,
+            Next.js, and a touch of creative madness. Turning pixels into smooth
+            experiences—one component at a time.
           </motion.p>
-          <div className="pt-5">
+          <div className="pt-5 flex gap-3">
             <button className="p-[3px] relative  cursor-pointer">
               <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg" />
               <div className="px-8 py-2  bg-black rounded-[10px] font-bold  relative group transition duration-300 text-white hover:bg-transparent">
                 Hire Me !
               </div>
             </button>
+            <motion.a
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.4 }}
+              transition={{
+                duration: 0.6,
+                // type: "spring",
+                // stiffness: 100,
+                // damping: 10,
+              }}
+              href="/Resume.pdf"
+              download="Dipu_Resume.pdf"
+              className="flex md:hidden items-center text-gray-800 bg-gray-100 gap-2 px-5 py-2 rounded-lg border-2 border-purple-600 hover:bg-purple-600 hover:text-white transition"
+            >
+              <FaDownload />
+              Resume
+            </motion.a>
           </div>
           <SocialFloat className="flex md:hidden mt-10 gap-4 justify-center items-center py-4" />
         </div>

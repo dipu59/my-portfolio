@@ -43,10 +43,10 @@ export default function SocialFloat({ className }: { className?: string }) {
           target="_blank"
           rel="noopener noreferrer"
           aria-label={item.name}
-          className="text-3xl text-white dark:bg-[#1a012b] bg-[#4f1979] p-4 rounded-full shadow-lg transition-transform duration-300 transform hover:scale-[1.3] hover:rotate-[10deg] hover:bg-[#6711a7] hover:shadow-[0px_0px_20px_6px_rgba(103,17,167,0.6)]"
-          animate={{ y: [0, -20, 0] }}
+          className="text-3xl text-white dark:bg-[#1a012b] bg-[#4f1979] p-4 rounded-full shadow-lg transition-transform duration-300 transform hover:scale-[1.3] hover:rotate-[10deg] hover:bg-[#6711a7] dark:hover:bg-[#6711a7] hover:shadow-[0px_0px_20px_6px_rgba(103,17,167,0.6)]"
+          animate={{ y: [0, -21, 0] }}
           transition={{
-            duration: 2,
+            duration: 3,
             repeat: Infinity,
             delay: i * 0.4,
             ease: "easeInOut",
