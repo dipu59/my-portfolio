@@ -115,7 +115,7 @@ const Hero = () => {
             className=""
           >
             <Image
-              src="/dipu.png"
+              src="/og-image.jpg"
               alt="hero"
               className="h-auto brightness-90"
               width={600}
