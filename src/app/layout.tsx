@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 
@@ -13,10 +13,16 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
+const space = Space_Grotesk({ variable: "--font-space", subsets: ["latin"] });
+
 export const metadata: Metadata = {
-  title: "Dipu Biswas | Full Stack Developer",
+  icons: {
+    icon: "/favicon.ico",
+  },
+  title: "Dipu Biswas – Full Stack Developer | React, Next.js, Node.js Expert",
   description:
-    "Dipu Biswas – Full Stack Developer specializing in React, Next.js, Node.js, Express, and building scalable, performance-driven web applications.",
+    "Dipu Biswas is a Full Stack Developer from Balagarh, Hooghly, serving Kolkata and nearby areas.Specializing in React, Next.js, Node.js, and modern web technologies. Building fast, SEO-friendly, and scalable web applications.",
 
   verification: {
     google: "google8ddbe53d89cba937",
@@ -56,7 +62,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark " suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased `}
+        className={`${geistSans.variable} ${geistMono.variable}${inter.variable}${space.variable} antialiased `}
       >
         {" "}
         <ThemeProvider

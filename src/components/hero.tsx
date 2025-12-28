@@ -7,13 +7,13 @@ import Image from "next/image";
 import SocialFloat from "./socialMedia";
 import { FaDownload } from "react-icons/fa";
 const Hero = () => {
-  const words = ["A Creative", "Frontend", "Developer"];
+  const words = ["A Creative", "Full Stack", "Developer"];
 
   return (
     <HeroHighlight>
       <div
         id="hero"
-        className="h-[68rem] md:h-[45rem] pb-4 w-full rounded-md flex-col md:flex-row flex items-center md:justify-between  antialiased  relative overflow-hidden md:pt-20"
+        className="h-[66rem] md:h-[45rem] pb-4 w-full rounded-md flex-col md:flex-row flex items-center md:justify-between  antialiased  relative overflow-hidden md:pt-20"
       >
         <div className=" p-4 flex flex-col items-center md:items-start justify-start   relative z-10 md:w-[70%] top-20 md:top-0 pt-20 md:pt-0">
           <motion.h1
@@ -29,9 +29,9 @@ const Hero = () => {
               duration: 0.6,
               ease: [0.4, 0.0, 0.2, 1],
             }}
-            className="text-4xl md:text-7xl font-bold max-w-2xl text-center md:text-left  bg-clip-text text-transparent bg-gradient-to-b dark:from-neutral-50 dark:to-purple-400 from-neutral-900 to-blue-800  bg-opacity-50"
+            className="text-4xl md:text-7xl font-bold max-w-2xl text-center md:text-left  bg-clip-text text-transparent bg-gradient-to-b dark:from-neutral-50 dark:to-purple-400 from-neutral-900 to-blue-800  bg-opacity-50 font-heading! "
           >
-            I&apos;m <span className="  cursor-pointer">Dipu</span> <br />{" "}
+            I&apos;m <span className="  cursor-pointer ">Dipu - </span> <br />{" "}
             <FlipWords words={words} className="md:text-8xl text-[55px] " />
           </motion.h1>
           <motion.p
@@ -45,11 +45,10 @@ const Hero = () => {
               damping: 10,
               delay: 1,
             }}
-            className="mt-4 font-normal py-5 hidden md:flex md:text-lg text-base text-neutral-600 dark:text-neutral-300 max-w-lg "
+            className="mt-4 font-normal   py-5  md:flex md:text-xl text-lg text-neutral-600 dark:text-neutral-300 max-w-lg  font-body! "
           >
-            I build sleek, responsive, and user-first web interfaces with React,
-            Next.js, and a touch of creative madness. Turning pixels into smooth
-            experiences—one component at a time.
+            I build fast, scalable, and SEO-friendly web applications using
+            React, Next.js, Node.js, and modern web technologies.
           </motion.p>
           <div className="pt-5 flex gap-3">
             <motion.button
@@ -161,7 +160,7 @@ const Hero = () => {
 
         {/* For Mobile Responsive */}
         <div className="flex md:hidden flex-col px-4">
-          <motion.p
+          {/* <motion.p
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.4 }}
@@ -176,7 +175,7 @@ const Hero = () => {
             I build sleek, responsive, and user-first web interfaces with React,
             Next.js, and a touch of creative madness. Turning pixels into smooth
             experiences—one component at a time.
-          </motion.p>
+          </motion.p> */}
           <div className="pt-5 flex gap-3">
             <button className="p-[3px] relative  cursor-pointer">
               <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg" />
