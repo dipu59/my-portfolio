@@ -233,6 +233,92 @@ export const CloseIcon = () => {
 // Cards Details
 const cards = [
   {
+    description: "Dipu Biswas",
+    title: "Restrurant Feedback ",
+    src: "/image2.png",
+    ctaText: "Live Link",
+    ctaLink: "https://stay-scout.vercel.app",
+    content: () => {
+      return (
+        <>
+          <p>
+            🚀 Project Completed: Restaurant Feedback Website <br />
+            After 2+ weeks of hard work, learning, debugging, and iterating, I’m
+            thrilled to announce that I’ve completed building a Restaurant
+            Feedback Website from scratch.
+            <br />
+            This project was more than just UI design — my primary goal was to
+            create a real-world, scalable frontend architecture.
+            <br />
+            <br />
+            🔑 Key Features:
+            <br /> Search restaurants by name & location
+            <br /> Dynamic routing for individual restaurant pages Ratings &
+            user reviews <br />
+            system Dark mode support for better UX <br />
+            Fully responsive across desktop, tablet, and mobile Clean
+            component-based structure with shared global state
+            <br /> 🛠️Tech Stack
+            <br /> Next.js (App Router) React TypeScript Tailwind CSS HeroUI
+            Lucide Icons Vercel (deployment) 💡 What I learned * Designing
+            layout-level components with page-level data * Managing global state
+            using Context instead of prop drilling * Implementing dynamic routes
+            using [slug] * Improving UX with scroll-based navbar behavior & dark
+            mode * Structuring a project like a real production frontend app 🌐
+            Live Demo: https://stay-scout.vercel.app I’m always working on
+            enhancing my frontend development skills and looking for frontend
+            jobs, internships, or freelance work. Your feedback and
+            recommendations are always appreciated 🙌 #FrontendDeveloper #NextJS
+            #ReactJS #TypeScript #WebDevelopment #ProjectShowcase #BuildInPublic
+            #LearningInPublic
+          </p>
+          {/* <h2 className="text-2xl text-gray-900 font-semibold">Technology</h2>
+          <ul className="flex flex-col gap-2">
+            <li className="flex gap-1 hover:text-blue-500 cursor-pointer transition-all  items-center">
+              Html{" "}
+              <Image src="/htmllogo.webp" width={22} height={22} alt="HTML" />
+            </li>
+            <li className="flex gap-1 hover:text-blue-500 cursor-pointer transition-all  items-center">
+              CSS
+              <Image src="/css3.png" width={22} height={22} alt="HTML" />
+            </li>
+            <li className="flex gap-1 hover:text-blue-500 cursor-pointer transition-all  items-center">
+              TypeScript
+              <Image src="/tslogo.svg" width={22} height={22} alt="tslogo" />
+            </li>
+            <li className="flex gap-1 hover:text-blue-500 cursor-pointer transition-all  items-center">
+              Tailwind CSS
+              <Image
+                src="/tailwind.svg"
+                width={22}
+                height={22}
+                alt="tailwind"
+              />
+            </li>
+            <li className="flex gap-1 hover:text-blue-500 cursor-pointer transition-all  items-center">
+              Aceternity UI
+              <Image
+                src="/aceternity.png"
+                width={22}
+                height={22}
+                alt="aceternity"
+              />
+            </li>
+            <li className="flex gap-1 hover:text-blue-500 cursor-pointer transition-all items-center">
+              Next JS
+              <Image
+                src="/nextlogo.svg"
+                width={22}
+                height={22}
+                alt="nextlogo"
+              />
+            </li>
+          </ul> */}
+        </>
+      );
+    },
+  },
+  {
     description: "Lana Del Rey",
     title: "Music Portfolio",
     src: "/musicSchool.png",
