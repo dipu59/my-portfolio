@@ -19,7 +19,7 @@ const cardVariants = {
 
 export function ExpandableCardDemo() {
   const [active, setActive] = useState<(typeof cards)[number] | boolean | null>(
-    null
+    null,
   );
   const id = useId();
   const ref = useRef<HTMLDivElement>(null);
@@ -58,7 +58,7 @@ export function ExpandableCardDemo() {
       </AnimatePresence>
       <AnimatePresence>
         {active && typeof active === "object" ? (
-          <div className="fixed inset-0  grid place-items-center z-[100]">
+          <div className="fixed inset-0  grid place-items-center z-100">
             <motion.button
               key={`button-${active.title}-${id}`}
               layout
@@ -82,7 +82,7 @@ export function ExpandableCardDemo() {
             <motion.div
               layoutId={`card-${active.title}-${id}`}
               ref={ref}
-              className="w-full max-w-[1100px]  h-full md:h-fit md:max-h-[90%]  flex flex-col bg-white dark:bg-neutral-950 sm:rounded-3xl overflow-y-scroll"
+              className="w-full max-w-275  h-full md:h-fit md:max-h-[90%]  flex flex-col bg-white dark:bg-neutral-950 sm:rounded-3xl overflow-y-scroll"
             >
               <motion.div layoutId={`image-${active.title}-${id}`}>
                 <Image
@@ -91,7 +91,7 @@ export function ExpandableCardDemo() {
                   src={active.src}
                   alt={active.title}
                   quality={100}
-                  className="w-full h-96 lg:h-[32rem] sm:rounded-tr-lg sm:rounded-tl-lg object-cover object-top overflow-auto"
+                  className="w-full h-96 lg:h-128 sm:rounded-tr-lg sm:rounded-tl-lg object-cover object-top overflow-auto"
                 />
               </motion.div>
 
@@ -173,7 +173,7 @@ export function ExpandableCardDemo() {
                   className="h-96 w-full  rounded-lg object-cover object-top"
                 />
               </motion.div>
-              <div className="flex opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-all duration-300 delay-150  absolute bottom-12 right-0 left-0 py-4 md:py-6  bg-gradient-to-r dark:from-purple-700 dark:to-purple-950 from-purple-700  rounded-xl w-[94%] mx-auto justify-center items-center md:items-start px-4 flex-col rounded-tl-4xl rounded-br-4xl">
+              <div className="flex opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-all duration-300 delay-150  absolute bottom-12 right-0 left-0 py-4 md:py-6  bg-linear-to-r dark:from-purple-700 dark:to-purple-950 from-purple-700  rounded-xl w-[94%] mx-auto justify-center items-center md:items-start px-4 flex-col rounded-tl-4xl rounded-br-4xl">
                 <motion.div className="">
                   <motion.h3
                     layoutId={`title-${card.title}-${id}`}

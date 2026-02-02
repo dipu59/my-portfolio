@@ -13,7 +13,7 @@ const Hero = () => {
     <HeroHighlight>
       <div
         id="hero"
-        className="h-[66rem] md:h-[45rem] pb-4 w-full rounded-md flex-col md:flex-row flex items-center md:justify-between  antialiased  relative overflow-hidden md:pt-20"
+        className="h-[66rem] md:h-180 pb-4 w-full rounded-md flex-col md:flex-row flex items-center md:justify-between  antialiased  relative overflow-hidden md:pt-20"
       >
         <div className=" p-4 flex flex-col items-center md:items-start justify-start   relative z-10 md:w-[70%] top-20 md:top-0 pt-20 md:pt-0">
           <motion.h1
@@ -29,7 +29,7 @@ const Hero = () => {
               duration: 0.6,
               ease: [0.4, 0.0, 0.2, 1],
             }}
-            className="text-4xl md:text-7xl font-bold max-w-2xl text-center md:text-left  bg-clip-text text-transparent bg-gradient-to-b dark:from-neutral-50 dark:to-purple-400 from-neutral-900 to-blue-800  bg-opacity-50 font-heading! "
+            className="text-4xl md:text-7xl font-bold max-w-2xl text-center md:text-left  bg-clip-text text-transparent bg-linear-to-b dark:from-neutral-50 dark:to-purple-400 from-neutral-900 to-blue-800  bg-opacity-50 font-heading! "
           >
             I&apos;m <span className="  cursor-pointer ">Dipu - </span> <br />{" "}
             <FlipWords words={words} className="md:text-8xl text-[55px] " />
@@ -61,9 +61,9 @@ const Hero = () => {
                 stiffness: 100,
                 damping: 10,
               }}
-              className="p-[3px] relative hidden md:flex cursor-pointer hover:rotate-6 transition-all duration-300 "
+              className="p-0.75 relative hidden md:flex cursor-pointer hover:rotate-6 transition-all duration-300 "
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg" />
+              <div className="absolute inset-0 bg-linear-to-r from-indigo-500 to-purple-500 rounded-lg" />
               <div className="px-8 py-2  bg-[#6A00FF] dark:bg-black rounded-[10px] font-bold  relative group transition duration-300 text-white hover:bg-transparent dark:hover:bg-transparent">
                 Hire Me !
               </div>
@@ -177,8 +177,8 @@ const Hero = () => {
             experiences—one component at a time.
           </motion.p> */}
           <div className="pt-5 flex gap-3">
-            <button className="p-[3px] relative  cursor-pointer">
-              <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg" />
+            <button className="p-0.75 relative  cursor-pointer">
+              <div className="absolute inset-0 bg-linear-to-r from-indigo-500 to-purple-500 rounded-lg" />
               <div className="px-8 py-2  bg-black rounded-[10px] font-bold  relative group transition duration-300 text-white hover:bg-transparent">
                 Hire Me !
               </div>

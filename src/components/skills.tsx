@@ -20,7 +20,7 @@ export default function Skill() {
       opacity: 1,
       y: 0,
       transition: {
-        delay: index * 0.40 , // index based delay
+        delay: index * 0.4, // index based delay
         duration: 0.7,
       },
     }),
@@ -28,7 +28,7 @@ export default function Skill() {
 
   return (
     <div id="skill" className="dark:bg-[#0d0b14] bg-[#f2eefc] py-32">
-      <h1 className="text-4xl md:text-7xl font-bold   text-center bg-clip-text text-transparent bg-gradient-to-l dark:from-neutral-50 dark:to-purple-800 from-purple-900 to-purple-800  bg-opacity-50 p-3 ">
+      <h1 className="text-4xl md:text-7xl font-bold   text-center bg-clip-text text-transparent bg-linear-to-l dark:from-neutral-50 dark:to-purple-800 from-purple-900 to-purple-800  bg-opacity-50 p-3 ">
         My Skills
       </h1>
       <p className="max-w-2xl font-medium mx-auto text-center text-[#4b5563] md:text-lg text-base p-5 dark:text-[#f1f5f9]">
@@ -38,10 +38,10 @@ export default function Skill() {
 
       {/* grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 */}
       {/* Core Web Tech */}
-      <h3 className="py-3 mt-10 bg-clip-text text-transparent bg-gradient-to-l dark:from-white dark:to-indigo-600 from-purple-900 to-purple-800  bg-opacity-50  text-center text-2xl font-semibold">
+      <h3 className="py-3 mt-10 bg-clip-text text-transparent bg-linear-to-l dark:from-white dark:to-indigo-600 from-purple-900 to-purple-800  bg-opacity-50  text-center text-2xl font-semibold">
         Core Web Tech
       </h3>
-      <div className=" flex flex-wrap max-w-[1100px] mx-auto justify-center gap-5 items-center">
+      <div className=" flex flex-wrap max-w-275 mx-auto justify-center gap-5 items-center">
         {SkillInfo.slice(0, 3).map((items, index) => (
           <motion.div
             key={index}
@@ -51,7 +51,7 @@ export default function Skill() {
             whileInView="visible" // trigger when in viewport
             viewport={{ once: false, amount: 0.2 }} // 20% visible triggers animation
           >
-            <div className="w-[170px] group transition-all duration-500 cursor-pointer  h-[170px] dark:hover:bg-[#8750F7]/30 hover:bg-[#8750F7]/30 dark:bg-[#140c1c] rounded-2xl hover:border hover:border-[#8750F7]/60 flex flex-col bg-[#f1effa] shadow-md justify-center items-center ">
+            <div className="w-42.5 group transition-all duration-500 cursor-pointer  h-42.5 dark:hover:bg-[#8750F7]/30 hover:bg-[#8750F7]/30 dark:bg-[#140c1c] rounded-2xl hover:border hover:border-[#8750F7]/60 flex flex-col bg-[#f1effa] shadow-md justify-center items-center ">
               <Image
                 src={items.path}
                 width={62}
@@ -68,10 +68,10 @@ export default function Skill() {
       </div>
 
       {/*  CSS Frameworks & Preprocessors */}
-      <h3 className="pt-6 py-4 bg-clip-text text-transparent bg-gradient-to-l dark:from-white dark:to-indigo-600 from-purple-900 to-purple-800  bg-opacity-50  text-center text-2xl font-semibold">
+      <h3 className="pt-6 py-4 bg-clip-text text-transparent bg-linear-to-l dark:from-white dark:to-indigo-600 from-purple-900 to-purple-800  bg-opacity-50  text-center text-2xl font-semibold">
         CSS Frameworks & Preprocessors
       </h3>
-      <div className=" flex flex-wrap max-w-[1100px] mx-auto justify-center gap-5 items-center">
+      <div className=" flex flex-wrap max-w-275 mx-auto justify-center gap-5 items-center">
         {SkillInfo.slice(4, 12).map((items, index) => (
           <motion.div
             key={index}
@@ -80,7 +80,7 @@ export default function Skill() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: false, amount: 0.2 }}
-            className="w-[170px] group cursor-pointer  h-[170px] dark:hover:bg-[#8750F7]/30 hover:bg-[#8750F7]/30 dark:bg-[#140c1c] rounded-2xl hover:border hover:border-[#8750F7]/60 flex flex-col bg-[#f1effa] shadow-md justify-center items-center"
+            className="w-42.5 group cursor-pointer  h-42.5 dark:hover:bg-[#8750F7]/30 hover:bg-[#8750F7]/30 dark:bg-[#140c1c] rounded-2xl hover:border hover:border-[#8750F7]/60 flex flex-col bg-[#f1effa] shadow-md justify-center items-center"
           >
             <Image
               src={items.path}
@@ -97,10 +97,10 @@ export default function Skill() {
       </div>
 
       {/*  JavaScript Frameworks & Libraries */}
-      <h3 className="pt-6 py-4 bg-clip-text text-transparent bg-gradient-to-l dark:from-white dark:to-indigo-600 from-purple-900 to-purple-800  bg-opacity-50  text-center text-2xl font-semibold">
+      <h3 className="pt-6 py-4 bg-clip-text text-transparent bg-linear-to-l dark:from-white dark:to-indigo-600 from-purple-900 to-purple-800  bg-opacity-50  text-center text-2xl font-semibold">
         JavaScript Frameworks & Libraries
       </h3>
-      <div className=" flex flex-wrap max-w-[1100px] mx-auto justify-center gap-5 items-center">
+      <div className=" flex flex-wrap max-w-275 mx-auto justify-center gap-5 items-center">
         {SkillInfo.slice(11, 13).map((items, index) => (
           <motion.div
             key={index}
@@ -110,7 +110,7 @@ export default function Skill() {
             whileInView="visible"
             viewport={{ once: false, amount: 0.2 }}
           >
-            <div className="w-[170px] group transition-all duration-500 cursor-pointer  h-[170px] dark:hover:bg-[#8750F7]/30 hover:bg-[#8750F7]/30 dark:bg-[#140c1c] rounded-2xl hover:border hover:border-[#8750F7]/60 flex flex-col bg-[#f1effa] shadow-md justify-center items-center">
+            <div className="w-42.5 group transition-all duration-500 cursor-pointer  h-42.5 dark:hover:bg-[#8750F7]/30 hover:bg-[#8750F7]/30 dark:bg-[#140c1c] rounded-2xl hover:border hover:border-[#8750F7]/60 flex flex-col bg-[#f1effa] shadow-md justify-center items-center">
               <Image
                 src={items.path}
                 width={62}
@@ -127,10 +127,10 @@ export default function Skill() {
       </div>
 
       {/* Tools & Version Control */}
-      <h3 className="pt-6 py-4 bg-clip-text text-transparent bg-gradient-to-l dark:from-white dark:to-[#8750F7] from-purple-900 to-purple-800  bg-opacity-50  text-center text-2xl md:text-2xl font-semibold">
+      <h3 className="pt-6 py-4 bg-clip-text text-transparent bg-linear-to-l dark:from-white dark:to-[#8750F7] from-purple-900 to-purple-800  bg-opacity-50  text-center text-2xl md:text-2xl font-semibold">
         Tools & Version Control
       </h3>
-      <div className=" flex flex-wrap max-w-[1100px] mx-auto justify-center gap-5 items-center">
+      <div className=" flex flex-wrap max-w-275 mx-auto justify-center gap-5 items-center">
         {SkillInfo.slice(13, 14).map((items, index) => (
           <motion.div
             key={index}
@@ -140,7 +140,7 @@ export default function Skill() {
             whileInView="visible"
             viewport={{ once: false, amount: 0.2 }}
           >
-            <div className="w-[170px] group transition-all duration-500 cursor-pointer  h-[170px] dark:hover:bg-[#8750F7]/30 hover:bg-[#8750F7]/30 active:bg-[#8750F7]/30 dark:active:bg-[#8750F7]/30 dark:bg-[#140c1c] rounded-2xl hover:border hover:border-[#8750F7]/60 active:border-[#8750F7]/60 active:border flex flex-col bg-[#f1effa] shadow-md justify-center items-center">
+            <div className="w-42.5 group transition-all duration-500 cursor-pointer  h-42.5 dark:hover:bg-[#8750F7]/30 hover:bg-[#8750F7]/30 active:bg-[#8750F7]/30 dark:active:bg-[#8750F7]/30 dark:bg-[#140c1c] rounded-2xl hover:border hover:border-[#8750F7]/60 active:border-[#8750F7]/60 active:border flex flex-col bg-[#f1effa] shadow-md justify-center items-center">
               <Image
                 src={items.path}
                 width={62}
