@@ -50,40 +50,17 @@ const Hero = () => {
               delay: 0.3,
             }}
             className="
-    my-4 py-5 px-5 max-w-lg
-    text-lg md:text-xl font-normal font-body
-    rounded-xl relative overflow-hidden
-
-    text-neutral-700 dark:text-neutral-200
-
-    /* glass gradient — darker & subtle */
-    bg-linear-to-br
-    from-white/70 to-white/40
-    dark:from-slate-900/80 dark:to-slate-800/70
-
-    backdrop-blur-md
-
-    border border-neutral-200/60 dark:border-white/10
-
-    shadow-lg shadow-neutral-300/30
-    dark:shadow-black/40
-
-    hover:-translate-y-0.5 hover:shadow-xl
-    transition-all duration-300
-  "
+  my-4 py-4 px-4 max-w-lg
+    text-lg md:text-xl font-normal font-body  text-neutral-700 dark:text-neutral-200 rounded-xl relative overflow-hidden border border-neutral-200/70 dark:border-white/10
+    bg-gradient-to-br
+    from-white/90 to-neutral-100/70
+    dark:from-slate-900/90 dark:to-slate-800/70
+    backdrop-blur-md 
+    shadow-lg shadow-neutral-300/40
+    dark:shadow-black/30
+    hover:-translate-y-1 hover:shadow-xl"
           >
-            {/* soft dot texture */}
-            <span
-              className="
-      absolute inset-0 opacity-[0.10] pointer-events-none
-      bg-[radial-gradient(currentColor_1px,transparent_1px)]
-      [background-size:18px_18px]
-      text-neutral-500 dark:text-neutral-600
-    "
-            />
-
-            {/* top inner shine */}
-            <span className="absolute inset-x-0 top-0 h-px bg-white/70 dark:bg-white/10" />
+            <span className="absolute inset-0 opacity-[0.15] pointer-events-none bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:14px_14px]" />
 
             <span className="relative z-10">
               I build fast, scalable, SEO-friendly web apps that don’t just work

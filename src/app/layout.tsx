@@ -60,7 +60,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark " suppressHydrationWarning>
-      {" "}
       <head>
         <meta name="msvalidate.01" content="573509BBF802E249CFF9E3E091FC9547" />
       </head>
