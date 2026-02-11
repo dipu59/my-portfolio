@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import SocialFloat from "./socialMedia";
 import { FaDownload } from "react-icons/fa";
+import Link from "next/link";
 const Hero = () => {
   const words = ["A Creative", "Full Stack", "Developer"];
 
@@ -13,7 +14,7 @@ const Hero = () => {
     <HeroHighlight>
       <div
         id="hero"
-        className="h-[66rem] md:h-180 pb-4 w-full rounded-md flex-col md:flex-row flex items-center md:justify-between  antialiased  relative overflow-hidden md:pt-20"
+        className="h-[70rem] md:h-[50rem]  pb-4 w-full rounded-md flex-col md:flex-row flex items-center md:justify-between  antialiased  relative overflow-hidden md:pt-20"
       >
         <div className=" p-4 flex flex-col items-center md:items-start justify-start   relative z-10 md:w-[70%] top-20 md:top-0 pt-20 md:pt-0">
           <motion.h1
@@ -35,39 +36,83 @@ const Hero = () => {
             <FlipWords words={words} className="md:text-8xl text-[55px] " />
           </motion.h1>
           <motion.p
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{
-              duration: 1,
-              type: "spring",
-              stiffness: 100,
-              damping: 10,
-              delay: 1,
+            initial={{
+              opacity: 0,
+              y: 50,
             }}
-            className="mt-4 font-normal   py-5  md:flex md:text-xl text-lg text-neutral-600 dark:text-neutral-300 max-w-lg  font-body! "
+            animate={{
+              opacity: 1,
+              y: [20, -10, 0],
+            }}
+            transition={{
+              duration: 0.6,
+              ease: [0.4, 0.0, 0.2, 1],
+              delay: 0.3,
+            }}
+            className="
+    my-4 py-5 px-5 max-w-lg
+    text-lg md:text-xl font-normal font-body
+    rounded-xl relative overflow-hidden
+
+    text-neutral-700 dark:text-neutral-200
+
+    /* glass gradient — darker & subtle */
+    bg-linear-to-br
+    from-white/70 to-white/40
+    dark:from-slate-900/80 dark:to-slate-800/70
+
+    backdrop-blur-md
+
+    border border-neutral-200/60 dark:border-white/10
+
+    shadow-lg shadow-neutral-300/30
+    dark:shadow-black/40
+
+    hover:-translate-y-0.5 hover:shadow-xl
+    transition-all duration-300
+  "
           >
-            I build fast, scalable, and SEO-friendly web applications using
-            React, Next.js, Node.js, and modern web technologies.
+            {/* soft dot texture */}
+            <span
+              className="
+      absolute inset-0 opacity-[0.10] pointer-events-none
+      bg-[radial-gradient(currentColor_1px,transparent_1px)]
+      [background-size:18px_18px]
+      text-neutral-500 dark:text-neutral-600
+    "
+            />
+
+            {/* top inner shine */}
+            <span className="absolute inset-x-0 top-0 h-px bg-white/70 dark:bg-white/10" />
+
+            <span className="relative z-10">
+              I build fast, scalable, SEO-friendly web apps that don’t just work
+              — they perform. Using React, Next.js, Node.js, and modern web
+              tech, I turn ideas into smooth, high-impact digital experiences
+              people actually enjoy using.
+            </span>
           </motion.p>
           <div className="pt-5 flex gap-3">
-            <motion.button
-              initial={{ opacity: 0, y: -50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.4 }}
-              transition={{
-                duration: 1,
-                type: "spring",
-                stiffness: 100,
-                damping: 10,
-              }}
-              className="p-0.75 relative hidden md:flex cursor-pointer hover:rotate-6 transition-all duration-300 "
-            >
-              <div className="absolute inset-0 bg-linear-to-r from-indigo-500 to-purple-500 rounded-lg" />
-              <div className="px-8 py-2  bg-[#6A00FF] dark:bg-black rounded-[10px] font-bold  relative group transition duration-300 text-white hover:bg-transparent dark:hover:bg-transparent">
-                Hire Me !
-              </div>
-            </motion.button>
+            <Link href={"/#contact"}>
+              <motion.button
+                initial={{ opacity: 0, y: -50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.4 }}
+                transition={{
+                  duration: 1,
+                  type: "spring",
+                  stiffness: 100,
+                  damping: 10,
+                }}
+                className="p-0.75 relative hidden md:flex cursor-pointer hover:rotate-6 transition-all duration-300 "
+              >
+                <div className="absolute inset-0 bg-linear-to-r from-indigo-500 to-purple-500 rounded-lg" />
+                <div className="px-8 py-2  bg-[#6A00FF] dark:bg-black rounded-[10px] font-bold  relative group transition duration-300 text-white hover:bg-transparent dark:hover:bg-transparent">
+                  Hire Me !
+                </div>
+              </motion.button>
+            </Link>
+
             <motion.a
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
