@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://dipu-biswas-portfolio.com";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://dipubiswas.in";
 
 export const defaultMetadata: Metadata = {
   title: {
