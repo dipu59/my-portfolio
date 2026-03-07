@@ -1,22 +1,23 @@
-"use client";
-import Contact from "@/components/contact";
-import Footer from "@/components/footer";
-import Hero from "@/components/hero";
-import { FloatingNavDemo } from "@/components/navbar";
-import Skill from "@/components/skills";
-import Works from "@/components/works";
+import { ContactSection } from "@/components/Contact";
+import { HeroSection } from "../components/HeroSection";
+import { ProjectsSection } from "../components/ProjectsSection";
+import { SkillsSection } from "../components/SkillsSection";
+import { Footer } from "../components/Footer";
+import { AboutSection } from "../components/AboutSection";
 
 export default function Home() {
   return (
     <>
-      <main className=" overflow-hidden">
-        <FloatingNavDemo />
-        <Hero />
-        <Works />
-        <Skill />
-        <Contact />
-        <Footer />
-      </main>
+      {/* Premium dark hero section */}
+      <HeroSection />
+
+      {/* Projects section showcasing selected work */}
+      {/* Projects section showcasing selected work */}
+      <ProjectsSection />
+      <AboutSection />
+      <SkillsSection />
+      <ContactSection />
+      <Footer />
     </>
   );
 }

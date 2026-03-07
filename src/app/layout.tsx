@@ -1,7 +1,13 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Inter, Space_Grotesk } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider";
+import { Navbar } from "../components/Navbar";
+import { LoadingScreen } from "../components/LoadingScreen";
+import { config } from "@fortawesome/fontawesome-svg-core";
+import "@fortawesome/fontawesome-svg-core/styles.css";
+import { defaultMetadata, personJsonLd } from "../seo/config";
+
+config.autoAddCss = false;
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,45 +19,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
-const space = Space_Grotesk({ variable: "--font-space", subsets: ["latin"] });
-
-export const metadata: Metadata = {
-  icons: {
-    icon: "/favicon.ico",
-  },
-  title: "Dipu Biswas – Full Stack Developer | React, Next.js, Node.js Expert",
-  description:
-    "Dipu Biswas is a Full Stack Developer from Balagarh, Hooghly, serving Kolkata and nearby areas.Specializing in React, Next.js, Node.js, and modern web technologies. Building fast, SEO-friendly, and scalable web applications.",
-
-  verification: {
-    google: "google8ddbe53d89cba937",
-  },
-
-  openGraph: {
-    title: "Dipu Biswas | Full Stack Developer",
-    description:
-      "Portfolio of Dipu Biswas – Full Stack Developer building modern web apps.",
-    url: "https://dipubiswas.vercel.app",
-    siteName: "Dipu Biswas",
-    images: [
-      {
-        url: "https://dipubiswas.vercel.app/og-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Dipu Biswas - Full Stack Developer",
-      },
-    ],
-    type: "website",
-  },
-
-  twitter: {
-    card: "summary_large_image",
-    title: "Dipu Biswas | Full Stack Developer",
-    description:
-      "Frontend & Full Stack Developer passionate about modern web technologies.",
-  },
-};
+export const metadata: Metadata = defaultMetadata;
 
 export default function RootLayout({
   children,
@@ -59,22 +27,25 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark " suppressHydrationWarning>
+    <html lang="en">
       <head>
-        <meta name="msvalidate.01" content="573509BBF802E249CFF9E3E091FC9547" />
+        <script
+          src="https://kit.fontawesome.com/6a41dd5244.js"
+          crossOrigin="anonymous"
+        ></script>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable}${inter.variable}${space.variable} antialiased `}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black text-zinc-100`}
       >
-        {" "}
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
+        <LoadingScreen />
+        <Navbar />
+        <main className="relative mx-auto min-h-screen w-full max-w-6xl px-0 sm:px-4">
           {children}
-        </ThemeProvider>
+        </main>
       </body>
     </html>
   );

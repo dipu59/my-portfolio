@@ -1,49 +1,36 @@
-# 🌐 Dipu Biswas – Portfolio Website
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-Welcome to the source code of my personal portfolio website! 🚀  
-This site shows who I am, what I build, and how you can reach out to work together.
+## Getting Started
 
-👉 **Live Demo:** https://dipubiswas.vercel.app/
-
----
-
-## 💼 About
-
-Hi! I’m **Dipu**, a passionate Full-Stack Web Developer who builds fast, responsive, and scalable web apps using **React, Next.js, Node.js, and modern tools**.  
-This portfolio showcases some of my best frontend and full-stack work — all deployed and ready to impress! 💻🌟
-
----
-
-## 🚀 What’s Inside
-
-✨ **Hero / Intro Section** – Quick intro about me and call-to-action to view my resume or contact me  
-📁 **Projects** – A gallery of real web apps I’ve built  
-🛠 **Skills** – My tech stack  
-📬 **Contact Form** – Easy way for people to reach me  
-📞 **Contact Info** – Phone, email & location on the site
-
----
-
-## 🛠 Tech Stack
-
-The site is built using modern web tech including:
-
--  **React & Next.js**  
--  **Tailwind CSS**  
--  **acternity ui**  
--  **Vercel (Deployment)**  
--  Responsive & SEO-friendly design
-
-Feel free to explore the code and see how everything is wired up! Want to contribute or suggest something? I’d love to hear from you 🙌
-
----
-
-## 📂 How to Run Locally
-
-If you wanna clone and explore the code:
+First, run the development server:
 
 ```bash
-git clone https://github.com/<your-username>/<your-portfolio-repo>.git
-cd <your-portfolio-repo>
-npm install
 npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+
+## Learn More
+
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
