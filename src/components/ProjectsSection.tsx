@@ -2,6 +2,26 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import type { IconType } from "react-icons";
+import { LuArrowUpRight, LuCirclePlay, LuDatabase, LuServerCog } from "react-icons/lu";
+import { SiFramer, SiGithub, SiNextdotjs, SiPrisma, SiReact, SiStripe, SiTailwindcss, SiTypescript } from "react-icons/si";
+import { FaNodeJs } from "react-icons/fa";
+import { TbBrandSocketIo } from "react-icons/tb";
+
+const techIcons: Record<string, IconType> = {
+  "Next.js": SiNextdotjs,
+  React: SiReact,
+  TypeScript: SiTypescript,
+  "Tailwind CSS": SiTailwindcss,
+  "Node.js": FaNodeJs,
+  "Framer Motion": SiFramer,
+  Prisma: SiPrisma,
+  Stripe: SiStripe,
+  PlanetScale: LuDatabase,
+  "Socket.io": TbBrandSocketIo,
+  PostgreSQL: LuDatabase,
+  Redis: LuServerCog,
+};
 
 // Centralized projects data so it’s easy to update or extend later
 const projects = [
@@ -136,11 +156,6 @@ export function ProjectsSection() {
                       {project.role}
                     </p>
                   </div>
-
-                  {/* Small tag to emphasize live nature */}
-                  <span className="rounded-full border border-emerald-500/40 bg-emerald-500/10 px-2 py-0.5 text-[10px] font-medium text-emerald-300">
-                    Case study
-                  </span>
                 </div>
 
                 <p className="text-xs leading-relaxed text-zinc-400">
@@ -149,14 +164,19 @@ export function ProjectsSection() {
 
                 {/* Tech stack chips */}
                 <div className="flex flex-wrap gap-1.5 pt-1">
-                  {project.techStack.map((tech) => (
-                    <span
-                      key={tech}
-                      className="rounded-full bg-zinc-900/80 px-2 py-1 text-[10px] text-zinc-300"
-                    >
-                      {tech}
-                    </span>
-                  ))}
+                  {project.techStack.map((tech) => {
+                    const TechIcon = techIcons[tech] ?? LuArrowUpRight;
+
+                    return (
+                      <span
+                        key={tech}
+                        className="inline-flex items-center gap-1.5 rounded-full bg-zinc-900/80 px-2 py-1 text-[10px] text-zinc-300"
+                      >
+                        <span>{tech}</span>
+                        <TechIcon className="h-3.5 w-3.5 text-zinc-500" />
+                      </span>
+                    );
+                  })}
                 </div>
 
                 {/* Extra highlight for quick scanning */}
@@ -175,7 +195,7 @@ export function ProjectsSection() {
                     className="inline-flex items-center gap-1 rounded-full border border-zinc-800/80 bg-zinc-900/70 px-3 py-1 text-[11px] font-medium text-zinc-200 transition-colors hover:border-zinc-600 hover:bg-zinc-800"
                   >
                     <span>GitHub</span>
-                    <span className="text-[10px] text-zinc-400">↗</span>
+                    <SiGithub className="h-3.5 w-3.5 text-zinc-400" />
                   </a>
                   <a
                     href={project.liveUrl}
@@ -184,7 +204,7 @@ export function ProjectsSection() {
                     className="inline-flex items-center gap-1 rounded-full bg-zinc-50 px-3 py-1 text-[11px] font-semibold text-zinc-950 transition-colors hover:bg-zinc-200"
                   >
                     <span>Live demo</span>
-                    <span className="text-[10px]">●</span>
+                    <LuCirclePlay className="h-3.5 w-3.5" />
                   </a>
                 </div>
 
