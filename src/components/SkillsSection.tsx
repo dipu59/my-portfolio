@@ -461,34 +461,38 @@ export function SkillsSection() {
                   </div>
                   <div className="flex flex-wrap gap-1.5 pt-1">
                     {group.primarySkills.map((skill, index) => (
-                      <motion.button
-                        type="button"
+                      <motion.div
                         key={skill.name}
                         custom={index}
                         variants={chipVariants}
                         initial="initial"
                         whileInView="animate"
                         viewport={{ once: true, amount: 0.6 }}
-                        title={skill.tooltip}
-                        className="group/button relative inline-flex items-center gap-1.5 overflow-hidden rounded-full border border-zinc-800/80 bg-zinc-950/90 px-3 py-1 text-[11px] text-zinc-100 outline-none transition-all duration-200 hover:border-sky-500/70 hover:bg-sky-500/10"
                       >
-                        <skill.icon
-                          aria-hidden="true"
-                          className={`relative z-10 h-3.5 w-3.5 shrink-0 ${skillIconClasses[skill.level]}`}
-                        />
-                        <span className="relative z-10">{skill.name}</span>
-                        <span
-                          className={`relative z-10 inline-flex items-center gap-1 rounded-full border px-1.5 py-0.5 text-[9px] ${levelLabelClasses[skill.level]}`}
+                        <motion.button
+                          type="button"
+                          title={skill.tooltip}
+                          className="group/button relative inline-flex items-center gap-1.5 overflow-hidden rounded-full border border-zinc-800/80 bg-zinc-950/90 px-3 py-1 text-[11px] text-zinc-100 outline-none transition-all duration-200 hover:border-sky-500/70 hover:bg-sky-500/10"
                         >
-                          <span>{levelText[skill.level]}</span>
-                        </span>
-                        {/* Subtle hover ring */}
-                        <span className="pointer-events-none absolute inset-0 rounded-full border border-sky-500/0 transition-colors duration-200 group-hover/button:border-sky-500/30" />
-                      </motion.button>
+                          <skill.icon
+                            aria-hidden="true"
+                            className={`relative z-10 h-3.5 w-3.5 shrink-0 ${skillIconClasses[skill.level]}`}
+                          />
+                          <span className="relative z-10">{skill.name}</span>
+                          <span
+                            className={`relative z-10 inline-flex items-center gap-1 rounded-full border px-1.5 py-0.5 text-[9px] ${levelLabelClasses[skill.level]}`}
+                          >
+                            <span>{levelText[skill.level]}</span>
+                          </span>
+                          {/* Subtle hover ring */}
+                          <span className="pointer-events-none absolute inset-0 rounded-full border border-sky-500/0 transition-colors duration-200 group-hover/button:border-sky-500/30" />
+                        </motion.button>
+                      </motion.div>
                     ))}
                   </div>
                 </div>
 
+                {/* Supporting tools */}
                 <div className="space-y-1">
                   <div className="flex items-center justify-between text-[10px] text-zinc-500">
                     <span>Supporting tools</span>
@@ -498,29 +502,32 @@ export function SkillsSection() {
                   </div>
                   <div className="flex flex-wrap gap-1.5 pt-1">
                     {group.supportingSkills.map((skill, index) => (
-                      <motion.button
-                        type="button"
+                      <motion.div
                         key={skill.name}
                         custom={index + group.primarySkills.length}
                         variants={chipVariants}
                         initial="initial"
                         whileInView="animate"
                         viewport={{ once: true, amount: 0.6 }}
-                        title={skill.tooltip}
-                        className="group/button relative inline-flex items-center gap-1.5 overflow-hidden rounded-full border border-zinc-800/80 bg-zinc-950/80 px-3 py-1 text-[11px] text-zinc-200 outline-none transition-all duration-200 hover:border-zinc-500 hover:bg-zinc-900"
                       >
-                        <skill.icon
-                          aria-hidden="true"
-                          className={`relative z-10 h-3.5 w-3.5 shrink-0 ${skillIconClasses[skill.level]}`}
-                        />
-                        <span className="relative z-10">{skill.name}</span>
-                        <span
-                          className={`relative z-10 inline-flex items-center gap-1 rounded-full border px-1.5 py-0.5 text-[9px] ${levelLabelClasses[skill.level]}`}
+                        <motion.button
+                          type="button"
+                          title={skill.tooltip}
+                          className="group/button relative inline-flex items-center gap-1.5 overflow-hidden rounded-full border border-zinc-800/80 bg-zinc-950/80 px-3 py-1 text-[11px] text-zinc-200 outline-none transition-all duration-200 hover:border-zinc-500 hover:bg-zinc-900"
                         >
-                          <span>{levelText[skill.level]}</span>
-                        </span>
-                        <span className="pointer-events-none absolute inset-0 rounded-full border border-zinc-500/0 transition-colors duration-200 group-hover/button:border-zinc-500/30" />
-                      </motion.button>
+                          <skill.icon
+                            aria-hidden="true"
+                            className={`relative z-10 h-3.5 w-3.5 shrink-0 ${skillIconClasses[skill.level]}`}
+                          />
+                          <span className="relative z-10">{skill.name}</span>
+                          <span
+                            className={`relative z-10 inline-flex items-center gap-1 rounded-full border px-1.5 py-0.5 text-[9px] ${levelLabelClasses[skill.level]}`}
+                          >
+                            <span>{levelText[skill.level]}</span>
+                          </span>
+                          <span className="pointer-events-none absolute inset-0 rounded-full border border-zinc-500/0 transition-colors duration-200 group-hover/button:border-zinc-500/30" />
+                        </motion.button>
+                      </motion.div>
                     ))}
                   </div>
                 </div>

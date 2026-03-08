@@ -3,8 +3,22 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import type { IconType } from "react-icons";
-import { LuArrowUpRight, LuCirclePlay, LuDatabase, LuServerCog } from "react-icons/lu";
-import { SiFramer, SiGithub, SiNextdotjs, SiPrisma, SiReact, SiStripe, SiTailwindcss, SiTypescript } from "react-icons/si";
+import {
+  LuArrowUpRight,
+  LuCirclePlay,
+  LuDatabase,
+  LuServerCog,
+} from "react-icons/lu";
+import {
+  SiFramer,
+  SiGithub,
+  SiNextdotjs,
+  SiPrisma,
+  SiReact,
+  SiStripe,
+  SiTailwindcss,
+  SiTypescript,
+} from "react-icons/si";
 import { FaNodeJs } from "react-icons/fa";
 import { TbBrandSocketIo } from "react-icons/tb";
 
@@ -118,11 +132,11 @@ export function ProjectsSection() {
         {projects.map((project, index) => (
           <motion.article
             key={project.name}
-            initial={{ opacity: 0, y: 30, scale: 0.9 }}
+            initial={{ opacity: 0, y: 30, scale: 0.95 }}
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: true, amount: 0.35 }}
             transition={{
-              duration: 0.8,
+              duration: 1.2,
               delay: 0.05 * index,
               ease: [0.22, 1, 0.36, 1],
             }}

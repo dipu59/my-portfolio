@@ -12,10 +12,10 @@ export function AboutSection() {
     >
       <div className="grid gap-10 md:grid-cols-[minmax(0,1.15fr)_minmax(0,0.95fr)] md:items-center">
         <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          initial={{ opacity: 0, y: 48, scaleY: 0.95 }}
+          whileInView={{ opacity: 1, y: 0, scaleY: 1 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
           className="space-y-6"
         >
           <div className="space-y-3">
@@ -108,10 +108,10 @@ export function AboutSection() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 26 }}
+          initial={{ opacity: 0, y: 46 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.35 }}
-          transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+          viewport={{ once: true, amount: 0.65 }}
+          transition={{ duration: 0.9, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
           className="relative flex justify-center md:justify-end"
         >
           <div className="relative w-full max-w-xs rounded-3xl border border-zinc-800/80 bg-zinc-950/90 p-4 shadow-[0_32px_100px_rgba(0,0,0,0.95)]">
