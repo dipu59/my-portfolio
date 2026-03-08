@@ -114,7 +114,7 @@ export function AboutSection() {
           transition={{ duration: 0.9, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
           className="relative flex justify-center md:justify-end"
         >
-          <div className="relative w-full max-w-xs rounded-3xl border border-zinc-800/80 bg-zinc-950/90 p-4 shadow-[0_32px_100px_rgba(0,0,0,0.95)]">
+          <div className="relative w-full md:max-w-xs max-w-sm rounded-3xl border border-zinc-800/80 bg-zinc-950/90 p-4 shadow-[0_32px_100px_rgba(0,0,0,0.95)]">
             <div className="relative overflow-hidden rounded-2xl border border-zinc-700/70 bg-zinc-900/80">
               <Image
                 src="/dipubiswas.jpg"
@@ -122,7 +122,7 @@ export function AboutSection() {
                 width={420}
                 height={460}
                 quality={40}
-                className="h-75 w-full object-cover sm:h-75"
+                className="h-85 w-full object-cover sm:h-75"
                 priority
               />
             </div>
