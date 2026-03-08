@@ -3,25 +3,15 @@
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import { LuArrowUpRight, LuDownload } from "react-icons/lu";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faGithub,
   faInstagram,
-  faLinkedin,
   faLinkedinIn,
   faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
 import Link from "next/link";
-
-const socials = [
-  { label: "GitHub", href: "https://github.com/dipu59" },
-  {
-    label: "LinkedIn",
-    href: "https://linkedin.com/in/dipu-biswas-b0b06a381/",
-  },
-  { label: "Dribbble", href: "https://dribbble.com/your-username" },
-  { label: "Resume", href: "#resume" },
-];
 
 export function HeroSection() {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -97,57 +87,43 @@ export function HeroSection() {
           >
             <motion.a
               href="#projects"
-              whileHover={{ scale: 1.03, y: -1 }}
-              whileTap={{ scale: 0.97, y: 0 }}
-              className="relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-linear-to-r from-sky-500 via-cyan-400 to-violet-500 px-5 py-2 text-xs font-semibold text-zinc-950 shadow-[0_14px_45px_rgba(8,47,73,0.8)]"
+              whileHover={{ y: -2 }}
+              whileTap={{ scale: 0.985, y: 0 }}
+              className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-stone-200/10 bg-[linear-gradient(135deg,rgba(245,236,217,0.12),rgba(9,9,11,0.96)_58%)] px-2 py-2 text-xs font-semibold text-stone-100 shadow-[0_14px_40px_rgba(0,0,0,0.52)] backdrop-blur-xl transition-colors duration-300 hover:border-stone-200/30 hover:bg-[linear-gradient(135deg,rgba(245,236,217,0.18),rgba(20,20,24,0.98)_58%)]"
             >
-              <span className="relative z-10">View selected work</span>
+              <span className="absolute inset-0 bg-linear-to-r from-white/0 via-white/10 to-amber-100/0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+              <span className="absolute inset-0 rounded-full border border-white/0 transition-colors duration-300 group-hover:border-white/8" />
               <motion.span
-                className="relative z-10 text-sm"
-                animate={{ x: [0, 3, 0] }}
-                transition={{
-                  duration: 1.2,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
+                className="relative z-10 pl-3 text-stone-100 transition-colors duration-300 group-hover:text-white"
+                whileHover={{ x: 1.5 }}
+                transition={{ duration: 0.22, ease: "easeOut" }}
               >
-                ✦
+                View selected work
               </motion.span>
-              <motion.div
-                className="absolute inset-0 bg-linear-to-r from-zinc-100/30 via-sky-200/40 to-transparent opacity-0"
-                whileHover={{ opacity: 0.35 }}
-                transition={{ duration: 0.25 }}
-              />
-            </motion.a>
-          </motion.div>
-
-          <motion.div
-            className="flex flex-wrap items-center gap-3 text-[11px] text-zinc-400/90"
-            initial={{ y: 18, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{
-              delay: 2.8,
-              duration: 0.7,
-              ease: [0.22, 1, 0.36, 1],
-            }}
-          >
-            {socials.map((item) => (
-              <motion.a
-                key={item.href}
-                href={item.href}
-                target={item.href.startsWith("http") ? "_blank" : undefined}
-                rel={item.href.startsWith("http") ? "noreferrer" : undefined}
-                whileHover={{ y: -1, opacity: 1 }}
-                className="group flex items-center gap-1 rounded-full border border-zinc-800/70 bg-zinc-950/40 px-3 py-1 backdrop-blur-xl transition-colors hover:border-sky-500/70 hover:bg-zinc-900/80"
+              <motion.span
+                className="relative z-10 inline-flex h-7 w-7 items-center justify-center rounded-full border border-stone-300/12 bg-stone-50/10 text-stone-300 transition-colors duration-300 group-hover:border-amber-100/35 group-hover:bg-amber-50 group-hover:text-zinc-950"
+                whileHover={{ x: 2 }}
+                transition={{ duration: 0.22, ease: "easeOut" }}
               >
-                <span className="text-[11px] text-zinc-300 group-hover:text-sky-200">
-                  {item.label}
-                </span>
-                <span className="text-[10px] text-zinc-500 group-hover:text-sky-300">
-                  ↗
-                </span>
-              </motion.a>
-            ))}
+                <LuArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-[1px] group-hover:-translate-y-[1px]" />
+              </motion.span>
+            </motion.a>
+
+            <motion.a
+              href="/resume.pdf"
+              download
+              whileHover={{ y: -2 }}
+              whileTap={{ scale: 0.98, y: 0 }}
+              className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-zinc-700/80 bg-zinc-950/75 px-5 py-2 text-xs font-semibold text-zinc-100 shadow-[0_14px_40px_rgba(0,0,0,0.5)] backdrop-blur-xl transition-colors duration-300 hover:border-sky-400/50 hover:bg-zinc-900/90 hover:text-sky-50"
+            >
+              <span className="absolute inset-0 bg-linear-to-r from-white/0 via-white/8 to-sky-300/0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+              <span className="absolute inset-0 rounded-full border border-white/0 transition-colors duration-300 group-hover:border-white/8" />
+
+              <span className="relative z-10">Download resume</span>
+              <span className="relative z-10 inline-flex h-6 w-6 items-center justify-center rounded-full border border-zinc-700 bg-zinc-900/90 text-zinc-300 transition-colors duration-300 group-hover:border-sky-400/40 group-hover:text-sky-200">
+                <LuDownload className="h-3.5 w-3.5" />
+              </span>
+            </motion.a>
           </motion.div>
         </div>
 
@@ -200,7 +176,7 @@ export function HeroSection() {
             <div className="flex w-full flex-col gap-2 text-xs text-zinc-300">
               <div className="flex items-center justify-between gap-4">
                 <span className="text-[11px] uppercase tracking-[0.16em] text-zinc-500">
-                  ...
+                  Developer
                 </span>
                 <div className="flex gap-1.5">
                   <span className="h-1.5 w-6 rounded-full bg-sky-400/80" />

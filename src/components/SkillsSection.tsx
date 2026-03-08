@@ -1,13 +1,41 @@
 "use client";
 
 import { motion } from "framer-motion";
+import type { IconType } from "react-icons";
+import {
+  FaCircleCheck,
+  FaCubes,
+  FaDatabase,
+  FaGaugeHigh,
+  FaPlug,
+  FaShieldHalved,
+} from "react-icons/fa6";
+import { LuBox, LuBoxes, LuCloudCog } from "react-icons/lu";
+import {
+  SiDocker,
+  SiEslint,
+  SiExpress,
+  SiFramer,
+  SiGithub,
+  SiMongodb,
+  SiNextdotjs,
+  SiNodedotjs,
+  SiPostgresql,
+  SiPrisma,
+  SiReact,
+  SiReactquery,
+  SiStorybook,
+  SiTailwindcss,
+  SiTypescript,
+  SiVercel,
+} from "react-icons/si";
 
 type SkillLevel = "primary" | "strong" | "working";
 
 type Skill = {
   name: string;
   level: SkillLevel;
-  usedIn: string;
+  icon: IconType;
   tooltip: string;
 };
 
@@ -16,10 +44,6 @@ type SkillGroup = {
   icon: string;
   focusLabel: "Primary stack" | "Strong area" | "Supporting";
   tagline: string;
-  metrics: {
-    projects: number;
-    production: boolean;
-  };
   appliedIn: string;
   primarySkills: Skill[];
   supportingSkills: Skill[];
@@ -32,36 +56,32 @@ const skillGroups: SkillGroup[] = [
     focusLabel: "Primary stack",
     tagline:
       "Shipping fast, accessible interfaces with predictable state and smooth motion.",
-    metrics: {
-      projects: 4,
-      production: true,
-    },
     appliedIn: "My Pay, Chill‑Bay, Disester IO",
     primarySkills: [
       {
         name: "Next.js",
         level: "primary",
-        usedIn: "4+ full apps",
+        icon: SiNextdotjs,
         tooltip: "SSR/SSG, routing, API routes, image optimization, metadata.",
       },
       {
         name: "React",
         level: "primary",
-        usedIn: "4+ full apps",
+        icon: SiReact,
         tooltip:
           "Component architecture, hooks, context, performance profiling and memoization.",
       },
       {
         name: "TypeScript",
         level: "primary",
-        usedIn: "3+ apps",
+        icon: SiTypescript,
         tooltip:
           "Typed props/hooks, API types, safer refactors and DX improvements.",
       },
       {
         name: "Tailwind CSS",
         level: "strong",
-        usedIn: "4+ UIs",
+        icon: SiTailwindcss,
         tooltip:
           "Responsive layouts, dark themes, design systems and tokenized spacing.",
       },
@@ -70,21 +90,21 @@ const skillGroups: SkillGroup[] = [
       {
         name: "Framer Motion",
         level: "strong",
-        usedIn: "2 projects",
+        icon: SiFramer,
         tooltip:
           "Micro‑interactions, entrance animations, scroll‑based motion and layout transitions.",
       },
       {
         name: "React Query",
         level: "working",
-        usedIn: "1 project",
+        icon: SiReactquery,
         tooltip:
           "Server state management, caching, background refetch and loading states.",
       },
       {
         name: "Zustand",
         level: "working",
-        usedIn: "1 project",
+        icon: LuBoxes,
         tooltip: "Lightweight global state for UI and feature flags.",
       },
     ],
@@ -95,37 +115,33 @@ const skillGroups: SkillGroup[] = [
     focusLabel: "Primary stack",
     tagline:
       "Designing clear APIs with validation, auth and database‑backed workflows.",
-    metrics: {
-      projects: 3,
-      production: true,
-    },
     appliedIn: "Restaurant Feedback, My Pay",
     primarySkills: [
       {
         name: "Node.js",
         level: "primary",
-        usedIn: "3+ services",
+        icon: SiNodedotjs,
         tooltip:
           "REST APIs, async flows, background tasks and integration with external services.",
       },
       {
         name: "RESTful API design",
         level: "primary",
-        usedIn: "3+ APIs",
+        icon: FaPlug,
         tooltip:
           "Resource design, pagination, filtering, error handling and version‑friendly endpoints.",
       },
       {
         name: "PostgreSQL",
         level: "strong",
-        usedIn: "2 projects",
+        icon: SiPostgresql,
         tooltip:
           "Relational modeling, indexing for reads, basic query optimization.",
       },
       {
         name: "Prisma",
         level: "strong",
-        usedIn: "2 projects",
+        icon: SiPrisma,
         tooltip:
           "Schema modeling, migrations, type‑safe queries and relation handling.",
       },
@@ -134,21 +150,21 @@ const skillGroups: SkillGroup[] = [
       {
         name: "Express.js",
         level: "working",
-        usedIn: "1 project",
+        icon: SiExpress,
         tooltip:
           "Routing, middleware, request validation and error handling patterns.",
       },
       {
         name: "Next.js API Routes",
         level: "working",
-        usedIn: "2 projects",
+        icon: SiNextdotjs,
         tooltip:
           "Co‑locating backend logic with UI, auth checks and simple webhooks.",
       },
       {
         name: "MongoDB",
         level: "working",
-        usedIn: "1 project",
+        icon: SiMongodb,
         tooltip:
           "Document modeling and basic aggregations for content‑style data.",
       },
@@ -160,30 +176,26 @@ const skillGroups: SkillGroup[] = [
     focusLabel: "Strong area",
     tagline:
       "Keeping features understandable as they grow, based on real project constraints.",
-    metrics: {
-      projects: 3,
-      production: false,
-    },
     appliedIn: "Restaurant Feedback, Chill‑Bay",
     primarySkills: [
       {
         name: "Authentication & authorization",
         level: "strong",
-        usedIn: "3 projects",
+        icon: FaShieldHalved,
         tooltip:
           "Session‑based auth, protected routes, role checks and guard components.",
       },
       {
         name: "Database‑backed workflows",
         level: "strong",
-        usedIn: "2 projects",
+        icon: FaDatabase,
         tooltip:
           "Designing tables and relations around real user flows and constraints.",
       },
       {
         name: "Validation & error handling",
         level: "strong",
-        usedIn: "3 projects",
+        icon: FaCircleCheck,
         tooltip:
           "Input validation, safe fallbacks, user‑facing errors and logging points.",
       },
@@ -192,21 +204,21 @@ const skillGroups: SkillGroup[] = [
       {
         name: "Caching strategies",
         level: "working",
-        usedIn: "2 projects",
+        icon: LuBox,
         tooltip:
           "Client‑side caching, incremental revalidation and avoiding duplicate work.",
       },
       {
         name: "Performance profiling",
         level: "working",
-        usedIn: "2 projects",
+        icon: FaGaugeHigh,
         tooltip:
           "Measuring LCP/FID, spotting slow components and tightening network usage.",
       },
       {
         name: "Modular feature design",
         level: "working",
-        usedIn: "3 projects",
+        icon: FaCubes,
         tooltip:
           "Separating UI, domain logic and data access for safer changes.",
       },
@@ -218,30 +230,26 @@ const skillGroups: SkillGroup[] = [
     focusLabel: "Supporting",
     tagline:
       "Short feedback loops and deploys that are boring on purpose (in a good way).",
-    metrics: {
-      projects: 4,
-      production: true,
-    },
     appliedIn: "Most personal & freelance projects",
     primarySkills: [
       {
         name: "Git & GitHub",
         level: "strong",
-        usedIn: "5+ repos",
+        icon: SiGithub,
         tooltip:
           "Branching, code reviews, PR hygiene and conflict‑safe workflows.",
       },
       {
         name: "Vercel",
         level: "strong",
-        usedIn: "4+ deployments",
+        icon: SiVercel,
         tooltip:
           "Preview environments, environment variables and rollouts for Next.js apps.",
       },
       {
         name: "ESLint & Prettier",
         level: "strong",
-        usedIn: "3 projects",
+        icon: SiEslint,
         tooltip:
           "Consistent style, catching bugs early and keeping diffs readable.",
       },
@@ -250,21 +258,21 @@ const skillGroups: SkillGroup[] = [
       {
         name: "CI/CD pipelines",
         level: "working",
-        usedIn: "2 projects",
+        icon: LuCloudCog,
         tooltip:
           "Automated builds, basic checks and deploys on merge to main branches.",
       },
       {
         name: "Docker (basics)",
         level: "working",
-        usedIn: "1 project",
+        icon: SiDocker,
         tooltip:
           "Containerizing dev environments and simple services for local parity.",
       },
       {
         name: "Storybook",
         level: "working",
-        usedIn: "1 project",
+        icon: SiStorybook,
         tooltip:
           "Documenting reusable components and visual regression‑friendly UIs.",
       },
@@ -299,6 +307,12 @@ const levelText: Record<SkillLevel, string> = {
   primary: "Primary",
   strong: "Strong",
   working: "Familiar",
+};
+
+const skillIconClasses: Record<SkillLevel, string> = {
+  primary: "text-emerald-300",
+  strong: "text-sky-300",
+  working: "text-zinc-300",
 };
 
 export function SkillsSection() {
@@ -430,10 +444,8 @@ export function SkillsSection() {
                   <div className="rounded-full border border-sky-500/40 bg-sky-500/10 px-2 py-0.5 text-[10px] font-medium text-sky-100">
                     {group.focusLabel}
                   </div>
-                  <div className="mt-1 flex items-center gap-1 text-[10px] text-zinc-500">
-                    <span>{group.metrics.projects} projects</span>
-                    <span className="text-zinc-600">•</span>
-                    <span>Applied in real projects</span>
+                  <div className="mt-1 text-[10px] text-zinc-500">
+                    Applied in real projects
                   </div>
                 </div>
               </div>
@@ -460,14 +472,15 @@ export function SkillsSection() {
                         title={skill.tooltip}
                         className="group/button relative inline-flex items-center gap-1.5 overflow-hidden rounded-full border border-zinc-800/80 bg-zinc-950/90 px-3 py-1 text-[11px] text-zinc-100 outline-none transition-all duration-200 hover:border-sky-500/70 hover:bg-sky-500/10"
                       >
+                        <skill.icon
+                          aria-hidden="true"
+                          className={`relative z-10 h-3.5 w-3.5 shrink-0 ${skillIconClasses[skill.level]}`}
+                        />
                         <span className="relative z-10">{skill.name}</span>
                         <span
                           className={`relative z-10 inline-flex items-center gap-1 rounded-full border px-1.5 py-0.5 text-[9px] ${levelLabelClasses[skill.level]}`}
                         >
                           <span>{levelText[skill.level]}</span>
-                        </span>
-                        <span className="relative z-10 text-[9px] text-zinc-400">
-                          {skill.usedIn}
                         </span>
                         {/* Subtle hover ring */}
                         <span className="pointer-events-none absolute inset-0 rounded-full border border-sky-500/0 transition-colors duration-200 group-hover/button:border-sky-500/30" />
@@ -496,14 +509,15 @@ export function SkillsSection() {
                         title={skill.tooltip}
                         className="group/button relative inline-flex items-center gap-1.5 overflow-hidden rounded-full border border-zinc-800/80 bg-zinc-950/80 px-3 py-1 text-[11px] text-zinc-200 outline-none transition-all duration-200 hover:border-zinc-500 hover:bg-zinc-900"
                       >
+                        <skill.icon
+                          aria-hidden="true"
+                          className={`relative z-10 h-3.5 w-3.5 shrink-0 ${skillIconClasses[skill.level]}`}
+                        />
                         <span className="relative z-10">{skill.name}</span>
                         <span
                           className={`relative z-10 inline-flex items-center gap-1 rounded-full border px-1.5 py-0.5 text-[9px] ${levelLabelClasses[skill.level]}`}
                         >
                           <span>{levelText[skill.level]}</span>
-                        </span>
-                        <span className="relative z-10 text-[9px] text-zinc-400">
-                          {skill.usedIn}
                         </span>
                         <span className="pointer-events-none absolute inset-0 rounded-full border border-zinc-500/0 transition-colors duration-200 group-hover/button:border-zinc-500/30" />
                       </motion.button>
