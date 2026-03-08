@@ -46,9 +46,9 @@ export function AboutSection() {
             Most of my work lives in full‑stack projects where I handle both
             frontend and backend — from designing data models and APIs, to
             crafting responsive interfaces, animations, and meaningful
-            micro‑interactions. I like working closely with founders,
-            designers, and engineers to ship features that solve real
-            problems, not just look good in screenshots.
+            micro‑interactions. I like working closely with founders, designers,
+            and engineers to ship features that solve real problems, not just
+            look good in screenshots.
           </p>
 
           <div className="grid gap-4 text-xs text-zinc-200 sm:grid-cols-2">
@@ -57,10 +57,14 @@ export function AboutSection() {
                 For clients &amp; founders
               </p>
               <ul className="mt-2 space-y-1.5 text-[13px] text-zinc-300">
-                <li>• Landing pages and marketing sites that actually convert.</li>
+                <li>
+                  • Landing pages and marketing sites that actually convert.
+                </li>
                 <li>• Product dashboards, admin panels, and internal tools.</li>
                 <li>• End‑to‑end web apps with auth, payments, and data.</li>
-                <li>• Performance, SEO, and UX improvements to existing apps.</li>
+                <li>
+                  • Performance, SEO, and UX improvements to existing apps.
+                </li>
               </ul>
             </div>
             <div className="space-y-2 rounded-2xl border border-zinc-800/80 bg-zinc-950/80 p-4 shadow-[0_20px_70px_rgba(0,0,0,0.9)]">
@@ -68,10 +72,16 @@ export function AboutSection() {
                 How I like to work
               </p>
               <ul className="mt-2 space-y-1.5 text-[13px] text-zinc-300">
-                <li>• Clear scope, honest estimates, and frequent check‑ins.</li>
+                <li>
+                  • Clear scope, honest estimates, and frequent check‑ins.
+                </li>
                 <li>• GitHub‑driven workflow with meaningful PRs.</li>
-                <li>• Attention to edge cases, error states, and empty states.</li>
-                <li>• Written updates so you always know what&apos;s shipped.</li>
+                <li>
+                  • Attention to edge cases, error states, and empty states.
+                </li>
+                <li>
+                  • Written updates so you always know what&apos;s shipped.
+                </li>
               </ul>
             </div>
           </div>
@@ -82,7 +92,8 @@ export function AboutSection() {
                 Tech focus
               </p>
               <p className="mt-1 text-[13px] text-zinc-200">
-                Next.js · React · TypeScript · Node.js · Tailwind CSS · PostgreSQL
+                Next.js · React · TypeScript · Node.js · Tailwind CSS ·
+                PostgreSQL
               </p>
             </div>
             <div>
@@ -106,18 +117,17 @@ export function AboutSection() {
           <div className="relative w-full max-w-xs rounded-3xl border border-zinc-800/80 bg-zinc-950/90 p-4 shadow-[0_32px_100px_rgba(0,0,0,0.95)]">
             <div className="relative overflow-hidden rounded-2xl border border-zinc-700/70 bg-zinc-900/80">
               <Image
-                src="/og-image.webp"
+                src="/dipubiswas.jpg"
                 alt="Photo of Dipu Biswas"
                 width={420}
                 height={460}
-                className="h-[260px] w-full object-cover sm:h-[300px]"
+                quality={40}
+                className="h-75 w-full object-cover sm:h-75"
                 priority
               />
             </div>
             <div className="mt-3 space-y-1 text-xs text-zinc-300">
-              <p className="text-sm font-semibold text-zinc-50">
-                Dipu Biswas
-              </p>
+              <p className="text-sm font-semibold text-zinc-50">Dipu Biswas</p>
               <p className="text-[12px] text-zinc-400">
                 Full‑stack developer · Next.js &amp; React
               </p>
@@ -132,4 +142,3 @@ export function AboutSection() {
     </section>
   );
 }
-
