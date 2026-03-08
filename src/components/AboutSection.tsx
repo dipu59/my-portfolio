@@ -10,13 +10,13 @@ export function AboutSection() {
       className="relative mx-auto mt-20 w-full max-w-5xl px-4 pb-10 sm:px-6 md:mt-28 md:px-0"
       aria-labelledby="about-heading"
     >
-      <div className="grid gap-10 md:grid-cols-[minmax(0,1.15fr)_minmax(0,0.95fr)] md:items-center">
+      <div className="grid gap-10 md:grid-cols-[minmax(0,0.95fr)_minmax(0,1.15fr)] md:items-center">
         <motion.div
           initial={{ opacity: 0, y: 48, scaleY: 0.95 }}
           whileInView={{ opacity: 1, y: 0, scaleY: 1 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-          className="space-y-6"
+          className="order-1 space-y-6 md:order-2"
         >
           <div className="space-y-3">
             <p className="text-xs font-semibold uppercase tracking-[0.26em] text-sky-400/80">
@@ -112,9 +112,9 @@ export function AboutSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.65 }}
           transition={{ duration: 0.9, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-          className="relative flex justify-center md:justify-end"
+          className="order-2 relative flex justify-center md:order-1 md:justify-start"
         >
-          <div className="relative w-full md:max-w-xs max-w-sm rounded-3xl border border-zinc-800/80 bg-zinc-950/90 p-4 shadow-[0_32px_100px_rgba(0,0,0,0.95)]">
+          <div className="relative w-full md:max-w-105 max-w-sm rounded-3xl border border-zinc-800/80 bg-zinc-950/90 p-4 shadow-[0_32px_100px_rgba(0,0,0,0.95)]">
             <div className="relative overflow-hidden rounded-2xl border border-zinc-700/70 bg-zinc-900/80">
               <Image
                 src="/dipubiswas.jpg"
@@ -122,7 +122,7 @@ export function AboutSection() {
                 width={420}
                 height={460}
                 quality={40}
-                className="h-85 w-full object-cover sm:h-75"
+                className="h-85 w-full object-cover sm:h-95"
                 priority
               />
             </div>
