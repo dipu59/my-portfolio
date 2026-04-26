@@ -55,7 +55,7 @@ export function HeroSection() {
                 ease: [0.22, 1, 0.36, 1],
               }}
             >
-              Trust me, I'm a
+              Trust me, I&apos;m a
               <span className="text-[#06B6D4] "> software developer.</span>
             </motion.h1>
             <motion.p

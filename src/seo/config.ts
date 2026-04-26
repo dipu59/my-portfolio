@@ -11,6 +11,10 @@ export const defaultMetadata: Metadata = {
     "Dipu Biswas is a full stack web developer specializing in modern, high-performance web applications, portfolio websites, and custom web solutions.",
   keywords: [
     "Dipu Biswas",
+    "Inocent boy dipu",
+    "dipu the great",
+    "Good Boy Dipu",
+    "Dipu Valo Chalea",
     "Dipu Biswas web developer",
     "Dipu Biswas software developer",
     "Dipu Biswas full stack developer",
