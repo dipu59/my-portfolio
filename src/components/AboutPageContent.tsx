@@ -69,6 +69,12 @@ const stack = [
   "Vercel",
 ];
 
+const workingStyle = [
+  "Fast, responsive layouts that stay clean across screen sizes",
+  "Backend flows that are practical to maintain as features grow",
+  "Visual polish used with restraint so the interface stays calm",
+];
+
 export function AboutPageContent() {
   const shouldReduceMotion = useReducedMotion();
   const fadeUp = shouldReduceMotion
@@ -119,8 +125,9 @@ export function AboutPageContent() {
             </motion.div>
 
             <div className="space-y-5">
-              <h1 className="max-w-4xl text-4xl font-semibold leading-tight tracking-tight text-slate-900 sm:text-5xl md:text-6xl">
+              <h1 className="max-w-4xl text-4xl font-semibold leading-tight tracking-tight text-slate-900 sm:text-5xl md:text-6xl text-nowrap">
                 I am your <span className="text-[#09a9c5]">Personalize</span>{" "}
+                <br />
                 Developer.
               </h1>
               <p className="max-w-2xl text-base leading-8 text-slate-600 sm:text-lg">
@@ -131,12 +138,12 @@ export function AboutPageContent() {
               </p>
             </div>
 
-            <div className="grid gap-4 sm:grid-cols-3">
+            <div className="grid gap-6 border-t border-slate-200/80 pt-6 sm:grid-cols-3">
               {quickFacts.map((fact, index) => {
                 const Icon = fact.icon;
 
                 return (
-                  <motion.article
+                  <motion.div
                     key={fact.label}
                     initial={
                       shouldReduceMotion
@@ -149,18 +156,18 @@ export function AboutPageContent() {
                       duration: 0.42,
                       ease: [0.22, 1, 0.36, 1],
                     }}
-                    className="rounded-[1.5rem] border border-slate-200 bg-white p-5 shadow-[0_14px_28px_rgba(15,23,42,0.05)]"
+                    className="space-y-3 border-l border-slate-200 pl-4 first:border-l-0 first:pl-0"
                   >
-                    <div className="mb-3 inline-flex rounded-2xl bg-sky-50 p-2.5 text-sky-700">
+                    <div className="inline-flex rounded-full bg-sky-100/80 p-2 text-sky-700">
                       <Icon className="h-4 w-4" />
                     </div>
                     <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-400">
                       {fact.label}
                     </p>
-                    <p className="mt-2 text-sm leading-6 text-slate-700">
+                    <p className="text-sm leading-6 text-slate-700">
                       {fact.value}
                     </p>
-                  </motion.article>
+                  </motion.div>
                 );
               })}
             </div>
@@ -171,23 +178,29 @@ export function AboutPageContent() {
               }
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.24, duration: 0.45 }}
-              className="rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-[0_16px_36px_rgba(15,23,42,0.06)]"
+              className="grid gap-6 border-t border-slate-200 pt-6 sm:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]"
             >
-              <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-400">
-                A little more about my work
-              </p>
-              <div className="mt-4 space-y-4 text-sm leading-7 text-slate-600 sm:text-[15px]">
-                <p>
-                  I enjoy working on projects where design quality and code
-                  quality both matter. That usually means responsive layouts,
-                  clean component structure, strong user experience, and backend
-                  logic that stays maintainable as features grow.
+              <div>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-400">
+                  How I work
                 </p>
-                <p>
-                  My favorite builds are portfolio websites, product landing
-                  pages, business sites, dashboards, and full-stack apps where
-                  speed, clarity, and trust really shape the final experience.
+                <p className="mt-3 max-w-xs text-sm leading-7 text-slate-600 sm:text-[15px]">
+                  I enjoy projects where thoughtful design and dependable code
+                  need to move together, not compete with each other.
                 </p>
+              </div>
+              <div className="space-y-4">
+                {workingStyle.map((item) => (
+                  <div
+                    key={item}
+                    className="flex gap-3 border-b border-slate-200/80 pb-4 last:border-b-0 last:pb-0"
+                  >
+                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-sky-600" />
+                    <p className="text-sm leading-7 text-slate-600 sm:text-[15px]">
+                      {item}
+                    </p>
+                  </div>
+                ))}
               </div>
             </motion.div>
           </motion.div>
@@ -204,8 +217,8 @@ export function AboutPageContent() {
             }}
             className="relative"
           >
-            <div className="rounded-[1.75rem] border border-slate-200 bg-white p-5 shadow-[0_18px_40px_rgba(15,23,42,0.07)]">
-              <div className="relative overflow-hidden rounded-[1.5rem] bg-[#f3f7fb]">
+            <div className="border-l border-slate-200 pl-0 md:pl-8">
+              <div className="relative overflow-hidden rounded-[1.75rem] bg-[#eef4f9]">
                 <Image
                   src="/dipubiswas.jpg"
                   alt="Portrait of Dipu Biswas"
@@ -217,7 +230,7 @@ export function AboutPageContent() {
                 />
               </div>
 
-              <div className="mt-5 space-y-4">
+              <div className="mt-6 space-y-5">
                 <div>
                   <h2 className="text-2xl font-semibold text-slate-950">
                     Dipu Biswas
@@ -231,14 +244,14 @@ export function AboutPageContent() {
                 <div className="grid gap-3 text-sm text-slate-700">
                   <a
                     href="mailto:12biswasdipu@gmail.com"
-                    className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50/80 px-4 py-3 transition-colors hover:border-sky-200 hover:bg-sky-50"
+                    className="flex items-center gap-3 border-b border-slate-200 pb-3 transition-colors hover:text-sky-700"
                   >
                     <LuMail className="h-4 w-4 text-sky-700" />
                     12biswasdipu@gmail.com
                   </a>
                   <a
                     href="tel:+919239005171"
-                    className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50/80 px-4 py-3 transition-colors hover:border-sky-200 hover:bg-sky-50"
+                    className="flex items-center gap-3 border-b border-slate-200 pb-3 transition-colors hover:text-sky-700"
                   >
                     <LuPhone className="h-4 w-4 text-sky-700" />
                     +91 92390 05171
@@ -272,7 +285,7 @@ export function AboutPageContent() {
                         href={link.href}
                         target="_blank"
                         rel="noreferrer"
-                        className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-2 text-xs font-medium text-slate-600 transition-colors hover:border-sky-200 hover:text-sky-700"
+                        className="inline-flex items-center gap-2 rounded-full border border-slate-200/80 px-3 py-2 text-xs font-medium text-slate-600 transition-colors hover:border-sky-200 hover:text-sky-700"
                       >
                         <Icon className="h-3.5 w-3.5" />
                         {link.label}
@@ -287,57 +300,53 @@ export function AboutPageContent() {
       </section>
 
       <section className="px-4 pb-18 sm:px-6">
-        <div className="mx-auto grid max-w-6xl gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+        <div className="mx-auto max-w-6xl border-t border-slate-200 pt-8">
           <motion.div
             {...fadeUp}
             viewport={{ once: true, amount: 0.25 }}
             transition={{ duration: 0.45 }}
-            className="rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-[0_16px_36px_rgba(15,23,42,0.06)]"
+            className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]"
           >
-            <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-400">
-              What I care about
-            </p>
-            <div className="mt-5 space-y-4 text-sm leading-7 text-slate-600 sm:text-[15px]">
-              <p>
-                I like clean layouts, meaningful detail, and products that feel
-                calm to use. My work usually combines visual polish with solid
-                frontend structure and backend reliability.
+            <div>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-400">
+                What I care about
               </p>
-              <p>
-                I try to keep things simple: clear communication, maintainable
-                code, responsive design, and just enough animation to make the
-                experience feel friendly instead of noisy.
-              </p>
+              <div className="mt-5 space-y-4 text-sm leading-7 text-slate-600 sm:text-[15px]">
+                <p>
+                  I like clean layouts, meaningful detail, and products that
+                  feel calm to use. My work usually balances visual polish with
+                  solid frontend structure and backend reliability.
+                </p>
+                <p>
+                  The goal is usually the same: make the experience clear,
+                  trustworthy, and easy for real people to use.
+                </p>
+              </div>
             </div>
-          </motion.div>
 
-          <motion.div
-            {...fadeUp}
-            viewport={{ once: true, amount: 0.25 }}
-            transition={{ delay: 0.06, duration: 0.45 }}
-            className="rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-[0_16px_36px_rgba(15,23,42,0.06)]"
-          >
-            <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-400">
-              Core stack
-            </p>
-            <div className="mt-5 flex flex-wrap gap-2">
-              {stack.map((item, index) => (
-                <motion.span
-                  key={item}
-                  initial={
-                    shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 8 }
-                  }
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{
-                    delay: shouldReduceMotion ? 0 : index * 0.02,
-                    duration: 0.25,
-                  }}
-                  className="rounded-full border border-slate-200 bg-slate-50 px-3 py-2 text-xs font-medium text-slate-700"
-                >
-                  {item}
-                </motion.span>
-              ))}
+            <div>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-400">
+                Core stack
+              </p>
+              <div className="mt-5 flex flex-wrap gap-x-3 gap-y-2">
+                {stack.map((item, index) => (
+                  <motion.span
+                    key={item}
+                    initial={
+                      shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 8 }
+                    }
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{
+                      delay: shouldReduceMotion ? 0 : index * 0.02,
+                      duration: 0.25,
+                    }}
+                    className="text-sm text-slate-700 after:ml-3 after:text-slate-300 after:content-['/'] last:after:content-none"
+                  >
+                    {item}
+                  </motion.span>
+                ))}
+              </div>
             </div>
           </motion.div>
         </div>
