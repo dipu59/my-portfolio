@@ -35,7 +35,7 @@ export function AboutSection() {
             <span className="font-semibold text-zinc-50">Dipu Biswas</span>, a
             developer from Balagarh, Hooghly, West Bengal, India, focused on
             building fast, reliable web experiences with{" "}
-            <span className="font-medium text-sky-400">
+            <span className="font-medium bg-linear-to-r from-yellow-50 via-yellow-100 to-yellow-100 bg-clip-text text-transparent">
               Next.js, React, TypeScript, and Node.js
             </span>
             . I care about clean architecture, performance, and small UI details
@@ -50,41 +50,6 @@ export function AboutSection() {
             and engineers to ship features that solve real problems, not just
             look good in screenshots.
           </p>
-
-          <div className="grid gap-4 text-xs text-zinc-200 sm:grid-cols-2">
-            <div className="space-y-2 rounded-2xl border border-zinc-800/80 bg-zinc-950/80 p-4 shadow-[0_20px_70px_rgba(0,0,0,0.9)]">
-              <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-zinc-500">
-                For clients &amp; founders
-              </p>
-              <ul className="mt-2 space-y-1.5 text-[13px] text-zinc-300">
-                <li>
-                  • Landing pages and marketing sites that actually convert.
-                </li>
-                <li>• Product dashboards, admin panels, and internal tools.</li>
-                <li>• End‑to‑end web apps with auth, payments, and data.</li>
-                <li>
-                  • Performance, SEO, and UX improvements to existing apps.
-                </li>
-              </ul>
-            </div>
-            <div className="space-y-2 rounded-2xl border border-zinc-800/80 bg-zinc-950/80 p-4 shadow-[0_20px_70px_rgba(0,0,0,0.9)]">
-              <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-zinc-500">
-                How I like to work
-              </p>
-              <ul className="mt-2 space-y-1.5 text-[13px] text-zinc-300">
-                <li>
-                  • Clear scope, honest estimates, and frequent check‑ins.
-                </li>
-                <li>• GitHub‑driven workflow with meaningful PRs.</li>
-                <li>
-                  • Attention to edge cases, error states, and empty states.
-                </li>
-                <li>
-                  • Written updates so you always know what&apos;s shipped.
-                </li>
-              </ul>
-            </div>
-          </div>
 
           <div className="flex flex-wrap gap-4 text-xs text-zinc-400">
             <div>
@@ -121,7 +86,6 @@ export function AboutSection() {
                 alt="Photo of Dipu Biswas"
                 width={420}
                 height={460}
-                quality={40}
                 className="h-85 w-full object-cover sm:h-95"
                 priority
               />

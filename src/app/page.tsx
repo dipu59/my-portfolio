@@ -7,7 +7,7 @@ import { AboutSection } from "../components/AboutSection";
 
 export default function Home() {
   return (
-    <>
+    <div className="overflow-x-hidden">
       {/* Premium dark hero section */}
       <HeroSection />
 
@@ -18,6 +18,6 @@ export default function Home() {
       <SkillsSection />
       <ContactSection />
       <Footer />
-    </>
+    </div>
   );
 }

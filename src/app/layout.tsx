@@ -41,7 +41,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black text-zinc-100`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black text-zinc-100 overflow-x-hidden `}
       >
         <LoadingScreen />
         <Navbar />
