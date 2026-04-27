@@ -5,12 +5,18 @@ export const runtime = "nodejs";
 
 export async function POST(request: NextRequest) {
   try {
-    const { name, email, subject, message, projectType, budget, timeline } =
-      await request.json();
+    const { name, email, message } = await request.json();
 
     if (!name || !email || !message) {
       return NextResponse.json(
-        { ok: false, error: "Name, email, and message are required." },
+        { ok: false, error: "All fields are required." },
+        { status: 400 }
+      );
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return NextResponse.json(
+        { ok: false, error: "Please provide a valid email address." },
         { status: 400 }
       );
     }
@@ -47,29 +53,19 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    const mailSubject =
-      subject?.trim() || "New message from portfolio contact form";
-
     await transporter.sendMail({
-      from: `"Portfolio Contact" <${fromAddress}>`,
+      from: `"Contact Form" <${fromAddress}>`,
       to: process.env.EMAIL_TO || "12biswasdipu@gmail.com",
-      subject: mailSubject,
+      subject: `New message from ${name}`,
       replyTo: email,
       text: [
-        `You have a new message from your portfolio contact form:`,
+        `New contact form submission:`,
         "",
-        `Name: ${name}`,
-        `Email: ${email}`,
-        projectType ? `Project type: ${projectType}` : "",
-        budget ? `Budget: ${budget}` : "",
-        timeline ? `Timeline: ${timeline}` : "",
-        subject ? `Subject: ${subject}` : "",
+        `From: ${name} <${email}>`,
         "",
         "Message:",
         message,
-      ]
-        .filter(Boolean)
-        .join("\n"),
+      ].join("\n"),
     });
 
     return NextResponse.json({ ok: true });
