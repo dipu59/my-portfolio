@@ -1,8 +1,24 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { motion } from 'framer-motion';
 
 type FormStatus = "idle" | "submitting" | "success" | "error";
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: { 
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1
+    }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 }
+};
 
 export function ContactSection() {
   const [status, setStatus] = useState<FormStatus>("idle");
@@ -62,22 +78,28 @@ export function ContactSection() {
 
   return (
     <section id="contact" className="relative z-10 py-16">
-      <div className="mx-auto max-w-2xl backdrop-blur-sm bg-black/30 border border-purple-500/20 rounded-3xl p-8">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold tracking-tight bg-gradient-to-r from-purple-300 to-green-300 bg-clip-text text-transparent">
+      <motion.div 
+        className="mx-auto max-w-2xl backdrop-blur-sm bg-black/30 border border-purple-500/20 rounded-3xl p-8"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        <motion.div className="text-center mb-12" variants={itemVariants}>
+          <h2 className="text-4xl font-bold tracking-tight bg-gradient-to-r from-purple-300 to-purple-500 bg-clip-text text-transparent">
             Drop Me a Line
           </h2>
           <p className="mt-4 text-purple-100/80 max-w-lg mx-auto">
             Let's make something amazing together! Whether it's a quick question or a big idea, 
             I promise to respond with more than just a robot auto-reply.
           </p>
-        </div>
+        </motion.div>
 
-        <form 
+        <motion.form 
           onSubmit={handleSubmit}
           className="space-y-6 max-w-md mx-auto glow-effect"
+          variants={containerVariants}
         >
-          <div className="space-y-4">
+          <motion.div className="space-y-4" variants={itemVariants}>
             <Field
               id="name"
               label="Name"
@@ -107,10 +129,13 @@ export function ContactSection() {
             </div>
           </div>
 
-          <button
+          <motion.button
             type="submit"
             disabled={isSubmitting}
-            className="w-full bg-gradient-to-r from-purple-500 to-green-500 text-black font-bold py-3 px-6 rounded-xl transition-all hover:shadow-lg hover:shadow-purple-500/30 disabled:opacity-70 disabled:cursor-not-allowed transform hover:scale-[1.02]"
+            className="w-full bg-gradient-to-r from-purple-500 to-purple-600 text-white font-bold py-3 px-6 rounded-xl transition-all hover:shadow-lg hover:shadow-purple-500/30 disabled:opacity-70 disabled:cursor-not-allowed transform hover:scale-[1.02]"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            variants={itemVariants}
           >
             {isSubmitting ? (
               <span className="flex items-center justify-center gap-2">

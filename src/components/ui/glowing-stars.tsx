@@ -1,13 +1,14 @@
 "use client";
 
 import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 
 export function GlowingStars() {
   const [stars, setStars] = useState<Array<{x: number, y: number, size: number, delay: number}>>([]);
 
   useEffect(() => {
     const newStars = [];
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 50; i++) {
       newStars.push({
         x: Math.random() * 100,
         y: Math.random() * 100,
@@ -21,16 +22,26 @@ export function GlowingStars() {
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden">
       {stars.map((star, i) => (
-        <div
+        <motion.div
           key={i}
-          className="absolute rounded-full opacity-80 animate-pulse"
+          className="absolute rounded-full"
           style={{
             left: `${star.x}%`,
             top: `${star.y}%`,
             width: `${star.size}px`,
             height: `${star.size}px`,
-            backgroundColor: i % 2 ? '#a855f7' : '#4ade80',
-            animationDelay: `${star.delay}s`,
+            backgroundColor: '#a855f7',
+          }}
+          initial={{ opacity: 0 }}
+          animate={{ 
+            opacity: [0, 0.8, 0],
+            scale: [1, 1.2, 1]
+          }}
+          transition={{
+            duration: 2 + Math.random() * 3,
+            delay: star.delay,
+            repeat: Infinity,
+            ease: 'easeInOut'
           }}
         />
       ))}
