@@ -61,15 +61,15 @@ export function ContactSection() {
   const isSubmitting = status === "submitting";
 
   return (
-    <section id="contact" className="py-24 px-4 sm:px-6">
-      <div className="mx-auto max-w-2xl">
+    <section id="contact" className="relative z-10 py-16">
+      <div className="mx-auto max-w-2xl backdrop-blur-sm bg-black/30 border border-purple-500/20 rounded-3xl p-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-medium tracking-tight text-neutral-50 sm:text-4xl">
-            Get in touch
+          <h2 className="text-4xl font-bold tracking-tight bg-gradient-to-r from-purple-300 to-green-300 bg-clip-text text-transparent">
+            Drop Me a Line
           </h2>
-          <p className="mt-4 text-neutral-400 max-w-lg mx-auto">
-            Have a project in mind or want to discuss potential opportunities? 
-            I'm currently available for select freelance work and collaborations.
+          <p className="mt-4 text-purple-100/80 max-w-lg mx-auto">
+            Let's make something amazing together! Whether it's a quick question or a big idea, 
+            I promise to respond with more than just a robot auto-reply.
           </p>
         </div>
 
@@ -101,7 +101,7 @@ export function ContactSection() {
                 name="message"
                 rows={4}
                 required
-                className="w-full bg-neutral-900/50 border border-neutral-800 rounded-lg px-4 py-2 text-neutral-100 placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-sky-500/50 focus:border-transparent transition-all"
+                className="w-full bg-black/40 border border-purple-500/30 rounded-xl px-4 py-3 text-purple-50 placeholder-purple-300/50 focus:outline-none focus:ring-2 focus:ring-green-400/50 focus:border-transparent transition-all hover:border-purple-400/50"
                 placeholder="Tell me about your project..."
               />
             </div>
@@ -110,7 +110,7 @@ export function ContactSection() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full bg-sky-600 hover:bg-sky-500 text-white font-medium py-2.5 px-4 rounded-lg transition-colors disabled:opacity-70 disabled:cursor-not-allowed"
+            className="w-full bg-gradient-to-r from-purple-500 to-green-500 text-black font-bold py-3 px-6 rounded-xl transition-all hover:shadow-lg hover:shadow-purple-500/30 disabled:opacity-70 disabled:cursor-not-allowed transform hover:scale-[1.02]"
           >
             {isSubmitting ? (
               <span className="flex items-center justify-center gap-2">
@@ -170,7 +170,7 @@ function Field({ id, label, type, placeholder, required }: FieldProps) {
         type={type}
         required={required}
         placeholder={placeholder}
-        className="w-full bg-neutral-900/50 border border-neutral-800 rounded-lg px-4 py-2 text-neutral-100 placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-sky-500/50 focus:border-transparent transition-all"
+        className="w-full bg-black/40 border border-purple-500/30 rounded-xl px-4 py-3 text-purple-50 placeholder-purple-300/50 focus:outline-none focus:ring-2 focus:ring-green-400/50 focus:border-transparent transition-all hover:border-purple-400/50"
       />
     </div>
   );
