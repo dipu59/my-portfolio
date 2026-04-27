@@ -143,7 +143,7 @@ export function ContactSection() {
                 Sending...
               </span>
             ) : "Send message"}
-          </button>
+          </motion.button>
 
           {status === "success" && (
             <div className="bg-emerald-500/10 text-emerald-100 px-4 py-3 rounded-lg border border-emerald-500/30">
