@@ -127,7 +127,7 @@ export function ContactSection() {
                 placeholder="Tell me about your project..."
               />
             </div>
-          </div>
+          </motion.div>
 
           <motion.button
             type="submit"
@@ -169,7 +169,7 @@ export function ContactSection() {
             </a>
           </div>
         </form>
-      </div>
+      </motion.div>
     </section>
   );
 }
