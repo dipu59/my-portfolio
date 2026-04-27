@@ -168,7 +168,7 @@ export function ContactSection() {
               12biswasdipu@gmail.com
             </a>
           </div>
-        </form>
+        </motion.form>
       </motion.div>
     </section>
   );
