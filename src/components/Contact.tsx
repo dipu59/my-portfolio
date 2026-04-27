@@ -75,7 +75,7 @@ export function ContactSection() {
 
         <form 
           onSubmit={handleSubmit}
-          className="space-y-6 max-w-md mx-auto"
+          className="space-y-6 max-w-md mx-auto glow-effect"
         >
           <div className="space-y-4">
             <Field
