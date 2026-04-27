@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import type { FieldProps } from "./Contact";
 import { motion } from 'framer-motion';
 
 type FormStatus = "idle" | "submitting" | "success" | "error";
@@ -19,6 +20,25 @@ const itemVariants = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0 }
 };
+
+function Field({ id, label, type, placeholder, required }: FieldProps) {
+  return (
+    <div>
+      <label htmlFor={id} className="block text-sm font-medium text-neutral-300 mb-1">
+        {label}
+        {required && <span className="text-rose-500 ml-1">*</span>}
+      </label>
+      <input
+        id={id}
+        name={id}
+        type={type}
+        required={required}
+        placeholder={placeholder}
+        className="w-full bg-black/40 border border-purple-500/30 rounded-xl px-4 py-3 text-purple-50 placeholder-purple-300/50 focus:outline-none focus:ring-2 focus:ring-green-400/50 focus:border-transparent transition-all hover:border-purple-400/50"
+      />
+    </div>
+  );
+}
 
 export function ContactSection() {
   const [status, setStatus] = useState<FormStatus>("idle");
@@ -182,21 +202,3 @@ type FieldProps = {
   required?: boolean;
 };
 
-function Field({ id, label, type, placeholder, required }: FieldProps) {
-  return (
-    <div>
-      <label htmlFor={id} className="block text-sm font-medium text-neutral-300 mb-1">
-        {label}
-        {required && <span className="text-rose-500 ml-1">*</span>}
-      </label>
-      <input
-        id={id}
-        name={id}
-        type={type}
-        required={required}
-        placeholder={placeholder}
-        className="w-full bg-black/40 border border-purple-500/30 rounded-xl px-4 py-3 text-purple-50 placeholder-purple-300/50 focus:outline-none focus:ring-2 focus:ring-green-400/50 focus:border-transparent transition-all hover:border-purple-400/50"
-      />
-    </div>
-  );
-}
