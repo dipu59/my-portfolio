@@ -1,44 +1,8 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import type { FieldProps } from "./Contact";
-import { motion } from 'framer-motion';
 
 type FormStatus = "idle" | "submitting" | "success" | "error";
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: { 
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1
-    }
-  }
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 }
-};
-
-function Field({ id, label, type, placeholder, required }: FieldProps) {
-  return (
-    <div>
-      <label htmlFor={id} className="block text-sm font-medium text-neutral-300 mb-1">
-        {label}
-        {required && <span className="text-rose-500 ml-1">*</span>}
-      </label>
-      <input
-        id={id}
-        name={id}
-        type={type}
-        required={required}
-        placeholder={placeholder}
-        className="w-full bg-black/40 border border-purple-500/30 rounded-xl px-4 py-3 text-purple-50 placeholder-purple-300/50 focus:outline-none focus:ring-2 focus:ring-green-400/50 focus:border-transparent transition-all hover:border-purple-400/50"
-      />
-    </div>
-  );
-}
 
 export function ContactSection() {
   const [status, setStatus] = useState<FormStatus>("idle");
@@ -56,11 +20,12 @@ export function ContactSection() {
 
     const name = String(formData.get("name") || "").trim();
     const email = String(formData.get("email") || "").trim();
+    const subject = String(formData.get("subject") || "").trim();
     const message = String(formData.get("message") || "").trim();
 
     if (!name || !email || !message) {
       setStatus("error");
-      setErrorMessage("Please fill in all required fields.");
+      setErrorMessage("Please fill in your name, email, and message.");
       return;
     }
 
@@ -74,12 +39,14 @@ export function ContactSection() {
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, message }),
+        body: JSON.stringify({ name, email, subject, message }),
       });
 
       if (!response.ok) {
         const data = await response.json().catch(() => null);
-        throw new Error(data?.error || "Failed to send message. Please try again.");
+        throw new Error(
+          data?.error || "Something went wrong. Please try again."
+        );
       }
 
       setStatus("success");
@@ -87,8 +54,8 @@ export function ContactSection() {
     } catch (error) {
       setStatus("error");
       setErrorMessage(
-        error instanceof Error 
-          ? error.message 
+        error instanceof Error
+          ? error.message
           : "An unexpected error occurred. Please try again."
       );
     }
@@ -97,99 +64,133 @@ export function ContactSection() {
   const isSubmitting = status === "submitting";
 
   return (
-    <section id="contact" className="relative z-10 py-16">
-      <motion.div 
-        className="mx-auto max-w-2xl backdrop-blur-sm bg-black/30 border border-purple-500/20 rounded-3xl p-8"
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-      >
-        <motion.div className="text-center mb-12" variants={itemVariants}>
-          <h2 className="text-4xl font-bold tracking-tight bg-gradient-to-r from-purple-300 to-purple-500 bg-clip-text text-transparent">
-            Drop Me a Line
-          </h2>
-          <p className="mt-4 text-purple-100/80 max-w-lg mx-auto">
-            Let's make something amazing together! Whether it's a quick question or a big idea, 
-            I promise to respond with more than just a robot auto-reply.
-          </p>
-        </motion.div>
-
-        <motion.form 
-          onSubmit={handleSubmit}
-          className="space-y-6 max-w-md mx-auto glow-effect"
-          variants={containerVariants}
-        >
-          <motion.div className="space-y-4" variants={itemVariants}>
-            <Field
-              id="name"
-              label="Name"
-              type="text"
-              placeholder="Your name"
-              required
-            />
-            <Field
-              id="email"
-              label="Email"
-              type="email"
-              placeholder="you@example.com"
-              required
-            />
-            <div>
-              <label htmlFor="message" className="block text-sm font-medium text-neutral-300 mb-1">
-                Message
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                rows={4}
-                required
-                className="w-full bg-black/40 border border-purple-500/30 rounded-xl px-4 py-3 text-purple-50 placeholder-purple-300/50 focus:outline-none focus:ring-2 focus:ring-green-400/50 focus:border-transparent transition-all hover:border-purple-400/50"
-                placeholder="Tell me about your project..."
-              />
+    <section id="contact" className="bg-black px-4 py-16 sm:px-6">
+      <div className="mx-auto max-w-3xl">
+        <div className="grid gap-10 lg:grid-cols-2 lg:items-start">
+          <div className="space-y-4">
+            <p className="text-xs font-medium uppercase tracking-[0.25em] text-neutral-500">
+              Contact
+            </p>
+            <h2 className="text-3xl font-semibold tracking-tight text-neutral-50 sm:text-4xl">
+              Let&apos;s work together
+            </h2>
+            <p className="text-sm leading-relaxed text-neutral-300/90 sm:text-base">
+              Tell me what you&apos;re building and what you need. I usually
+              reply within 24 hours.
+            </p>
+            <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-neutral-400">
+              <a
+                href="mailto:12biswasdipu@gmail.com"
+                className="text-neutral-200 underline underline-offset-4 decoration-neutral-700 hover:decoration-neutral-400 transition-colors"
+              >
+                12biswasdipu@gmail.com
+              </a>
+              <a
+                href="tel:+919239005171"
+                className="text-neutral-200 underline underline-offset-4 decoration-neutral-700 hover:decoration-neutral-400 transition-colors"
+              >
+                +91 92390 05171
+              </a>
             </div>
-          </motion.div>
-
-          <motion.button
-            type="submit"
-            disabled={isSubmitting}
-            className="w-full bg-gradient-to-r from-purple-500 to-purple-600 text-white font-bold py-3 px-6 rounded-xl transition-all hover:shadow-lg hover:shadow-purple-500/30 disabled:opacity-70 disabled:cursor-not-allowed transform hover:scale-[1.02]"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            variants={itemVariants}
-          >
-            {isSubmitting ? (
-              <span className="flex items-center justify-center gap-2">
-                <span className="h-4 w-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                Sending...
-              </span>
-            ) : "Send message"}
-          </motion.button>
-
-          {status === "success" && (
-            <div className="bg-emerald-500/10 text-emerald-100 px-4 py-3 rounded-lg border border-emerald-500/30">
-              <p className="font-medium">Message sent successfully!</p>
-              <p className="text-sm mt-1">I'll get back to you within 24 hours.</p>
-            </div>
-          )}
-
-          {status === "error" && (
-            <div className="bg-rose-500/10 text-rose-100 px-4 py-3 rounded-lg border border-rose-500/30">
-              <p className="font-medium">Error sending message</p>
-              <p className="text-sm mt-1">{errorMessage}</p>
-            </div>
-          )}
-
-          <div className="text-center text-sm text-neutral-500 pt-4">
-            <p>Alternatively, email me directly at:</p>
-            <a 
-              href="mailto:12biswasdipu@gmail.com" 
-              className="text-sky-400 hover:text-sky-300 transition-colors"
-            >
-              12biswasdipu@gmail.com
-            </a>
           </div>
-        </motion.form>
-      </motion.div>
+
+          <div className="rounded-2xl border border-neutral-800 bg-neutral-950 p-5 sm:p-6">
+            <form
+              className="space-y-4"
+              aria-label="Contact form"
+              onSubmit={handleSubmit}
+            >
+              <div className="grid gap-4 sm:grid-cols-2">
+                <Field
+                  id="name"
+                  label="Name"
+                  type="text"
+                  placeholder="Your name"
+                  required
+                />
+                <Field
+                  id="email"
+                  label="Email"
+                  type="email"
+                  placeholder="you@example.com"
+                  required
+                />
+              </div>
+
+              <Field
+                id="subject"
+                label="Subject (optional)"
+                type="text"
+                placeholder="What’s this about?"
+              />
+
+              <div>
+                <label
+                  htmlFor="message"
+                  className="block text-sm font-medium text-neutral-100"
+                >
+                  Message
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows={5}
+                  required
+                  className="mt-1 w-full rounded-xl border border-neutral-800 bg-black px-3.5 py-2.5 text-sm text-neutral-50 placeholder:text-neutral-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/90 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                  placeholder="A few lines about your goals, timeline, and any links."
+                />
+                <p className="mt-1 text-[11px] text-neutral-500">
+                  This message is sent directly to my inbox.
+                </p>
+              </div>
+
+              <div className="space-y-2">
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="inline-flex w-full items-center justify-center rounded-xl bg-neutral-50 px-4 py-2.5 text-sm font-medium text-black transition-colors hover:bg-white disabled:cursor-not-allowed disabled:opacity-80"
+                  aria-label="Send message"
+                >
+                  <span className={isSubmitting ? "hidden" : "inline-flex"}>
+                    Send message
+                  </span>
+                  <span
+                    className={
+                      isSubmitting ? "inline-flex items-center gap-2" : "hidden"
+                    }
+                  >
+                    <span className="h-3 w-3 animate-spin rounded-full border-2 border-black border-t-neutral-50" />
+                    Sending…
+                  </span>
+                </button>
+                <p className="text-xs text-neutral-500">
+                  No spam—just a direct reply.
+                </p>
+              </div>
+
+              <div aria-live="polite" className="space-y-2 text-xs">
+                {status === "success" && (
+                  <div className="rounded-xl border border-emerald-500/40 bg-emerald-500/10 px-3 py-2 text-emerald-100">
+                    <p className="font-medium">Message sent.</p>
+                    <p className="text-emerald-100/80">
+                      Thanks—I'll reply to the email you provided.
+                    </p>
+                  </div>
+                )}
+                {status === "error" && (
+                  <div className="rounded-xl border border-rose-500/40 bg-rose-500/10 px-3 py-2 text-rose-100">
+                    <p className="font-medium">Couldn&apos;t send message.</p>
+                    <p className="text-rose-100/80">
+                      {errorMessage ||
+                        "Something went wrong. Please try again, or email me directly."}
+                    </p>
+                  </div>
+                )}
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </section>
   );
 }
@@ -201,4 +202,25 @@ type FieldProps = {
   placeholder?: string;
   required?: boolean;
 };
+
+function Field({ id, label, type, placeholder, required }: FieldProps) {
+  return (
+    <div>
+      <label
+        htmlFor={id}
+        className="block text-sm font-medium text-neutral-100"
+      >
+        {label}
+      </label>
+      <input
+        id={id}
+        name={id}
+        type={type}
+        required={required}
+        placeholder={placeholder}
+        className="mt-1 w-full rounded-xl border border-neutral-800 bg-black px-3.5 py-2.5 text-sm text-neutral-50 placeholder:text-neutral-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/90 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+      />
+    </div>
+  );
+}
 

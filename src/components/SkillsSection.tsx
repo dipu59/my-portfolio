@@ -404,11 +404,11 @@ export function SkillsSection() {
         {skillGroups.map((group, groupIndex) => (
           <motion.article
             key={group.label}
-            initial={{ opacity: 0, y: 24, scale: 0.95 }}
+            initial={{ opacity: 0, y: 24, scale: 0.99 }}
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: true, amount: 0.35 }}
             transition={{
-              duration: 0.7,
+              duration: 0.6,
               delay: 0.06 * groupIndex,
               ease: [0.22, 1, 0.36, 1],
             }}
@@ -418,7 +418,7 @@ export function SkillsSection() {
             <motion.div
               className="pointer-events-none absolute -inset-px rounded-2xl border border-sky-500/0"
               whileHover={{ borderColor: "rgba(56,189,248,0.45)" }}
-              transition={{ duration: 0.35, ease: "easeOut" }}
+              transition={{ duration: 0.26, ease: "easeOut" }}
             />
 
             <div className="relative z-10 p-4 pb-4 sm:p-5">

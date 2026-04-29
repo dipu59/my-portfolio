@@ -100,7 +100,7 @@ export function ProjectsSection() {
     <section
       id="projects"
       aria-labelledby="projects-heading"
-      className="relative mx-auto mt-12 md:mt-32 w-full max-w-5xl px-4 pb-24 sm:px-6 md:px-0"
+      className="relative mx-auto mt-12 md:mt-13 w-full max-w-5xl px-4 pb-24 sm:px-6 md:px-0"
     >
       {/* Section header */}
       <div className="mb-8 flex flex-col gap-3 md:mb-12 md:flex-row md:items-end md:justify-between">
@@ -132,11 +132,11 @@ export function ProjectsSection() {
         {projects.map((project, index) => (
           <motion.article
             key={project.name}
-            initial={{ opacity: 0, y: 30, scale: 0.95 }}
+            initial={{ opacity: 0, y: 30, scale: 0.99 }}
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: true, amount: 0.35 }}
             transition={{
-              duration: 1.2,
+              duration: 0.8,
               delay: 0.05 * index,
               ease: [0.22, 1, 0.36, 1],
             }}

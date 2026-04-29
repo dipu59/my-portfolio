@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { AboutPageContent } from "@/components/AboutPageContent";
+import { Footer } from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "About",
@@ -8,5 +9,10 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPage() {
-  return <AboutPageContent />;
+  return (
+    <>
+      <AboutPageContent />
+      <Footer />
+    </>
+  );
 }

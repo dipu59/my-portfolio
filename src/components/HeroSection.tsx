@@ -27,7 +27,7 @@ export function HeroSection() {
   return (
     <section
       ref={ref}
-      className="relative flex min-h-screen items-center justify-center overflow-hidden px-4 pb-24 pt-32 sm:px-8 md:pt-40"
+      className="relative flex min-h-screen items-center justify-center overflow-hidden px-4 pb-24 pt-32 sm:px-8 md:pt-40 lg:h-176 lg:min-h-0"
     >
       <motion.div
         style={{ y: yParallax }}
