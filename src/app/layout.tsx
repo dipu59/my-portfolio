@@ -7,6 +7,7 @@ import { LoadingScreen } from "../components/LoadingScreen";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { defaultMetadata, personJsonLd } from "../seo/config";
+import { Analytics } from "@vercel/analytics/next";
 
 config.autoAddCss = false;
 
@@ -48,6 +49,7 @@ export default function RootLayout({
         <main className="relative mx-auto min-h-screen w-full max-w-6xl px-0 sm:px-4">
           {children}
         </main>
+        <Analytics />
       </body>
     </html>
   );
