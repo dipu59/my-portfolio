@@ -1,33 +1,236 @@
 @import "tailwindcss";
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   DESIGN TOKENS — CSS Custom Properties
+   ───────────────────────────────────────
+   Onyx Dark Palette (Permanent Dark Mode).
+   ═══════════════════════════════════════════════════════════════════════════ */
+
 :root {
-  --background: #000000;
-  --foreground: #f9fafb;
+  /* ── Structural ─────────────────────────────────────────────────────── */
+  --bg-base:        #000000;
+  --bg-surface:     #0a0a0d;
+  --bg-elevated:    #111118;
+  --bg-overlay:     rgba(10, 10, 13, 0.80);
+
+  /* ── Typography ─────────────────────────────────────────────────────── */
+  --text-primary:   #ffffff;    /* pure white */
+  --text-secondary: #a3a3a3;    /* neutral-400 */
+  --text-muted:     #737373;    /* neutral-500 */
+
+  /* ── Borders ────────────────────────────────────────────────────────── */
+  --border-subtle:  #18181b;    /* zinc-900  */
+  --border-default: #27272a;    /* zinc-800  */
+  --border-strong:  #3f3f46;    /* zinc-700  */
+
+  /* ── Accent ─────────────────────────────────────────────────────────── */
+  --accent-cyan:    #06b6d4;
+  --accent-violet:  #8b5cf6;
+  --accent-emerald: #34d399;
+
+  /* ── Cyber-border pulse colours ─────────────────────────────────────── */
+  --pulse-color-from: rgba(139, 92, 246, 0.00);  /* violet, transparent   */
+  --pulse-color-mid:  rgba(139, 92, 246, 0.70);  /* violet peak           */
+  --pulse-color-to:   rgba(6,   182, 212, 0.00); /* cyan, transparent     */
+
+  /* ── Font stack ─────────────────────────────────────────────────────── */
+  --font-sans: var(--font-geist-sans), system-ui, -apple-system,
+    BlinkMacSystemFont, "SF Pro Text", sans-serif;
+  --font-mono: var(--font-geist-mono), "SF Mono", "Fira Code", monospace;
 }
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   TAILWIND @theme TOKENS
+   ─────────────────────────────────────────────────────────────────────────
+   These expose our CSS vars into Tailwind's utility engine so you can write
+   `bg-base`, `text-primary`, etc. as first-class Tailwind classes.
+   ═══════════════════════════════════════════════════════════════════════════ */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: var(--bg-base);
+  --color-foreground: var(--text-primary);
+  --font-sans:        var(--font-sans);
+  --font-mono:        var(--font-mono);
+
+  /* Expose the structural tokens */
+  --color-base:       var(--bg-base);
+  --color-surface:    var(--bg-surface);
+  --color-elevated:   var(--bg-elevated);
+  --color-overlay:    var(--bg-overlay);
+  --color-primary:    var(--text-primary);
+  --color-secondary:  var(--text-secondary);
+  --color-muted:      var(--text-muted);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #000000;
-    --foreground: #f9fafb;
-  }
+/* ═══════════════════════════════════════════════════════════════════════════
+   GLOBAL BASE STYLES
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+html {
+  /* Native smooth scrolling — zero JS, zero layout thrash */
+  scroll-behavior: smooth;
+  /* Prevent text-size inflation on mobile after orientation change */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
   min-height: 100vh;
-  background-color: #000000;
-  color: var(--foreground);
-  font-family:
-    var(--font-geist-sans),
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "SF Pro Text",
-    sans-serif;
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  /* Prevent horizontal overflow globally */
+  overflow-x: hidden;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   KEYFRAMES
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/**
+ * border-pulse
+ * ────────────
+ * Animates a short neon gradient "shooting star" down the vertical borders.
+ *
+ * Implementation details:
+ * • Only `transform: translateY()` is animated — this is a compositor-only
+ *   property. The gradient itself is static; only its position changes.
+ * • The element is 120px tall, travels from -120px (above viewport) to
+ *   100vh + 120px (below viewport) so it always exits cleanly.
+ * • `will-change: transform` on the element (set via .cyber-pulse-line)
+ *   hints the GPU to pre-promote the layer.
+ */
+@keyframes border-pulse {
+  0% {
+    transform: translateY(-120px);
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(calc(100vh + 120px));
+    opacity: 0;
+  }
+}
+
+/**
+ * subtle-fade-in
+ * ──────────────
+ * General entrance animation for layout elements.
+ * Uses opacity + translateY — both compositor-friendly.
+ */
+@keyframes subtle-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CYBER BORDER PULSE UTILITY CLASSES
+   ─────────────────────────────────────────────────────────────────────────
+   Applied to the <span> elements inside each gutter column in CyberLayout.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.cyber-pulse-line {
+  /* Position along the border */
+  position: absolute;
+  left: -1px;          /* sits on top of the border pixel */
+  top: 0;
+  width: 2px;
+  height: 120px;
+
+  /* The gradient: transparent → neon violet → cyan → transparent */
+  background: linear-gradient(
+    to bottom,
+    var(--pulse-color-from),
+    var(--pulse-color-mid)  40%,
+    var(--pulse-color-to)
+  );
+
+  /* GPU layer promotion */
+  will-change: transform;
+  transform: translateY(-120px);
+
+  /* Animation: 5s duration, linear, loops forever */
+  animation: border-pulse 5s linear infinite;
+
+  /* Soft glow around the pulse line using box-shadow */
+  box-shadow: 0 0 8px 2px var(--pulse-color-mid);
+
+  /* Pointer events: none so it never intercepts clicks */
+  pointer-events: none;
+}
+
+/**
+ * Right border pulse variant — delayed by 2.5s so the two borders
+ * animate out of phase for a more organic, asymmetric rhythm.
+ */
+.cyber-pulse-line--delayed {
+  left: auto;
+  right: -1px;
+  animation-delay: 2.5s;
+  /* Shift colours slightly toward cyan for visual differentiation */
+  background: linear-gradient(
+    to bottom,
+    rgba(6, 182, 212, 0.00),
+    rgba(6, 182, 212, 0.65) 40%,
+    rgba(139, 92, 246, 0.00)
+  );
+  box-shadow: 0 0 8px 2px rgba(6, 182, 212, 0.45);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   FOCUS-VISIBLE RING RESET
+   ─────────────────────────────────────────────────────────────────────────
+   Remove ugly default outline; replace with our ring system only on keyboard
+   navigation (not mouse clicks). This is handled via Tailwind's
+   focus-visible: variants, but we also set the base here.
+   ═══════════════════════════════════════════════════════════════════════════ */
+*:focus {
+  outline: none;
+}
+*:focus-visible {
+  outline: 2px solid var(--accent-cyan);
+  outline-offset: 2px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SCROLLBAR STYLING (Webkit / Firefox)
+   ─────────────────────────────────────────────────────────────────────────
+   Thin, theme-aware scrollbars that feel native on macOS/Windows.
+   ═══════════════════════════════════════════════════════════════════════════ */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-default);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border-strong);
+}
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-default) transparent;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SELECTION HIGHLIGHT
+   ═══════════════════════════════════════════════════════════════════════════ */
+::selection {
+  background-color: rgba(139, 92, 246, 0.30);
+  color: inherit;
 }

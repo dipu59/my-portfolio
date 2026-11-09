@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
@@ -85,7 +85,7 @@ export function Navbar() {
 
   const handleCloseMenu = () => setIsMenuOpen(false);
   const currentSection: SectionId =
-    pathname === "/" ? activeSection : isAboutPage ? "about" : "home";
+    pathname === "/" ? activeSection : pathname === "/about" ? "about" : "home";
 
   const scrollToSection = (section: SectionId) => {
     if (section === "home") {
@@ -133,32 +133,42 @@ export function Navbar() {
       initial={{ y: -40, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-      className="pointer-events-none fixed inset-x-0 top-0 z-40 flex justify-center"
+      className="pointer-events-none fixed inset-x-0 top-0 z-50 flex justify-center"
     >
+      {/*
+        ─── Glassmorphic Navbar ───────────────────────────────────────────────
+        Strategy:
+        • backdrop-blur-md is baked into the className so the browser paints
+          it on the compositor thread — no Framer layout thrashing.
+        • Only bg-color, border-color, and box-shadow are animated via Framer
+          Motion (GPU-friendly opacity / color transitions).
+        • `will-change: background-color, box-shadow` hints the GPU ahead.
+        • A thin inset top highlight emulates real glass by reflecting "light".
+      */}
       <motion.nav
-        className="pointer-events-auto relative mt-4 mx-2 lg:mx-0 flex w-full max-w-5xl items-center justify-between rounded-full border border-zinc-800/80 px-4 py-2 text-sm text-zinc-200"
+        className="pointer-events-auto relative mt-3 mx-3 lg:mx-0 flex w-full max-w-5xl items-center justify-between rounded-2xl border px-4 py-2.5 text-sm text-zinc-200 backdrop-blur-md"
         animate={{
           backgroundColor: isAboutPage
             ? scrolled
-              ? "rgba(255,255,255,0.94)"
-              : "rgba(255,255,255,0.86)"
+              ? "rgba(255,255,255,0.72)"
+              : "rgba(255,255,255,0.52)"
             : scrolled
-              ? "rgba(15,15,17,0.85)"
-              : "rgba(6,6,10,0.65)",
-          backdropFilter: scrolled ? "blur(22px)" : "blur(14px)",
+              ? "rgba(8,8,12,0.60)"
+              : "rgba(4,4,8,0.30)",
           borderColor: isAboutPage
-            ? scrolled
-              ? "rgba(226,232,240,0.95)"
-              : "rgba(226,232,240,0.85)"
+            ? "rgba(203,213,225,0.55)"
             : scrolled
-              ? "rgba(63,63,70,0.9)"
-              : "rgba(39,39,42,0.9)",
+              ? "rgba(63,63,70,0.55)"
+              : "rgba(39,39,42,0.40)",
           boxShadow: isAboutPage
             ? scrolled
-              ? "0 16px 40px rgba(15,23,42,0.08)"
-              : "0 10px 28px rgba(15,23,42,0.05)"
-            : "0 0 0 rgba(0,0,0,0)",
+              ? "0 8px 32px rgba(15,23,42,0.10), inset 0 1px 0 rgba(255,255,255,0.80)"
+              : "0 4px 16px rgba(15,23,42,0.06), inset 0 1px 0 rgba(255,255,255,0.65)"
+            : scrolled
+              ? "0 8px 32px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.05)"
+              : "0 4px 16px rgba(0,0,0,0.30), inset 0 1px 0 rgba(255,255,255,0.03)",
         }}
+        style={{ willChange: "background-color, box-shadow" }}
         transition={{ duration: 0.35, ease: "easeOut" }}
       >
         <Link href="/" className="flex items-center gap-2">
@@ -273,6 +283,7 @@ export function Navbar() {
               transition={{ duration: 0.3 }}
             />
           </motion.a>
+
 
           <motion.button
             type="button"
@@ -404,3 +415,5 @@ export function Navbar() {
     </motion.header>
   );
 }
+
+

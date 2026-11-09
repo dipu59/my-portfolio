@@ -4,6 +4,7 @@ import Script from "next/script";
 import "./globals.css";
 import { Navbar } from "../components/Navbar";
 import { LoadingScreen } from "../components/LoadingScreen";
+import { CyberLayout } from "../components/CyberLayout";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { defaultMetadata, personJsonLd } from "../seo/config";
@@ -28,7 +29,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <head>
         <Script
           src="https://kit.fontawesome.com/6a41dd5244.js"
@@ -41,13 +42,13 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black text-zinc-100 overflow-x-hidden `}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden bg-black text-white`}
       >
         <LoadingScreen />
         <Navbar />
-        <main className="relative mx-auto min-h-screen w-full max-w-6xl px-0 sm:px-4">
+        <CyberLayout>
           {children}
-        </main>
+        </CyberLayout>
       </body>
     </html>
   );

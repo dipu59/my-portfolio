@@ -1,555 +1,439 @@
 "use client";
 
-import { motion } from "framer-motion";
+/**
+ * SkillsSection — Minimal Production Dashboard Layout
+ * ──────────────────────────────────────────────────────────
+ * Architectural Specifications:
+ * • Dark Mode Locked: Pure black base (`#000000`) with high-contrast white text.
+ * • Clean Layout: Removed all proficiency level badges/labels ("Primary", "Strong", "Familiar").
+ * • Focus on Application: Each technology is framed in a minimal grid cell paired with its
+ *   verified production trace ("Applied in: ...").
+ * • Category Neon Accents:
+ *   - Frontend: Vibrant Cyan / Blue (`#06B6D4` → `#3B82F6`)
+ *   - Backend: Hyper Green / Emerald (`#10B981` → `#22C55E`)
+ *   - Architecture: Bright Violet / Purple (`#8B5CF6` → `#EC4899`)
+ *   - Tooling: Electric Amber / Orange (`#F59E0B` → `#EF4444`)
+ * • Mouse Spotlight Glow: Hardware-accelerated radial spotlight dynamically reflecting
+ *   the category's neon color gradient across borders and backdrop on hover (60 FPS).
+ */
+
+import React from "react";
+import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
 import type { IconType } from "react-icons";
 import {
-  FaCircleCheck,
-  FaCubes,
-  FaDatabase,
-  FaGaugeHigh,
-  FaPlug,
-  FaShieldHalved,
-} from "react-icons/fa6";
-import { LuBox, LuBoxes, LuCloudCog } from "react-icons/lu";
-import {
-  SiDocker,
-  SiEslint,
-  SiExpress,
-  SiFramer,
-  SiGithub,
-  SiMongodb,
   SiNextdotjs,
+  SiReact,
+  SiTypescript,
+  SiTailwindcss,
+  SiFramer,
+  SiReactquery,
   SiNodedotjs,
   SiPostgresql,
   SiPrisma,
-  SiReact,
-  SiReactquery,
-  SiStorybook,
-  SiTailwindcss,
-  SiTypescript,
+  SiRedis,
+  SiGithub,
   SiVercel,
+  SiEslint,
+  SiDocker,
 } from "react-icons/si";
+import { TbBrandSocketIo } from "react-icons/tb";
+import {
+  LuDatabase,
+  LuShieldCheck,
+  LuGauge,
+  LuLayers,
+  LuWorkflow,
+  LuBoxes,
+  LuNetwork,
+  LuCircleCheck,
+  LuTerminal,
+} from "react-icons/lu";
 
-type SkillLevel = "primary" | "strong" | "working";
-
-type Skill = {
+interface TechItem {
   name: string;
-  level: SkillLevel;
-  icon: IconType;
-  tooltip: string;
-};
-
-type SkillGroup = {
-  label: string;
-  icon: string;
-  focusLabel: "Primary stack" | "Strong area" | "Supporting";
-  tagline: string;
   appliedIn: string;
-  primarySkills: Skill[];
-  supportingSkills: Skill[];
-};
+  icon: IconType;
+}
 
-const skillGroups: SkillGroup[] = [
+interface DomainBlock {
+  id: string;
+  title: string;
+  code: string;
+  summary: string;
+  skills: TechItem[];
+  theme: {
+    gradient: string;
+    dotBg: string;
+    borderGlow1: string;
+    borderGlow2: string;
+    backdropGlow: string;
+    iconHover: string;
+    codeColor: string;
+  };
+}
+
+const DOMAINS: DomainBlock[] = [
   {
-    label: "Frontend engineering",
-    icon: "interface",
-    focusLabel: "Primary stack",
-    tagline:
-      "Shipping fast, accessible interfaces with predictable state and smooth motion.",
-    appliedIn: "My Pay, Chill‑Bay, Disester IO",
-    primarySkills: [
+    id: "frontend",
+    title: "Frontend",
+    code: "DOM-01 // CLIENT INTERFACES",
+    summary: "Server-driven rendering, predictable reactive state, and 60 FPS motion fidelity.",
+    theme: {
+      gradient: "from-[#06B6D4] to-[#3B82F6]",
+      dotBg: "bg-[#06B6D4]",
+      borderGlow1: "rgba(6, 182, 212, 0.75)",
+      borderGlow2: "rgba(59, 130, 246, 0.45)",
+      backdropGlow: "rgba(6, 182, 212, 0.08)",
+      iconHover: "group-hover/cell:text-cyan-400",
+      codeColor: "text-cyan-400",
+    },
+    skills: [
       {
-        name: "Next.js",
-        level: "primary",
+        name: "Next.js (App Router)",
+        appliedIn: "My Pay, Disester IO, Stay Scout",
         icon: SiNextdotjs,
-        tooltip: "SSR/SSG, routing, API routes, image optimization, metadata.",
       },
       {
-        name: "React",
-        level: "primary",
+        name: "React 19 & Suspense",
+        appliedIn: "Chill-Bay, Resturent Feedback",
         icon: SiReact,
-        tooltip:
-          "Component architecture, hooks, context, performance profiling and memoization.",
       },
       {
         name: "TypeScript",
-        level: "primary",
+        appliedIn: "All Shipped Repositories",
         icon: SiTypescript,
-        tooltip:
-          "Typed props/hooks, API types, safer refactors and DX improvements.",
       },
       {
         name: "Tailwind CSS",
-        level: "strong",
+        appliedIn: "Design Tokens, Cyber-Column System",
         icon: SiTailwindcss,
-        tooltip:
-          "Responsive layouts, dark themes, design systems and tokenized spacing.",
       },
-    ],
-    supportingSkills: [
       {
         name: "Framer Motion",
-        level: "strong",
+        appliedIn: "Disester IO, Interactive Cards",
         icon: SiFramer,
-        tooltip:
-          "Micro‑interactions, entrance animations, scroll‑based motion and layout transitions.",
       },
       {
-        name: "React Query",
-        level: "working",
+        name: "React Query & Zustand",
+        appliedIn: "Chill-Bay State, Checkout Flows",
         icon: SiReactquery,
-        tooltip:
-          "Server state management, caching, background refetch and loading states.",
-      },
-      {
-        name: "Zustand",
-        level: "working",
-        icon: LuBoxes,
-        tooltip: "Lightweight global state for UI and feature flags.",
       },
     ],
   },
   {
-    label: "Backend & APIs",
-    icon: "server",
-    focusLabel: "Primary stack",
-    tagline:
-      "Designing clear APIs with validation, auth and database‑backed workflows.",
-    appliedIn: "Restaurant Feedback, My Pay",
-    primarySkills: [
+    id: "backend",
+    title: "Backend & APIs",
+    code: "DOM-02 // SERVICES & RUNTIMES",
+    summary: "High-throughput asynchronous runtimes, relational schemas, and WebSocket sync.",
+    theme: {
+      gradient: "from-[#10B981] to-[#22C55E]",
+      dotBg: "bg-[#10B981]",
+      borderGlow1: "rgba(16, 185, 129, 0.75)",
+      borderGlow2: "rgba(34, 197, 94, 0.45)",
+      backdropGlow: "rgba(16, 185, 129, 0.08)",
+      iconHover: "group-hover/cell:text-emerald-400",
+      codeColor: "text-emerald-400",
+    },
+    skills: [
       {
-        name: "Node.js",
-        level: "primary",
+        name: "Node.js (Async I/O)",
+        appliedIn: "Resturent Feedback, Custom APIs",
         icon: SiNodedotjs,
-        tooltip:
-          "REST APIs, async flows, background tasks and integration with external services.",
       },
       {
-        name: "RESTful API design",
-        level: "primary",
-        icon: FaPlug,
-        tooltip:
-          "Resource design, pagination, filtering, error handling and version‑friendly endpoints.",
+        name: "RESTful API Architecture",
+        appliedIn: "Stay Scout, My Pay Checkout",
+        icon: LuNetwork,
       },
       {
         name: "PostgreSQL",
-        level: "strong",
+        appliedIn: "Resturent Feedback System",
         icon: SiPostgresql,
-        tooltip:
-          "Relational modeling, indexing for reads, basic query optimization.",
       },
       {
-        name: "Prisma",
-        level: "strong",
+        name: "Prisma ORM",
+        appliedIn: "Relational Modeling & Migrations",
         icon: SiPrisma,
-        tooltip:
-          "Schema modeling, migrations, type‑safe queries and relation handling.",
-      },
-    ],
-    supportingSkills: [
-      {
-        name: "Express.js",
-        level: "working",
-        icon: SiExpress,
-        tooltip:
-          "Routing, middleware, request validation and error handling patterns.",
       },
       {
-        name: "Next.js API Routes",
-        level: "working",
-        icon: SiNextdotjs,
-        tooltip:
-          "Co‑locating backend logic with UI, auth checks and simple webhooks.",
+        name: "Socket.io",
+        appliedIn: "Chill-Bay Real-Time Rooms",
+        icon: TbBrandSocketIo,
       },
       {
-        name: "MongoDB",
-        level: "working",
-        icon: SiMongodb,
-        tooltip:
-          "Document modeling and basic aggregations for content‑style data.",
+        name: "Redis",
+        appliedIn: "Transient Sessions & Rate Limits",
+        icon: SiRedis,
       },
     ],
   },
   {
-    label: "Architecture & reliability",
-    icon: "architecture",
-    focusLabel: "Strong area",
-    tagline:
-      "Keeping features understandable as they grow, based on real project constraints.",
-    appliedIn: "Restaurant Feedback, Chill‑Bay",
-    primarySkills: [
+    id: "architecture",
+    title: "Architecture & Reliability",
+    code: "DOM-03 // SYSTEM INTEGRITY",
+    summary: "Modular domain boundaries, strict input verification, and sub-second Web Vitals.",
+    theme: {
+      gradient: "from-[#8B5CF6] to-[#EC4899]",
+      dotBg: "bg-[#8B5CF6]",
+      borderGlow1: "rgba(139, 92, 246, 0.75)",
+      borderGlow2: "rgba(236, 72, 153, 0.45)",
+      backdropGlow: "rgba(139, 92, 246, 0.08)",
+      iconHover: "group-hover/cell:text-purple-400",
+      codeColor: "text-purple-400",
+    },
+    skills: [
       {
-        name: "Authentication & authorization",
-        level: "strong",
-        icon: FaShieldHalved,
-        tooltip:
-          "Session‑based auth, protected routes, role checks and guard components.",
+        name: "Modular Architecture",
+        appliedIn: "Full-Stack Project Structuring",
+        icon: LuLayers,
       },
       {
-        name: "Database‑backed workflows",
-        level: "strong",
-        icon: FaDatabase,
-        tooltip:
-          "Designing tables and relations around real user flows and constraints.",
+        name: "Auth & RBAC Guards",
+        appliedIn: "Resturent Feedback, User Portals",
+        icon: LuShieldCheck,
       },
       {
-        name: "Validation & error handling",
-        level: "strong",
-        icon: FaCircleCheck,
-        tooltip:
-          "Input validation, safe fallbacks, user‑facing errors and logging points.",
-      },
-    ],
-    supportingSkills: [
-      {
-        name: "Caching strategies",
-        level: "working",
-        icon: LuBox,
-        tooltip:
-          "Client‑side caching, incremental revalidation and avoiding duplicate work.",
+        name: "Relational Data Modeling",
+        appliedIn: "Database Schema Normalization",
+        icon: LuDatabase,
       },
       {
-        name: "Performance profiling",
-        level: "working",
-        icon: FaGaugeHigh,
-        tooltip:
-          "Measuring LCP/FID, spotting slow components and tightening network usage.",
+        name: "Validation & Error Handlers",
+        appliedIn: "Zod Schemas, API Route Safeguards",
+        icon: LuCircleCheck,
       },
       {
-        name: "Modular feature design",
-        level: "working",
-        icon: FaCubes,
-        tooltip:
-          "Separating UI, domain logic and data access for safer changes.",
+        name: "Web Performance Profiling",
+        appliedIn: "Sub-1s LCP & CLS Optimization",
+        icon: LuGauge,
+      },
+      {
+        name: "State Orchestration",
+        appliedIn: "Real-Time Sync Fallback States",
+        icon: LuBoxes,
       },
     ],
   },
   {
-    label: "Tooling & workflow",
-    icon: "tooling",
-    focusLabel: "Supporting",
-    tagline:
-      "Short feedback loops and deploys that are boring on purpose (in a good way).",
-    appliedIn: "Most personal & freelance projects",
-    primarySkills: [
+    id: "tooling",
+    title: "Tooling & Workflow",
+    code: "DOM-04 // DEVOPS & CADENCE",
+    summary: "Deterministic build steps, automated code inspection, and atomic delivery cycles.",
+    theme: {
+      gradient: "from-[#F59E0B] to-[#EF4444]",
+      dotBg: "bg-[#F59E0B]",
+      borderGlow1: "rgba(245, 158, 11, 0.75)",
+      borderGlow2: "rgba(239, 68, 68, 0.45)",
+      backdropGlow: "rgba(245, 158, 11, 0.08)",
+      iconHover: "group-hover/cell:text-amber-400",
+      codeColor: "text-amber-400",
+    },
+    skills: [
       {
-        name: "Git & GitHub",
-        level: "strong",
+        name: "Git & GitHub Workflow",
+        appliedIn: "Atomic PRs, Branch Hygiene",
         icon: SiGithub,
-        tooltip:
-          "Branching, code reviews, PR hygiene and conflict‑safe workflows.",
       },
       {
-        name: "Vercel",
-        level: "strong",
+        name: "Vercel Platform",
+        appliedIn: "Edge Deployments, Preview URLs",
         icon: SiVercel,
-        tooltip:
-          "Preview environments, environment variables and rollouts for Next.js apps.",
       },
       {
         name: "ESLint & Prettier",
-        level: "strong",
+        appliedIn: "Static Analysis, CI Verification",
         icon: SiEslint,
-        tooltip:
-          "Consistent style, catching bugs early and keeping diffs readable.",
-      },
-    ],
-    supportingSkills: [
-      {
-        name: "CI/CD pipelines",
-        level: "working",
-        icon: LuCloudCog,
-        tooltip:
-          "Automated builds, basic checks and deploys on merge to main branches.",
       },
       {
-        name: "Docker (basics)",
-        level: "working",
+        name: "Docker (Containers)",
+        appliedIn: "Development Environment Parity",
         icon: SiDocker,
-        tooltip:
-          "Containerizing dev environments and simple services for local parity.",
       },
       {
-        name: "Storybook",
-        level: "working",
-        icon: SiStorybook,
-        tooltip:
-          "Documenting reusable components and visual regression‑friendly UIs.",
+        name: "CI/CD Pipelines",
+        appliedIn: "Automated Build Verification",
+        icon: LuWorkflow,
+      },
+      {
+        name: "Terminal & HTTP Tooling",
+        appliedIn: "CLI Automation, API Verification",
+        icon: LuTerminal,
       },
     ],
   },
 ];
 
-const chipVariants = {
-  initial: { opacity: 0, y: 10, scale: 0.96 },
-  animate: (index: number) => ({
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: {
-      delay: 0.04 * index,
-      duration: 0.35,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  }),
-};
+function SpotlightDashboardCard({
+  domain,
+  index,
+}: {
+  domain: DomainBlock;
+  index: number;
+}) {
+  const mouseX = useMotionValue(-500);
+  const mouseY = useMotionValue(-500);
 
-const levelLabelClasses: Record<SkillLevel, string> = {
-  primary:
-    "bg-emerald-500/15 text-emerald-300 border-emerald-400/40 group-hover:bg-emerald-400/20",
-  strong:
-    "bg-sky-500/10 text-sky-300 border-sky-400/40 group-hover:bg-sky-500/15",
-  working:
-    "bg-zinc-900 text-zinc-300 border-zinc-700 group-hover:bg-zinc-800/90",
-};
+  function handleMouseMove({
+    currentTarget,
+    clientX,
+    clientY,
+  }: React.MouseEvent<HTMLDivElement>) {
+    const { left, top } = currentTarget.getBoundingClientRect();
+    mouseX.set(clientX - left);
+    mouseY.set(clientY - top);
+  }
 
-const levelText: Record<SkillLevel, string> = {
-  primary: "Primary",
-  strong: "Strong",
-  working: "Familiar",
-};
+  function handleMouseLeave() {
+    mouseX.set(-500);
+    mouseY.set(-500);
+  }
 
-const skillIconClasses: Record<SkillLevel, string> = {
-  primary: "text-emerald-300",
-  strong: "text-sky-300",
-  working: "text-zinc-300",
-};
+  // Hardware-accelerated radial spotlight gradients for border and inner backdrop
+  const borderSpotlight = useMotionTemplate`radial-gradient(280px circle at ${mouseX}px ${mouseY}px, ${domain.theme.borderGlow1}, ${domain.theme.borderGlow2}, transparent 70%)`;
+  const backdropSpotlight = useMotionTemplate`radial-gradient(360px circle at ${mouseX}px ${mouseY}px, ${domain.theme.backdropGlow}, transparent 80%)`;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{
+        duration: 0.5,
+        delay: index * 0.08,
+        ease: [0.22, 1, 0.36, 1],
+      }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className="group relative rounded-xl p-px overflow-hidden bg-neutral-900/90 transform-gpu will-change-transform"
+    >
+      {/* ── Dynamic Category Neon Border Glow ─────────────────────────── */}
+      <motion.div
+        aria-hidden="true"
+        className="pointer-events-none absolute -inset-px rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        style={{ background: borderSpotlight }}
+      />
+
+      {/* ── Inner Dashboard Surface ───────────────────────────────────── */}
+      <div className="relative rounded-[11px] bg-[#000000] p-5 sm:p-6 h-full flex flex-col justify-between overflow-hidden border border-neutral-900/90 group-hover:border-transparent transition-colors duration-300">
+        
+        {/* Dynamic Category Backdrop Glow */}
+        <motion.div
+          aria-hidden="true"
+          className="pointer-events-none absolute -inset-px rounded-[11px] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          style={{ background: backdropSpotlight }}
+        />
+
+        {/* Content Body */}
+        <div className="relative z-10">
+          
+          {/* Block Header */}
+          <div className="pb-4 border-b border-neutral-900/90">
+            <div className="flex items-center justify-between gap-3 mb-2">
+              <div className="flex items-center gap-2.5">
+                <span className={`h-2 w-2 rounded-full ${domain.theme.dotBg} shadow-xs`} />
+                <h3 className="text-lg font-bold text-white tracking-tight">
+                  {domain.title}
+                </h3>
+              </div>
+              <span className={`font-mono text-[10px] uppercase tracking-widest ${domain.theme.codeColor}`}>
+                {domain.code}
+              </span>
+            </div>
+            <p className="text-xs text-neutral-400 leading-relaxed">
+              {domain.summary}
+            </p>
+          </div>
+
+          {/* Minimal Grid Cells (No level labels/badges) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-4">
+            {domain.skills.map((skill) => {
+              const Icon = skill.icon;
+              return (
+                <div
+                  key={skill.name}
+                  className="group/cell flex items-start gap-2.5 p-2.5 rounded-lg border border-neutral-900/90 bg-neutral-950/70 hover:border-neutral-800 hover:bg-neutral-900/40 transition-all duration-150"
+                >
+                  <Icon
+                    className={`h-4 w-4 text-neutral-400 ${domain.theme.iconHover} transition-colors shrink-0 mt-0.5`}
+                  />
+                  <div className="min-w-0 flex-1">
+                    <p className="text-xs sm:text-sm font-semibold text-white tracking-tight truncate">
+                      {skill.name}
+                    </p>
+                    <p className="font-mono text-[10px] sm:text-[11px] text-neutral-500 truncate mt-0.5">
+                      Applied in: {skill.appliedIn}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+        </div>
+
+        {/* Block Footer Indicator */}
+        <div className="relative z-10 pt-4 mt-4 border-t border-neutral-900/90 flex items-center justify-between font-mono text-[10px] text-neutral-500">
+          <span>STATUS // VERIFIED IN PROD</span>
+          <span className={domain.theme.codeColor}>6 TECHNOLOGIES</span>
+        </div>
+
+      </div>
+    </motion.div>
+  );
+}
 
 export function SkillsSection() {
   return (
     <section
       id="skills"
       aria-labelledby="skills-heading"
-      className="relative mx-auto mt-16 w-full max-w-5xl px-4 pb-24 sm:px-6 md:mt-28 md:px-0"
+      className="relative w-full bg-[#000000] text-white py-20 md:py-28 border-t border-neutral-900"
     >
-      {/* Soft background glow */}
-      <div className="pointer-events-none absolute inset-x-0 -top-32 -z-10 h-72 bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.18),transparent_60%)]" />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-72 bg-[radial-gradient(circle_at_bottom,rgba(168,85,247,0.16),transparent_60%)]" />
+      <div className="w-full px-4 sm:px-6 lg:px-0">
+        
+        {/* ── Section Header ────────────────────────────────────────────── */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-10 border-b border-neutral-900 mb-10">
+          <div className="space-y-3">
+            <div className="inline-flex items-center gap-2">
+              <span className="h-1.5 w-1.5 rounded-full bg-violet-400" />
+              <p className="font-mono text-xs font-semibold uppercase tracking-[0.25em] text-neutral-400">
+                04 // Technical Arsenal
+              </p>
+            </div>
+            <h2
+              id="skills-heading"
+              className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white"
+            >
+              Engineered for scale &amp; reliability.
+            </h2>
+            <p className="max-w-xl text-sm sm:text-base text-neutral-400 leading-relaxed">
+              Production capabilities evaluated through delivered projects—emphasizing
+              clean architecture, end-to-end type safety, and real-world system constraints.
+            </p>
+          </div>
 
-      {/* Header + quick metrics */}
-      <div className="mb-6 flex flex-col gap-4 md:mb-10 md:flex-row md:items-end md:justify-between">
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-sky-400/80">
-            Skill set
-          </p>
-          <h2
-            id="skills-heading"
-            className="mt-2 text-3xl font-semibold tracking-tight text-zinc-50 sm:text-4xl"
-          >
-            Full‑stack, production‑oriented.
-          </h2>
-          <p className="mt-2 max-w-xl text-sm text-zinc-400">
-            Primary focus on React/Next.js + TypeScript with real database,
-            auth, validation and performance work applied in shipped projects.
-          </p>
-
-          {/* Highlighted core stack */}
-          <div className="mt-3 flex flex-wrap gap-2 text-[11px]">
-            {[
-              { label: "Next.js", metric: "4+ projects", emphasis: true },
-              { label: "React", metric: "4+ projects", emphasis: true },
-              { label: "TypeScript", metric: "3+ projects", emphasis: true },
-            ].map((core) => (
-              <div
-                key={core.label}
-                className="group inline-flex items-center gap-1.5 rounded-full border border-sky-500/40 bg-linear-to-r from-sky-500/25 via-cyan-400/20 to-transparent px-3 py-1 text-[11px] text-sky-50 shadow-[0_0_24px_rgba(56,189,248,0.45)]"
-              >
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,0.7)]" />
-                <span className="font-medium">{core.label}</span>
-                <span className="text-[10px] text-sky-100/80">
-                  {core.metric}
-                </span>
-              </div>
-            ))}
+          {/* Recruiter / Engineer Verification Badge */}
+          <div className="flex items-center gap-4 font-mono text-xs border border-neutral-800 bg-neutral-950 px-4 py-2.5 rounded-lg text-neutral-400 shrink-0">
+            <div className="flex items-center gap-2">
+              <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="text-white font-medium">4 DOMAINS</span>
+            </div>
+            <span className="h-3 w-px bg-neutral-800" />
+            <span>24 TECHNOLOGIES</span>
           </div>
         </div>
 
-        {/* Quick metrics row for recruiters */}
-        <div className="space-y-2 rounded-2xl border border-zinc-800/80 bg-zinc-950/70 p-3 text-[11px] text-zinc-300 backdrop-blur-xl">
-          <div className="flex items-center justify-between gap-4">
-            <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-zinc-500">
-              Overview
-            </span>
-          </div>
-          <div className="mt-1 grid grid-cols-2 gap-2 text-[11px]">
-            <div className="flex flex-col">
-              <span className="text-xs font-semibold text-zinc-100">
-                4+ shipped projects
-              </span>
-              <span className="text-[10px] text-zinc-500">
-                Next.js, Node.js, PostgreSQL, Prisma.
-              </span>
-            </div>
-            <div className="flex flex-col">
-              <span className="text-xs font-semibold text-zinc-100">
-                Full‑stack focus
-              </span>
-              <span className="text-[10px] text-zinc-500">
-                Auth, DB design, validation, performance and DX.
-              </span>
-            </div>
-          </div>
-          <a
-            href="#projects"
-            className="inline-flex items-center gap-1 text-[10px] font-medium text-sky-300 hover:text-sky-200"
-          >
-            <span>View applied skills in projects</span>
-            <span className="text-[9px]">↗</span>
-          </a>
-        </div>
-      </div>
-
-      {/* Skill groups */}
-      <div className="grid gap-5 md:grid-cols-2">
-        {skillGroups.map((group, groupIndex) => (
-          <motion.article
-            key={group.label}
-            initial={{ opacity: 0, y: 24, scale: 0.99 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            viewport={{ once: true, amount: 0.35 }}
-            transition={{
-              duration: 0.6,
-              delay: 0.06 * groupIndex,
-              ease: [0.22, 1, 0.36, 1],
-            }}
-            className="group relative overflow-hidden rounded-2xl border border-zinc-800/80 bg-linear-to-br from-sky-500/10 via-zinc-950/90 to-transparent shadow-[0_18px_45px_rgba(0,0,0,0.85)] backdrop-blur-xl"
-          >
-            {/* Animated edge highlight */}
-            <motion.div
-              className="pointer-events-none absolute -inset-px rounded-2xl border border-sky-500/0"
-              whileHover={{ borderColor: "rgba(56,189,248,0.45)" }}
-              transition={{ duration: 0.26, ease: "easeOut" }}
+        {/* ── 4-Domain Dashboard Grid ───────────────────────────────────── */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+          {DOMAINS.map((domain, index) => (
+            <SpotlightDashboardCard
+              key={domain.id}
+              domain={domain}
+              index={index}
             />
+          ))}
+        </div>
 
-            <div className="relative z-10 p-4 pb-4 sm:p-5">
-              <div className="mb-3 flex items-start justify-between gap-3">
-                <div className="space-y-1">
-                  <div className="inline-flex items-center gap-2 rounded-full bg-zinc-900/70 px-2.5 py-1 text-[10px] text-zinc-300">
-                    <span className="h-1.5 w-1.5 rounded-full bg-sky-400 shadow-[0_0_10px_rgba(56,189,248,0.8)]" />
-                    <span className="uppercase tracking-[0.18em] text-zinc-500">
-                      {group.icon}
-                    </span>
-                  </div>
-                  <h3 className="text-sm font-semibold text-zinc-50 sm:text-base">
-                    {group.label}
-                  </h3>
-                  <p className="text-[11px] text-zinc-400">{group.tagline}</p>
-                </div>
-
-                {/* Focus indicator with explicit level */}
-                <div className="flex flex-col items-end gap-1">
-                  <span className="text-[10px] uppercase tracking-[0.18em] text-zinc-500">
-                    Level
-                  </span>
-                  <div className="rounded-full border border-sky-500/40 bg-sky-500/10 px-2 py-0.5 text-[10px] font-medium text-sky-100">
-                    {group.focusLabel}
-                  </div>
-                  <div className="mt-1 text-[10px] text-zinc-500">
-                    Applied in real projects
-                  </div>
-                </div>
-              </div>
-
-              {/* Primary vs supporting split with micro‑interactions */}
-              <div className="mt-2 space-y-3">
-                <div className="space-y-1">
-                  <div className="flex items-center justify-between text-[10px] text-zinc-500">
-                    <span>Primary stack</span>
-                    <span className="rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] text-emerald-300">
-                      Applied in: {group.appliedIn}
-                    </span>
-                  </div>
-                  <div className="flex flex-wrap gap-1.5 pt-1">
-                    {group.primarySkills.map((skill, index) => (
-                      <motion.div
-                        key={skill.name}
-                        custom={index}
-                        variants={chipVariants}
-                        initial="initial"
-                        whileInView="animate"
-                        viewport={{ once: true, amount: 0.6 }}
-                      >
-                        <motion.button
-                          type="button"
-                          title={skill.tooltip}
-                          className="group/button relative inline-flex items-center gap-1.5 overflow-hidden rounded-full border border-zinc-800/80 bg-zinc-950/90 px-3 py-1 text-[11px] text-zinc-100 outline-none transition-all duration-200 hover:border-sky-500/70 hover:bg-sky-500/10"
-                        >
-                          <skill.icon
-                            aria-hidden="true"
-                            className={`relative z-10 h-3.5 w-3.5 shrink-0 ${skillIconClasses[skill.level]}`}
-                          />
-                          <span className="relative z-10">{skill.name}</span>
-                          <span
-                            className={`relative z-10 inline-flex items-center gap-1 rounded-full border px-1.5 py-0.5 text-[9px] ${levelLabelClasses[skill.level]}`}
-                          >
-                            <span>{levelText[skill.level]}</span>
-                          </span>
-                          {/* Subtle hover ring */}
-                          <span className="pointer-events-none absolute inset-0 rounded-full border border-sky-500/0 transition-colors duration-200 group-hover/button:border-sky-500/30" />
-                        </motion.button>
-                      </motion.div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Supporting tools */}
-                <div className="space-y-1">
-                  <div className="flex items-center justify-between text-[10px] text-zinc-500">
-                    <span>Supporting tools</span>
-                    <span className="rounded-full bg-zinc-900 px-2 py-0.5 text-[10px] text-zinc-400">
-                      Complements primary stack
-                    </span>
-                  </div>
-                  <div className="flex flex-wrap gap-1.5 pt-1">
-                    {group.supportingSkills.map((skill, index) => (
-                      <motion.div
-                        key={skill.name}
-                        custom={index + group.primarySkills.length}
-                        variants={chipVariants}
-                        initial="initial"
-                        whileInView="animate"
-                        viewport={{ once: true, amount: 0.6 }}
-                      >
-                        <motion.button
-                          type="button"
-                          title={skill.tooltip}
-                          className="group/button relative inline-flex items-center gap-1.5 overflow-hidden rounded-full border border-zinc-800/80 bg-zinc-950/80 px-3 py-1 text-[11px] text-zinc-200 outline-none transition-all duration-200 hover:border-zinc-500 hover:bg-zinc-900"
-                        >
-                          <skill.icon
-                            aria-hidden="true"
-                            className={`relative z-10 h-3.5 w-3.5 shrink-0 ${skillIconClasses[skill.level]}`}
-                          />
-                          <span className="relative z-10">{skill.name}</span>
-                          <span
-                            className={`relative z-10 inline-flex items-center gap-1 rounded-full border px-1.5 py-0.5 text-[9px] ${levelLabelClasses[skill.level]}`}
-                          >
-                            <span>{levelText[skill.level]}</span>
-                          </span>
-                          <span className="pointer-events-none absolute inset-0 rounded-full border border-zinc-500/0 transition-colors duration-200 group-hover/button:border-zinc-500/30" />
-                        </motion.button>
-                      </motion.div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* Related projects / credibility */}
-              <div className="mt-3 flex items-center justify-between gap-3 border-t border-zinc-800/70 pt-2 text-[10px] text-zinc-500">
-                <div className="flex items-center gap-1.5">
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400/80" />
-                  <span>Applied in: {group.appliedIn}</span>
-                </div>
-                <a
-                  href="#projects"
-                  className="inline-flex items-center gap-1 rounded-full border border-zinc-700 bg-zinc-900/70 px-2 py-0.5 text-[10px] font-medium text-sky-300 hover:border-sky-500/60 hover:bg-zinc-900"
-                >
-                  <span>See related projects</span>
-                  <span className="text-[9px]">↗</span>
-                </a>
-              </div>
-            </div>
-          </motion.article>
-        ))}
       </div>
     </section>
   );

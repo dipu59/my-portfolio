@@ -1,8 +1,18 @@
 "use client";
 
+/**
+ * HeroSection — Fully Responsive Dark Mode Hero Component
+ * ────────────────────────────────────────────────────────
+ * Specifications:
+ * • Dark Mode Locked: Base `#000000` with high-contrast white text.
+ * • Mobile/Tablet: 100% fluid, no clipped widths or restrictive fixed dimensions (`w-full`).
+ * • Typography: Dynamic sizing (`text-3xl md:text-5xl lg:text-6xl`) with stark readability.
+ * • Buttons: Contrast-inverted styling with GPU-accelerated hover physics.
+ */
+
 import Image from "next/image";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import Link from "next/link";
+import { motion } from "framer-motion";
 import { LuArrowUpRight, LuDownload } from "react-icons/lu";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -11,221 +21,147 @@ import {
   faLinkedinIn,
   faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
-import Link from "next/link";
+
+const SOCIAL_LINKS = [
+  { label: "GitHub", href: "https://github.com/dipu59", icon: faGithub },
+  { label: "Twitter", href: "https://x.com/dipu_biswas_dev", icon: faTwitter },
+  { label: "LinkedIn", href: "https://in.linkedin.com/in/dipu-biswas-b0b06a381", icon: faLinkedinIn },
+  { label: "Instagram", href: "https://www.instagram.com/dipubiswas_official_/", icon: faInstagram },
+] as const;
 
 export function HeroSection() {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"],
-  });
-
-  const yParallax = useTransform(scrollYProgress, [0, 1], [0, 80]);
-  const glowScale = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
-  const glowOpacity = useTransform(scrollYProgress, [0, 1], [0.5, 0.25]);
-
   return (
     <section
-      ref={ref}
-      className="relative flex min-h-screen items-center justify-center overflow-hidden px-4 pb-24 pt-32 sm:px-8 md:pt-40 lg:h-176 lg:min-h-0"
+      aria-label="Hero Introduction"
+      className="relative w-full pt-24 pb-16 sm:pt-28 sm:pb-20 md:pt-32 lg:pt-36 lg:pb-24"
     >
-      <motion.div
-        style={{ y: yParallax }}
-        className="relative z-10 grid w-full max-w-5xl grid-cols-1 items-center gap-10 md:gap-12 md:grid-cols-2"
-      >
-        <div className="space-y-8">
-          <motion.p
-            className="inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900/60 px-3 py-1 text-[11px] font-medium text-zinc-400 backdrop-blur-xl"
-            initial={{ y: 12, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 2.2, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_18px_rgba(52,211,153,0.9)]" />
-            Available for premium collaborations
-          </motion.p>
+      {/* ── Main Responsive Grid ────────────────────────────────────────── */}
+      <div className="w-full grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-8 lg:gap-12 items-center">
 
-          <div className="space-y-4">
-            <motion.h1
-              className="text-4xl font-bold tracking-tight  sm:text-5xl md:text-[55px] lg:min-w-[700px] w-full"
-              initial={{ y: 18, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{
-                delay: 2.4,
-                duration: 0.7,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-            >
-              Trust me, I&apos;m a
-              <span className="text-[#06B6D4] "> software developer.</span>
-            </motion.h1>
-            <motion.p
-              className="max-w-xl text-sm leading-relaxed text-zinc-400 sm:text-base"
-              initial={{ y: 18, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{
-                delay: 2.5,
-                duration: 0.7,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-            >
-              I build fast, scalable, SEO-friendly web apps that don’t just work
-              — they perform. Using React, Next.js, Node.js, and modern web
-              tech, I turn ideas into smooth, high-impact digital experiences
-              people actually enjoy using.
-            </motion.p>
+        {/* ── Left Column: Headline, Subtext, CTAs (7 Cols on desktop) ──── */}
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="w-full md:col-span-7 flex flex-col items-start gap-6 sm:gap-7"
+        >
+          {/* Status Pill */}
+          <div className="inline-flex items-center gap-2.5 rounded-full border border-neutral-800 bg-neutral-900/90 px-3.5 py-1.5 text-xs font-medium text-white shadow-xs">
+            <span className="relative flex h-2 w-2 shrink-0">
+              <span
+                aria-hidden="true"
+                className="absolute inline-flex h-full w-full rounded-full animate-ping bg-emerald-500 opacity-70"
+              />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]" />
+            </span>
+            <span>Available for premium collaborations</span>
           </div>
 
-          <motion.div
-            className="flex flex-wrap items-center gap-4"
-            initial={{ y: 18, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{
-              delay: 2.6,
-              duration: 0.7,
-              ease: [0.22, 1, 0.36, 1],
-            }}
-          >
-            <motion.a
-              href="#projects"
-              whileHover={{ y: -2 }}
-              whileTap={{ scale: 0.985, y: 0 }}
-              className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-stone-200/10 bg-[linear-gradient(135deg,rgba(245,236,217,0.12),rgba(9,9,11,0.96)_58%)] px-2 py-2 text-xs font-semibold text-stone-100 shadow-[0_14px_40px_rgba(0,0,0,0.52)] backdrop-blur-xl transition-colors duration-300 hover:border-stone-200/30 hover:bg-[linear-gradient(135deg,rgba(245,236,217,0.18),rgba(20,20,24,0.98)_58%)]"
-            >
-              <span className="absolute inset-0 bg-linear-to-r from-white/0 via-white/10 to-amber-100/0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-              <span className="absolute inset-0 rounded-full border border-white/0 transition-colors duration-300 group-hover:border-white/8" />
-              <motion.span
-                className="relative z-10 pl-3 text-stone-100 transition-colors duration-300 group-hover:text-white"
-                whileHover={{ x: 1.5 }}
-                transition={{ duration: 0.22, ease: "easeOut" }}
-              >
-                View selected work
-              </motion.span>
-              <motion.span
-                className="relative z-10 inline-flex h-7 w-7 items-center justify-center rounded-full border border-stone-300/12 bg-stone-50/10 text-stone-300 transition-colors duration-300 group-hover:border-amber-100/35 group-hover:bg-amber-50 group-hover:text-zinc-950"
-                whileHover={{ x: 2 }}
-                transition={{ duration: 0.22, ease: "easeOut" }}
-              >
-                <LuArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-[1px] group-hover:-translate-y-[1px]" />
-              </motion.span>
-            </motion.a>
+          {/* Dynamic Headline */}
+          <h1 className="w-full text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.12]">
+            Trust me, I&apos;m a{" "}
+            <span className="text-white underline decoration-neutral-700 decoration-2 underline-offset-8">
+              software developer.
+            </span>
+          </h1>
 
-            <motion.a
+          {/* Sub-headline / Description */}
+          <p className="w-full max-w-xl text-sm sm:text-base leading-relaxed  text-pink-600 z-30">
+            I build fast, scalable, production-ready web apps using{" "}
+            <span className="font-semibold text-white">
+              React, Next.js, and Node.js
+            </span>
+            —turning ideas into smooth, high-impact digital experiences.
+          </p>
+
+          {/* Action Buttons */}
+          <div className="flex flex-wrap items-center gap-3.5 pt-2 w-full sm:w-auto">
+            {/* Primary Action */}
+            <a
+              href="#projects"
+              className="transform-gpu will-change-transform inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-xs sm:text-sm font-semibold tracking-wide transition-all duration-200 bg-white text-black hover:bg-neutral-200 hover:shadow-[0_0_24px_rgba(255,255,255,0.2)] hover:-translate-y-0.5 active:translate-y-0 w-full sm:w-auto"
+            >
+              <span>View Selected Work</span>
+              <LuArrowUpRight className="h-4 w-4" />
+            </a>
+
+            {/* Secondary Action */}
+            <a
               href="/resume.pdf"
               download
-              whileHover={{ y: -2 }}
-              whileTap={{ scale: 0.98, y: 0 }}
-              className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-zinc-700/80 bg-zinc-950/75 px-5 py-2 text-xs font-semibold text-zinc-100 shadow-[0_14px_40px_rgba(0,0,0,0.5)] backdrop-blur-xl transition-colors duration-300 hover:border-sky-400/50 hover:bg-zinc-900/90 hover:text-sky-50"
+              className="transform-gpu will-change-transform inline-flex items-center justify-center gap-2 rounded-full border border-neutral-700 bg-transparent px-6 py-3 text-xs sm:text-sm font-semibold tracking-wide text-white transition-all duration-200 hover:bg-neutral-900 hover:border-neutral-500 hover:-translate-y-0.5 active:translate-y-0 w-full sm:w-auto"
             >
-              <span className="absolute inset-0 bg-linear-to-r from-white/0 via-white/8 to-sky-300/0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-              <span className="absolute inset-0 rounded-full border border-white/0 transition-colors duration-300 group-hover:border-white/8" />
+              <span>Download Resume</span>
+              <LuDownload className="h-4 w-4" />
+            </a>
+          </div>
 
-              <span className="relative z-10">Download resume</span>
-              <span className="relative z-10 inline-flex h-6 w-6 items-center justify-center rounded-full border border-zinc-700 bg-zinc-900/90 text-zinc-300 transition-colors duration-300 group-hover:border-sky-400/40 group-hover:text-sky-200">
-                <LuDownload className="h-3.5 w-3.5" />
-              </span>
-            </motion.a>
-          </motion.div>
-        </div>
-
-        {/* Image section */}
-        <motion.div
-          className="relative flex items-center md:justify-end justify-center"
-          initial={{ opacity: 0, x: 40 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.32, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <motion.div
-            style={{ scale: glowScale, opacity: glowOpacity }}
-            className="pointer-events-none absolute -inset-16 rounded-[36px] "
-          />
-
-          <motion.div
-            initial={{ x: 23, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{
-              delay: 3.1,
-              duration: 0.8,
-              ease: [0.22, 1, 0.36, 1],
-            }}
-            className="relative z-10 flex flex-col items-center gap-4 rounded-[32px] border border-zinc-800/80 bg-zinc-950/80 p-5 shadow-[0_24px_60px_rgba(0,0,0,0.9)] backdrop-blur-2xl"
-          >
-            <div className="relative">
-              <motion.div
-                className="absolute -inset-[2px] rounded-[26px] bg-linear-to-tr from-sky-500 via-cyan-400 to-violet-500 opacity-60 blur"
-                animate={{ opacity: [0.3, 0.7, 0.3] }}
-                transition={{
-                  duration: 3.2,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              />
-              <div className="relative rounded-[24px] border border-zinc-700/60 bg-zinc-900/80 p-1">
-                <div className="overflow-hidden rounded-[22px] bg-linear-to-b from-zinc-900 via-zinc-950 to-black">
-                  <Image
-                    src="/og-image.webp"
-                    alt="Profile"
-                    width={360}
-                    height={420}
-                    priority
-                    className="h-[300px] w-[300px] rounded-[22px] object-cover sm:h-[320px] sm:w-[320px] "
-                  />
-                </div>
-              </div>
+          {/* Social Row & Location */}
+          <div className="flex flex-wrap items-center gap-5 pt-3 border-t border-neutral-800/90 w-full text-xs">
+            <div className="flex items-center gap-3.5">
+              {SOCIAL_LINKS.map(({ label, href, icon }) => (
+                <Link
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={label}
+                  className="text-neutral-400 hover:text-white transition-colors text-base p-1"
+                >
+                  <FontAwesomeIcon icon={icon} />
+                </Link>
+              ))}
             </div>
 
-            <div className="flex w-full flex-col gap-2 text-xs text-zinc-300">
-              <div className="flex items-center justify-between gap-4">
-                <span className="text-[11px] uppercase tracking-[0.16em] text-zinc-500">
-                  Developer
-                </span>
-                <div className="flex gap-1.5">
-                  <span className="h-1.5 w-6 rounded-full bg-sky-400/80" />
-                  <span className="h-1.5 w-4 rounded-full bg-sky-500/60" />
-                  <span className="h-1.5 w-2 rounded-full bg-zinc-700" />
-                </div>
-              </div>
-              <div className="flex flex-wrap gap-3.5 justify-center text-[16px] text-zinc-400">
-                <Link
-                  href={"https://github.com/dipu59"}
-                  target="_blank"
-                  className="hover:text-[#00b6d8]  transition-all duration-300 "
-                >
-                  <FontAwesomeIcon icon={faGithub} />
-                </Link>
-                <Link href={"https://x.com/dipu_biswas_dev"} target="_blank">
-                  <FontAwesomeIcon
-                    className="hover:text-[#00b6d8]  transition-all duration-300 "
-                    icon={faTwitter}
-                  />
-                </Link>
-                <Link
-                  target="_blank"
-                  href={"in.linkedin.com/in/dipu-biswas-b0b06a381"}
-                  className="hover:text-[#00b6d8] transition-all duration-300 "
-                >
-                  <FontAwesomeIcon icon={faLinkedinIn} />
-                </Link>
-                <Link
-                  target="_blank"
-                  href={"https://www.instagram.com/dipubiswas_official_/"}
-                >
-                  <FontAwesomeIcon
-                    className="hover:text-[#00b6d8] transition-all duration-300 "
-                    icon={faInstagram}
-                  />
-                </Link>
-              </div>
-            </div>
-          </motion.div>
+            <span className="hidden sm:inline-block h-3 w-px bg-neutral-700" />
+
+            <p className="text-neutral-400 text-xs font-mono">
+              BALAGARH, WEST BENGAL // OPEN TO REMOTE
+            </p>
+          </div>
         </motion.div>
-      </motion.div>
 
-      <motion.div
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-linear-to-t from-black via-black/70 to-transparent"
-        initial={{ opacity: 0.8 }}
-        animate={{ opacity: [0.5, 0.9, 0.5] }}
-        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-      />
+        {/* ── Right Column: Profile Card (5 Cols on desktop) ─────────────── */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.96 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+          className="w-full md:col-span-5 flex justify-center md:justify-end"
+        >
+          <div className="w-full max-w-sm sm:max-w-md md:max-w-none rounded-2xl sm:rounded-3xl border border-neutral-800 bg-[#000000] p-4 sm:p-5 shadow-[0_20px_60px_rgba(0,0,0,0.85)]">
+            {/* Image Container */}
+            <div className="relative aspect-[4/5] sm:aspect-square md:aspect-[4/5] w-full overflow-hidden rounded-xl sm:rounded-2xl border border-neutral-800 bg-neutral-900">
+              <Image
+                src="/og-image.webp"
+                alt="Dipu Biswas — Software Developer"
+                fill
+                priority
+                sizes="(min-width: 1024px) 340px, (min-width: 768px) 40vw, 100vw"
+                className="object-cover object-top"
+              />
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+            </div>
+
+            {/* Card Information */}
+            <div className="mt-4 flex items-center justify-between">
+              <div>
+                <p className="text-sm sm:text-base font-bold text-white">
+                  Dipu Biswas
+                </p>
+                <p className="text-xs text-neutral-400">
+                  Full-stack Developer · Next.js &amp; React
+                </p>
+              </div>
+
+              <div className="inline-flex items-center gap-1.5 rounded-full border border-neutral-800 bg-neutral-900 px-2.5 py-1 text-[10px] font-mono font-medium text-emerald-400">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                <span>ONLINE</span>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+      </div>
     </section>
   );
 }
