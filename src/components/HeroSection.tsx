@@ -192,7 +192,7 @@ export function HeroSection() {
                 >
                   <FontAwesomeIcon icon={faGithub} />
                 </Link>
-                <Link href={"https://x.com/dipu00059"} target="_blank">
+                <Link href={"https://x.com/dipu_biswas_dev"} target="_blank">
                   <FontAwesomeIcon
                     className="hover:text-[#00b6d8]  transition-all duration-300 "
                     icon={faTwitter}
@@ -207,7 +207,7 @@ export function HeroSection() {
                 </Link>
                 <Link
                   target="_blank"
-                  href={"https://www.instagram.com/its__dipu59/"}
+                  href={"https://www.instagram.com/dipubiswas_official_/"}
                 >
                   <FontAwesomeIcon
                     className="hover:text-[#00b6d8] transition-all duration-300 "
