@@ -122,7 +122,7 @@ export function ProjectsSection() {
             >
               Crafted with purpose.
             </h2>
-            <p className="max-w-xl text-sm sm:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed">
+            <p className="max-w-xl text-sm sm:text-[16px] text-neutral-600 dark:text-neutral-400 leading-relaxed">
               A curated lineup of full-stack systems focusing on architectural
               integrity, measured performance, and refined interaction design.
             </p>
@@ -159,7 +159,7 @@ export function ProjectsSection() {
             >
               <div className="px-4 py-10 sm:px-8 sm:py-12 lg:px-10 lg:py-14">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
-                  
+
                   {/* Left Column: Project Narrative & Meta (7 cols) */}
                   <div className="lg:col-span-7 space-y-5">
                     {/* Top Meta Header */}

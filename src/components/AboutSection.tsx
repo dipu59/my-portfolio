@@ -26,7 +26,7 @@ export function AboutSection() {
       className="relative w-full bg-[#000000] text-white py-20 md:py-28 border-t border-neutral-900"
     >
       <div className="w-full px-4 sm:px-6 lg:px-0">
-        
+
         {/* ── Section Header ────────────────────────────────────────────── */}
         <div className="mb-12 md:mb-16">
           <div className="flex items-center gap-2 mb-3">
@@ -45,7 +45,7 @@ export function AboutSection() {
 
         {/* ── 2-Column Minimal Architecture Grid ────────────────────────── */}
         <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-12 lg:gap-16 items-start">
-          
+
           {/* ════════════════════════════════════════════════════════════════
               LEFT COLUMN — Core Capabilities & Philosophy (2fr)
               ════════════════════════════════════════════════════════════════ */}
@@ -63,7 +63,7 @@ export function AboutSection() {
                 production-grade web applications where code clarity and user experience
                 reinforce each other.
               </p>
-              <p className="text-sm sm:text-base leading-relaxed text-neutral-400">
+              <p className="text-sm sm: leading-relaxed text-neutral-400">
                 Rather than treating frontend and backend as detached silos, I bridge the full
                 lifecycle: from architecting type-safe data schemas and resilient REST/real-time
                 services to choreographing 60&nbsp;FPS compositor-driven user interfaces.
@@ -163,7 +163,7 @@ export function AboutSection() {
                 priority
                 className="object-cover object-center grayscale contrast-115 transition-all duration-500 ease-out group-hover:grayscale-0 group-hover:scale-[1.03]"
               />
-              
+
               {/* Subtle dark gradient overlay at bottom edge */}
               <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black via-black/40 to-transparent" />
 

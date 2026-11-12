@@ -80,9 +80,9 @@ export function AboutPageContent() {
   const fadeUp = shouldReduceMotion
     ? { initial: { opacity: 1 }, whileInView: { opacity: 1 } }
     : {
-        initial: { opacity: 0, y: 18 },
-        whileInView: { opacity: 1, y: 0 },
-      };
+      initial: { opacity: 0, y: 18 },
+      whileInView: { opacity: 1, y: 0 },
+    };
 
   return (
     <div className="relative left-1/2 min-h-screen w-screen -translate-x-1/2 overflow-x-hidden bg-[#f8fafc] text-slate-900">
@@ -130,7 +130,7 @@ export function AboutPageContent() {
                 <br />
                 Developer.
               </h1>
-              <p className="max-w-2xl text-base leading-8 text-slate-600 sm:text-lg">
+              <p className="max-w-2xl text-[16px] leading-8 text-slate-600 sm:text-lg">
                 I&apos;m Dipu Biswas, a full-stack developer from West Bengal,
                 India. I build modern websites and web apps with Next.js, React,
                 TypeScript, and Node.js, with a strong focus on performance,

@@ -315,7 +315,7 @@ function SpotlightDashboardCard({
 
       {/* ── Inner Dashboard Surface ───────────────────────────────────── */}
       <div className="relative rounded-[11px] bg-[#000000] p-5 sm:p-6 h-full flex flex-col justify-between overflow-hidden border border-neutral-900/90 group-hover:border-transparent transition-colors duration-300">
-        
+
         {/* Dynamic Category Backdrop Glow */}
         <motion.div
           aria-hidden="true"
@@ -325,7 +325,7 @@ function SpotlightDashboardCard({
 
         {/* Content Body */}
         <div className="relative z-10">
-          
+
           {/* Block Header */}
           <div className="pb-4 border-b border-neutral-900/90">
             <div className="flex items-center justify-between gap-3 mb-2">
@@ -390,7 +390,7 @@ export function SkillsSection() {
       className="relative w-full bg-[#000000] text-white py-20 md:py-28 border-t border-neutral-900"
     >
       <div className="w-full px-4 sm:px-6 lg:px-0">
-        
+
         {/* ── Section Header ────────────────────────────────────────────── */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-10 border-b border-neutral-900 mb-10">
           <div className="space-y-3">
@@ -406,7 +406,7 @@ export function SkillsSection() {
             >
               Engineered for scale &amp; reliability.
             </h2>
-            <p className="max-w-xl text-sm sm:text-base text-neutral-400 leading-relaxed">
+            <p className="max-w-xl text-sm sm:text-[16px] text-neutral-400 leading-relaxed">
               Production capabilities evaluated through delivered projects—emphasizing
               clean architecture, end-to-end type safety, and real-world system constraints.
             </p>

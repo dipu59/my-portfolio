@@ -66,7 +66,7 @@ export function HeroSection() {
           </h1>
 
           {/* Sub-headline / Description */}
-          <p className="w-full max-w-xl text-sm sm:text-base leading-relaxed  text-pink-600 z-30">
+          <p className="w-full max-w-xl text-sm sm:text-[16px] text-neutral-200 leading-relaxed  ">
             I build fast, scalable, production-ready web apps using{" "}
             <span className="font-semibold text-white">
               React, Next.js, and Node.js
@@ -106,7 +106,7 @@ export function HeroSection() {
                   target="_blank"
                   rel="noreferrer"
                   aria-label={label}
-                  className="text-neutral-400 hover:text-white transition-colors text-base p-1"
+                  className="text-neutral-400 hover:text-white transition-colors text-[16px] p-1"
                 >
                   <FontAwesomeIcon icon={icon} />
                 </Link>
@@ -145,7 +145,7 @@ export function HeroSection() {
             {/* Card Information */}
             <div className="mt-4 flex items-center justify-between">
               <div>
-                <p className="text-sm sm:text-base font-bold text-white">
+                <p className="text-sm sm:text-[16px] font-bold text-white">
                   Dipu Biswas
                 </p>
                 <p className="text-xs text-neutral-400">

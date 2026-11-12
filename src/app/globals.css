@@ -8,30 +8,39 @@
 
 :root {
   /* ── Structural ─────────────────────────────────────────────────────── */
-  --bg-base:        #000000;
-  --bg-surface:     #0a0a0d;
-  --bg-elevated:    #111118;
-  --bg-overlay:     rgba(10, 10, 13, 0.80);
+  --bg-base: #000000;
+  --bg-surface: #0a0a0d;
+  --bg-elevated: #111118;
+  --bg-overlay: rgba(10, 10, 13, 0.80);
 
   /* ── Typography ─────────────────────────────────────────────────────── */
-  --text-primary:   #ffffff;    /* pure white */
-  --text-secondary: #a3a3a3;    /* neutral-400 */
-  --text-muted:     #737373;    /* neutral-500 */
+  --text-primary: #ffffff;
+  /* pure white */
+  --text-secondary: #a3a3a3;
+  /* neutral-400 */
+  --text-muted: #737373;
+  /* neutral-500 */
 
   /* ── Borders ────────────────────────────────────────────────────────── */
-  --border-subtle:  #18181b;    /* zinc-900  */
-  --border-default: #27272a;    /* zinc-800  */
-  --border-strong:  #3f3f46;    /* zinc-700  */
+  --border-subtle: #18181b;
+  /* zinc-900  */
+  --border-default: #27272a;
+  /* zinc-800  */
+  --border-strong: #3f3f46;
+  /* zinc-700  */
 
   /* ── Accent ─────────────────────────────────────────────────────────── */
-  --accent-cyan:    #06b6d4;
-  --accent-violet:  #8b5cf6;
+  --accent-cyan: #06b6d4;
+  --accent-violet: #8b5cf6;
   --accent-emerald: #34d399;
 
   /* ── Cyber-border pulse colours ─────────────────────────────────────── */
-  --pulse-color-from: rgba(139, 92, 246, 0.00);  /* violet, transparent   */
-  --pulse-color-mid:  rgba(139, 92, 246, 0.70);  /* violet peak           */
-  --pulse-color-to:   rgba(6,   182, 212, 0.00); /* cyan, transparent     */
+  --pulse-color-from: rgba(139, 92, 246, 0.00);
+  /* violet, transparent   */
+  --pulse-color-mid: rgba(139, 92, 246, 0.70);
+  /* violet peak           */
+  --pulse-color-to: rgba(6, 182, 212, 0.00);
+  /* cyan, transparent     */
 
   /* ── Font stack ─────────────────────────────────────────────────────── */
   --font-sans: var(--font-geist-sans), system-ui, -apple-system,
@@ -48,17 +57,17 @@
 @theme inline {
   --color-background: var(--bg-base);
   --color-foreground: var(--text-primary);
-  --font-sans:        var(--font-sans);
-  --font-mono:        var(--font-mono);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
 
   /* Expose the structural tokens */
-  --color-base:       var(--bg-base);
-  --color-surface:    var(--bg-surface);
-  --color-elevated:   var(--bg-elevated);
-  --color-overlay:    var(--bg-overlay);
-  --color-primary:    var(--text-primary);
-  --color-secondary:  var(--text-secondary);
-  --color-muted:      var(--text-muted);
+  --color-base: var(--bg-base);
+  --color-surface: var(--bg-surface);
+  --color-elevated: var(--bg-elevated);
+  --color-overlay: var(--bg-overlay);
+  --color-primary: var(--text-primary);
+  --color-secondary: var(--text-secondary);
+  --color-muted: var(--text-muted);
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -99,7 +108,7 @@ body {
  * • `will-change: transform` on the element (set via .cyber-pulse-line)
  *   hints the GPU to pre-promote the layer.
  */
-@keyframes border-pulse {
+/* @keyframes border-pulse {
   0% {
     transform: translateY(-120px);
     opacity: 0;
@@ -114,7 +123,7 @@ body {
     transform: translateY(calc(100vh + 120px));
     opacity: 0;
   }
-}
+} */
 
 /**
  * subtle-fade-in
@@ -127,6 +136,7 @@ body {
     opacity: 0;
     transform: translateY(8px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -142,18 +152,17 @@ body {
 .cyber-pulse-line {
   /* Position along the border */
   position: absolute;
-  left: -1px;          /* sits on top of the border pixel */
+  left: -1px;
+  /* sits on top of the border pixel */
   top: 0;
   width: 2px;
   height: 120px;
 
   /* The gradient: transparent → neon violet → cyan → transparent */
-  background: linear-gradient(
-    to bottom,
-    var(--pulse-color-from),
-    var(--pulse-color-mid)  40%,
-    var(--pulse-color-to)
-  );
+  background: linear-gradient(to bottom,
+      var(--pulse-color-from),
+      var(--pulse-color-mid) 40%,
+      var(--pulse-color-to));
 
   /* GPU layer promotion */
   will-change: transform;
@@ -178,12 +187,10 @@ body {
   right: -1px;
   animation-delay: 2.5s;
   /* Shift colours slightly toward cyan for visual differentiation */
-  background: linear-gradient(
-    to bottom,
-    rgba(6, 182, 212, 0.00),
-    rgba(6, 182, 212, 0.65) 40%,
-    rgba(139, 92, 246, 0.00)
-  );
+  background: linear-gradient(to bottom,
+      rgba(6, 182, 212, 0.00),
+      rgba(6, 182, 212, 0.65) 40%,
+      rgba(139, 92, 246, 0.00));
   box-shadow: 0 0 8px 2px rgba(6, 182, 212, 0.45);
 }
 
@@ -197,6 +204,7 @@ body {
 *:focus {
   outline: none;
 }
+
 *:focus-visible {
   outline: 2px solid var(--accent-cyan);
   outline-offset: 2px;
@@ -211,16 +219,20 @@ body {
   width: 6px;
   height: 6px;
 }
+
 ::-webkit-scrollbar-track {
   background: transparent;
 }
+
 ::-webkit-scrollbar-thumb {
   background: var(--border-default);
   border-radius: 9999px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: var(--border-strong);
 }
+
 /* Firefox */
 * {
   scrollbar-width: thin;

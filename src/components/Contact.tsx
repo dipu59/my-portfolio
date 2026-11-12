@@ -125,15 +125,15 @@ export function ContactSection() {
       className="relative w-full bg-[#000000] text-white py-20 md:py-28 border-t border-neutral-900"
     >
       <div className="w-full px-4 sm:px-6 lg:px-0">
-        
+
         {/* ── Section Grid ──────────────────────────────────────────────── */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-start">
-          
+
           {/* ══════════════════════════════════════════════════════════════
               LEFT COLUMN — Narrative & Interactive Metadata (5 Cols)
               ══════════════════════════════════════════════════════════════ */}
           <div className="lg:col-span-5 flex flex-col gap-6">
-            
+
             {/* Section Tag */}
             <div className="inline-flex items-center gap-2">
               <span className="h-1.5 w-1.5 rounded-full bg-cyan-400" />
@@ -151,7 +151,7 @@ export function ContactSection() {
             </h2>
 
             {/* Context Narrative */}
-            <p className="text-sm sm:text-base text-neutral-400 leading-relaxed">
+            <p className="text-sm sm:text-[16px] text-neutral-400 leading-relaxed">
               Have a high-impact product, an architectural challenge, or an
               engineering opening? Reach out directly—I typically review and reply
               within 24 hours.
@@ -228,7 +228,7 @@ export function ContactSection() {
               ══════════════════════════════════════════════════════════════ */}
           <div className="lg:col-span-7">
             <div className="rounded-2xl border border-neutral-900 bg-neutral-950 p-6 sm:p-8">
-              
+
               <AnimatePresence mode="wait">
                 {status === "success" ? (
                   /* ── Success State ─────────────────────────────────────── */
