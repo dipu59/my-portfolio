@@ -1,164 +1,36 @@
 {
   "photo-001": {
-    "likes": 43,
-    "likedBy": [
-      "client_1794508490836_kzh8yy"
-    ],
-    "comments": [
-      {
-        "id": "c101",
-        "author": "rahul_dev",
-        "text": "Great workspace vibe! Keep crushing it 🚀",
-        "createdAt": "2024-11-10T14:22:00.000Z"
-      },
-      {
-        "id": "c102",
-        "author": "tech_priya",
-        "text": "Incredible focus and dedication. Inspiring!",
-        "createdAt": "2024-11-11T09:15:00.000Z"
-      },
-      {
-        "id": "c_1794508735250_6fiwl",
-        "author": "guest_coder",
-        "text": "🔥",
-        "createdAt": "2026-11-12T18:38:55.250Z"
-      }
-    ]
+    "likes": 42,
+    "likedBy": []
   },
   "photo-002": {
     "likes": 39,
     "likedBy": [
       "client_1794508490836_kzh8yy"
-    ],
-    "comments": [
-      {
-        "id": "c201",
-        "author": "sarah.codes",
-        "text": "Super clean portrait. Love the aesthetic!",
-        "createdAt": "2024-11-09T18:40:00.000Z"
-      }
     ]
   },
   "photo-003": {
     "likes": 29,
-    "likedBy": [],
-    "comments": [
-      {
-        "id": "c301",
-        "author": "vikram_ui",
-        "text": "Sharp look brother! ⚡",
-        "createdAt": "2024-11-08T11:05:00.000Z"
-      }
-    ]
+    "likedBy": []
   },
   "photo-004": {
     "likes": 56,
-    "likedBy": [],
-    "comments": [
-      {
-        "id": "c401",
-        "author": "marcus_web",
-        "text": "Chill-Bay real-time rooms are smooth as butter. Outstanding job!",
-        "createdAt": "2024-11-11T16:30:00.000Z"
-      },
-      {
-        "id": "c402",
-        "author": "dev_ananya",
-        "text": "Socket.io implementation here is next level 👌",
-        "createdAt": "2024-11-12T08:12:00.000Z"
-      }
-    ]
+    "likedBy": []
   },
   "photo-005": {
-    "likes": 48,
-    "likedBy": [
-      "client_1794508490836_kzh8yy"
-    ],
-    "comments": [
-      {
-        "id": "c501",
-        "author": "kevin_fintech",
-        "text": "Stripe checkout flow feels seamless. Great UI work!",
-        "createdAt": "2024-11-07T20:10:00.000Z"
-      }
-    ]
+    "likes": 47,
+    "likedBy": []
   },
   "photo-006": {
     "likes": 64,
-    "likedBy": [],
-    "comments": [
-      {
-        "id": "c601",
-        "author": "elena_design",
-        "text": "Those motion transitions are unreal! 60 FPS perfection ✨",
-        "createdAt": "2024-11-10T19:45:00.000Z"
-      },
-      {
-        "id": "c602",
-        "author": "cyber_sam",
-        "text": "The dark aesthetic is top tier.",
-        "createdAt": "2024-11-11T14:02:00.000Z"
-      }
-    ]
+    "likedBy": []
   },
   "photo-007": {
     "likes": 35,
-    "likedBy": [],
-    "comments": [
-      {
-        "id": "c701",
-        "author": "arun_gourmet",
-        "text": "Really useful product for restaurant management!",
-        "createdAt": "2024-11-09T10:18:00.000Z"
-      }
-    ]
+    "likedBy": []
   },
   "photo-008": {
     "likes": 51,
-    "likedBy": [],
-    "comments": [
-      {
-        "id": "c801",
-        "author": "frontend_ninja",
-        "text": "Keep inspiring with your work Dipu! 🎨",
-        "createdAt": "2024-11-12T12:00:00.000Z"
-      }
-    ]
-  },
-  "photo-009": {
-    "likes": 44,
-    "likedBy": [],
-    "comments": [
-      {
-        "id": "c901",
-        "author": "bike_life",
-        "text": "Great ride shot! 🏍️",
-        "createdAt": "2024-11-12T14:10:00.000Z"
-      }
-    ]
-  },
-  "photo-010": {
-    "likes": 59,
-    "likedBy": [],
-    "comments": [
-      {
-        "id": "c1001",
-        "author": "code_crafter",
-        "text": "TypeScript architecture on point!",
-        "createdAt": "2024-11-12T17:35:00.000Z"
-      }
-    ]
-  },
-  "photo-011": {
-    "likes": 38,
-    "likedBy": [],
-    "comments": [
-      {
-        "id": "c1101",
-        "author": "sourav_biswas",
-        "text": "Bhai ekdum rockstar! 🌟",
-        "createdAt": "2024-11-12T19:00:00.000Z"
-      }
-    ]
+    "likedBy": []
   }
 }

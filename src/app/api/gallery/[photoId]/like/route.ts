@@ -16,11 +16,11 @@ export async function POST(
         clientId = body.clientId.slice(0, 100);
       }
     } catch {
-      // Body may be empty, proceed with anonymous
+      // Body may be empty
     }
 
     const data = await getGalleryData();
-    const current = data[photoId] || { likes: 0, likedBy: [], comments: [] };
+    const current = data[photoId] || { likes: 0, likedBy: [] };
 
     const likedBy = Array.isArray(current.likedBy) ? current.likedBy : [];
     const alreadyLiked = likedBy.includes(clientId);
@@ -30,12 +30,10 @@ export async function POST(
     let isLiked: boolean;
 
     if (alreadyLiked && clientId !== "anonymous") {
-      // Toggle unlike
       updatedLikedBy = likedBy.filter((id) => id !== clientId);
       updatedLikes = Math.max(0, current.likes - 1);
       isLiked = false;
     } else {
-      // Like
       if (clientId !== "anonymous") {
         updatedLikedBy = [...likedBy, clientId];
       } else {
@@ -46,7 +44,6 @@ export async function POST(
     }
 
     data[photoId] = {
-      ...current,
       likes: updatedLikes,
       likedBy: updatedLikedBy,
     };
