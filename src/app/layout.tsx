@@ -29,8 +29,29 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    /*
+     * PERMANENT DARK MODE — no class toggling, no JS theme detection.
+     * color-scheme="dark" on <html> forces ALL browser-native UI
+     * (inputs, selects, scrollbars, date pickers) into dark mode
+     * even when the user's OS is set to light mode.
+     */
+    <html lang="en" style={{ colorScheme: "dark", backgroundColor: "#030407" }}>
       <head>
+        {/*
+         * This inline script runs BEFORE first paint — it re-enforces the
+         * dark background and color-scheme so there is ZERO flash of white,
+         * even on devices with OS-level light mode.
+         */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              document.documentElement.style.colorScheme = 'dark';
+              document.documentElement.style.backgroundColor = '#030407';
+              document.body && (document.body.style.backgroundColor = '#030407');
+            `,
+          }}
+        />
+        <meta name="color-scheme" content="dark" />
         <Script
           src="https://kit.fontawesome.com/6a41dd5244.js"
           crossOrigin="anonymous"
@@ -42,7 +63,8 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden bg-black text-white`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden`}
+        style={{ backgroundColor: "#030407", color: "#ffffff" }}
       >
         <LoadingScreen />
         <Navbar />
