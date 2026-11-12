@@ -394,7 +394,7 @@ function AnimatedField({
           aria-hidden="true"
           animate={{ opacity: isFocused ? 1 : 0 }}
           transition={{ duration: 0.22, ease: "easeOut" }}
-          className="pointer-events-none absolute -inset-px rounded-xl bg-gradient-to-r from-cyan-500 via-blue-500 to-violet-500"
+          className="pointer-events-none absolute -inset-px rounded-xl bg-linear-to-r from-cyan-500 via-blue-500 to-violet-500"
         />
         <input
           id={id}
@@ -448,7 +448,7 @@ function AnimatedTextarea({
           aria-hidden="true"
           animate={{ opacity: isFocused ? 1 : 0 }}
           transition={{ duration: 0.22, ease: "easeOut" }}
-          className="pointer-events-none absolute -inset-px rounded-xl bg-gradient-to-r from-cyan-500 via-blue-500 to-violet-500"
+          className="pointer-events-none absolute -inset-px rounded-xl bg-linear-to-r from-cyan-500 via-blue-500 to-violet-500"
         />
         <textarea
           id={id}

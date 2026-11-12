@@ -130,7 +130,7 @@ export function HeroSection() {
         >
           <div className="w-full max-w-sm sm:max-w-md md:max-w-none rounded-2xl sm:rounded-3xl border border-neutral-800 bg-[#000000] p-4 sm:p-5 shadow-[0_20px_60px_rgba(0,0,0,0.85)]">
             {/* Image Container */}
-            <div className="relative aspect-[4/5] sm:aspect-square md:aspect-[4/5] w-full overflow-hidden rounded-xl sm:rounded-2xl border border-neutral-800 bg-neutral-900">
+            <div className="relative aspect-4/5 sm:aspect-square md:aspect-4/5 w-full overflow-hidden rounded-xl sm:rounded-2xl border border-neutral-800 bg-neutral-900">
               <Image
                 src="/og-image.webp"
                 alt="Dipu Biswas — Software Developer"
@@ -139,7 +139,7 @@ export function HeroSection() {
                 sizes="(min-width: 1024px) 340px, (min-width: 768px) 40vw, 100vw"
                 className="object-cover object-top"
               />
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-linear-to-t from-black/50 via-transparent to-transparent" />
             </div>
 
             {/* Card Information */}

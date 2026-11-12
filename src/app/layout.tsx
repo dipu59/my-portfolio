@@ -1,13 +1,11 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
-// @ts-expect-error - CSS side-effect import is handled by the build pipeline and not typed in this project
 import "./globals.css";
 import { Navbar } from "../components/Navbar";
 import { LoadingScreen } from "../components/LoadingScreen";
 import { CyberLayout } from "../components/CyberLayout";
 import { config } from "@fortawesome/fontawesome-svg-core";
-// @ts-expect-error - CSS side-effect import is handled by the build pipeline and not typed in this project
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { defaultMetadata, personJsonLd } from "../seo/config";
 

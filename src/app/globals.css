@@ -54,6 +54,8 @@
    These expose our CSS vars into Tailwind's utility engine so you can write
    `bg-base`, `text-primary`, etc. as first-class Tailwind classes.
    ═══════════════════════════════════════════════════════════════════════════ */
+/* Tailwind CSS v4 directive; suppress generic Stylelint unknown-at-rule checks. */
+/* stylelint-disable at-rule-no-unknown */
 @theme inline {
   --color-background: var(--bg-base);
   --color-foreground: var(--text-primary);
@@ -69,6 +71,7 @@
   --color-secondary: var(--text-secondary);
   --color-muted: var(--text-muted);
 }
+/* stylelint-enable at-rule-no-unknown */
 
 /* ═══════════════════════════════════════════════════════════════════════════
    GLOBAL BASE STYLES
