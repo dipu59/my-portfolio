@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getPostBySlug } from "@/data/blogPosts";
+import { getPostBySlug } from "@/lib/markdownPosts";
 import { incrementBlogView } from "@/lib/blogStorage";
 
 export const dynamic = "force-dynamic";

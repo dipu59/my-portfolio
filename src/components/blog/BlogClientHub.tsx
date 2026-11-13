@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { BlogPost, BlogInteractionsMap, SortOption, ViewMode } from "@/types/blog";
-import { BLOG_CATEGORIES, getAllTags } from "@/data/blogPosts";
+import { BLOG_CATEGORIES } from "@/data/blogConstants";
 import { BlogHero } from "./BlogHero";
 import { BlogFilters } from "./BlogFilters";
 import { BlogCard } from "./BlogCard";
@@ -69,7 +69,13 @@ export function BlogClientHub({
     }
   };
 
-  const allTags = useMemo(() => getAllTags(), []);
+  const allTags = useMemo(() => {
+    const set = new Set<string>();
+    posts.forEach((post) => {
+      post.tags.forEach((tag) => set.add(tag));
+    });
+    return Array.from(set);
+  }, [posts]);
 
   // Compute post counts per category
   const categoryCounts = useMemo(() => {

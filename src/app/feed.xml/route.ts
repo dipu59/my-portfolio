@@ -1,11 +1,12 @@
-import { BLOG_POSTS } from "@/data/blogPosts";
+import { getAllPosts } from "@/lib/markdownPosts";
 
 export const dynamic = "force-dynamic";
 
 export async function GET() {
   const siteUrl = "https://dipubiswas.in";
+  const posts = getAllPosts();
 
-  const rssItemsXml = BLOG_POSTS.map((post) => {
+  const rssItemsXml = posts.map((post) => {
     return `
     <item>
       <title><![CDATA[${post.title}]]></title>

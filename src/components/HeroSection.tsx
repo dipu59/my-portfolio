@@ -137,7 +137,7 @@ export function HeroSection() {
               ))}
             </div>
 
-            <span className="hidden sm:inline-block h-3 w-px" style={{ backgroundColor: "#1a2235" }} />
+            <span className="hidden md:inline-block h-3 w-px" style={{ backgroundColor: "#1a2235" }} />
 
             {/* <p className="text-xs font-mono" style={{ color: "#64748b" }}>
               BALAGARH, WEST BENGAL // OPEN TO REMOTE

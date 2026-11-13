@@ -1,8 +1,9 @@
 import { MetadataRoute } from "next";
-import { BLOG_POSTS } from "@/data/blogPosts";
+import { getAllPosts } from "@/lib/markdownPosts";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const siteUrl = "https://dipubiswas.in";
+  const posts = getAllPosts();
 
   const staticRoutes: MetadataRoute.Sitemap = [
     {
@@ -31,7 +32,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  const blogRoutes: MetadataRoute.Sitemap = BLOG_POSTS.map((post) => ({
+  const blogRoutes: MetadataRoute.Sitemap = posts.map((post) => ({
     url: `${siteUrl}/blog/${post.slug}`,
     lastModified: new Date(post.updatedAt || post.publishedAt),
     changeFrequency: "weekly",

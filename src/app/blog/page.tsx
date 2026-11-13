@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { CyberLayout } from "@/components/CyberLayout";
 import { BlogClientHub } from "@/components/blog/BlogClientHub";
-import { BLOG_POSTS } from "@/data/blogPosts";
+import { getAllPosts } from "@/lib/markdownPosts";
 import { getBlogInteractions } from "@/lib/blogStorage";
 
 export const metadata: Metadata = {
@@ -34,6 +34,7 @@ export const metadata: Metadata = {
 };
 
 export default async function BlogPage() {
+  const posts = getAllPosts();
   const interactions = await getBlogInteractions();
 
   const blogJsonLd = {
@@ -48,7 +49,7 @@ export default async function BlogPage() {
       name: "Dipu Biswas",
       url: "https://dipubiswas.in",
     },
-    blogPost: BLOG_POSTS.map((post) => ({
+    blogPost: posts.map((post) => ({
       "@type": "BlogPosting",
       headline: post.title,
       description: post.excerpt,
@@ -64,7 +65,7 @@ export default async function BlogPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(blogJsonLd) }}
       />
       <BlogClientHub
-        initialPosts={BLOG_POSTS}
+        initialPosts={posts}
         initialInteractions={interactions}
       />
     </CyberLayout>

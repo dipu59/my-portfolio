@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { CyberLayout } from "@/components/CyberLayout";
 import { BlogPostClient } from "@/components/blog/BlogPostClient";
-import { BLOG_POSTS, getPostBySlug } from "@/data/blogPosts";
+import { getAllPosts, getPostBySlug } from "@/lib/markdownPosts";
 import { getBlogComments, getPostInteraction } from "@/lib/blogStorage";
 
 interface BlogPostPageProps {
@@ -10,7 +10,8 @@ interface BlogPostPageProps {
 }
 
 export async function generateStaticParams() {
-  return BLOG_POSTS.map((post) => ({
+  const posts = getAllPosts();
+  return posts.map((post) => ({
     slug: post.slug,
   }));
 }
@@ -110,7 +111,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       />
       <BlogPostClient
         post={post}
-        allPosts={BLOG_POSTS}
+        allPosts={getAllPosts()}
         initialReactions={interaction.reactions}
         initialViews={interaction.views}
         initialComments={comments}

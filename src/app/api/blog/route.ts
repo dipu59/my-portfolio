@@ -1,13 +1,14 @@
 import { NextResponse } from "next/server";
-import { BLOG_POSTS } from "@/data/blogPosts";
+import { getAllPosts } from "@/lib/markdownPosts";
 import { getBlogInteractions } from "@/lib/blogStorage";
 
 export const dynamic = "force-dynamic";
 
 export async function GET() {
   const interactions = await getBlogInteractions();
+  const posts = getAllPosts();
   return NextResponse.json({
-    posts: BLOG_POSTS,
+    posts,
     interactions,
   });
 }
