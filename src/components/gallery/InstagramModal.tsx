@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -18,6 +18,8 @@ import { GalleryPhoto } from "@/data/galleryPhotos";
 
 interface InstagramModalProps {
   photo: GalleryPhoto | null;
+  currentIndex?: number;
+  totalPhotos?: number;
   onClose: () => void;
   onNext: () => void;
   onPrev: () => void;
@@ -28,6 +30,8 @@ interface InstagramModalProps {
 
 export function InstagramModal({
   photo,
+  currentIndex,
+  totalPhotos,
   onClose,
   onNext,
   onPrev,
@@ -37,6 +41,34 @@ export function InstagramModal({
 }: InstagramModalProps) {
   const [copiedLink, setCopiedLink] = useState(false);
   const [showHeartBurst, setShowHeartBurst] = useState(false);
+
+  // Bottom bar swipe detection
+  const bottomTouchStartRef = useRef({ x: 0, y: 0, time: 0 });
+
+  const handleBottomTouchStart = (e: React.TouchEvent) => {
+    bottomTouchStartRef.current = {
+      x: e.touches[0].clientX,
+      y: e.touches[0].clientY,
+      time: Date.now(),
+    };
+  };
+
+  const handleBottomTouchEnd = (e: React.TouchEvent) => {
+    const dx = e.changedTouches[0].clientX - bottomTouchStartRef.current.x;
+    const dy = e.changedTouches[0].clientY - bottomTouchStartRef.current.y;
+    const elapsed = Date.now() - bottomTouchStartRef.current.time;
+
+    if (
+      Math.abs(dx) > Math.abs(dy) &&
+      (Math.abs(dx) > 35 || (elapsed < 350 && Math.abs(dx) > 20))
+    ) {
+      if (dx < 0) {
+        onNext();
+      } else {
+        onPrev();
+      }
+    }
+  };
 
   // Lock body scroll and setup keyboard shortcuts
   useEffect(() => {
@@ -98,7 +130,7 @@ export function InstagramModal({
           aria-hidden="true"
         />
 
-        {/* Previous Button (Desktop) */}
+        {/* Previous Button (Accessible on mobile & desktop) */}
         <button
           type="button"
           onClick={(e) => {
@@ -106,12 +138,12 @@ export function InstagramModal({
             onPrev();
           }}
           aria-label="Previous photo"
-          className="hidden sm:flex absolute left-4 z-50 p-3 rounded-full bg-black/70 border border-[#1a2235] text-neutral-300 hover:text-white hover:border-[#1558C9] hover:scale-105 transition-all shadow-xl"
+          className="absolute left-2 sm:left-4 z-50 p-2 sm:p-3 rounded-full bg-black/60 border border-[#1a2235] text-neutral-300 hover:text-white hover:border-[#1558C9] active:scale-90 transition-all shadow-xl"
         >
-          <LuChevronLeft className="h-6 w-6" />
+          <LuChevronLeft className="h-5 w-5 sm:h-6 sm:w-6" />
         </button>
 
-        {/* Next Button (Desktop) */}
+        {/* Next Button (Accessible on mobile & desktop) */}
         <button
           type="button"
           onClick={(e) => {
@@ -119,9 +151,9 @@ export function InstagramModal({
             onNext();
           }}
           aria-label="Next photo"
-          className="hidden sm:flex absolute right-4 z-50 p-3 rounded-full bg-black/70 border border-[#1a2235] text-neutral-300 hover:text-white hover:border-[#1558C9] hover:scale-105 transition-all shadow-xl"
+          className="absolute right-2 sm:right-4 z-50 p-2 sm:p-3 rounded-full bg-black/60 border border-[#1a2235] text-neutral-300 hover:text-white hover:border-[#1558C9] active:scale-90 transition-all shadow-xl"
         >
-          <LuChevronRight className="h-6 w-6" />
+          <LuChevronRight className="h-5 w-5 sm:h-6 sm:w-6" />
         </button>
 
         {/* Close Button Top (Desktop) */}
@@ -170,12 +202,18 @@ export function InstagramModal({
               </div>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2.5">
+              {typeof currentIndex === "number" && typeof totalPhotos === "number" && (
+                <span className="font-mono text-[10px] sm:text-xs text-neutral-400 bg-[#0a0d14] px-2 py-0.5 rounded-full border border-[#1a2235]">
+                  {currentIndex + 1} / {totalPhotos}
+                </span>
+              )}
+
               <button
                 type="button"
                 onClick={handleCopyShare}
                 aria-label="Share photo"
-                className="p-2 text-neutral-400 hover:text-white transition-colors relative"
+                className="p-1.5 sm:p-2 text-neutral-400 hover:text-white transition-colors relative"
               >
                 {copiedLink ? (
                   <LuCheck className="h-4 w-4 text-[#D4FF24]" />
@@ -193,25 +231,32 @@ export function InstagramModal({
                 type="button"
                 onClick={onClose}
                 aria-label="Close"
-                className="p-2 text-neutral-400 hover:text-white transition-colors"
+                className="p-1.5 sm:p-2 text-neutral-400 hover:text-white transition-colors"
               >
                 <LuX className="h-5 w-5" />
               </button>
             </div>
           </div>
 
-          {/* ── Center: Zoomable Photo Container ────────────────────────── */}
+          {/* ── Center: Zoomable & Swipeable Photo Container ────────────────── */}
           <div className="relative flex-1 min-h-0 w-full bg-black flex items-center justify-center overflow-hidden">
             <ZoomableImage
+              key={photo.id}
               src={photo.src}
               alt={photo.alt}
               onDoubleTapHeart={handleDoubleTap}
               showHeartAnim={showHeartBurst}
+              onSwipeLeft={onNext}
+              onSwipeRight={onPrev}
             />
           </div>
 
-          {/* ── Bottom Section: Action & Caption ────────────────────────── */}
-          <div className="px-4 py-3 sm:py-4 border-t border-[#1a2235] bg-[#030407] shrink-0 space-y-2">
+          {/* ── Bottom Section: Action & Caption (Swipeable too) ───────────── */}
+          <div
+            onTouchStart={handleBottomTouchStart}
+            onTouchEnd={handleBottomTouchEnd}
+            className="px-4 py-3 sm:py-4 border-t border-[#1a2235] bg-[#030407] shrink-0 space-y-2 select-none"
+          >
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <motion.button

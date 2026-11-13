@@ -10,6 +10,8 @@ interface ZoomableImageProps {
   alt: string;
   onDoubleTapHeart?: () => void;
   showHeartAnim?: boolean;
+  onSwipeLeft?: () => void;
+  onSwipeRight?: () => void;
 }
 
 export function ZoomableImage({
@@ -17,33 +19,64 @@ export function ZoomableImage({
   alt,
   onDoubleTapHeart,
   showHeartAnim = false,
+  onSwipeLeft,
+  onSwipeRight,
 }: ZoomableImageProps) {
   const [scale, setScale] = useState(1);
   const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // References for multi-touch gesture handling
+  // Keep state in refs so touch handlers don't need to rebind on every state change
+  const scaleRef = useRef(1);
+  scaleRef.current = scale;
+
+  const positionRef = useRef({ x: 0, y: 0 });
+  positionRef.current = position;
+
+  const onSwipeLeftRef = useRef(onSwipeLeft);
+  onSwipeLeftRef.current = onSwipeLeft;
+
+  const onSwipeRightRef = useRef(onSwipeRight);
+  onSwipeRightRef.current = onSwipeRight;
+
+  const onDoubleTapHeartRef = useRef(onDoubleTapHeart);
+  onDoubleTapHeartRef.current = onDoubleTapHeart;
+
+  // Reset zoom & pan when image source changes
+  useEffect(() => {
+    setScale(1);
+    setPosition({ x: 0, y: 0 });
+  }, [src]);
+
+  // Gesture state
   const touchStartRef = useRef<{
     dist: number;
     initialScale: number;
-    touch1: { x: number; y: number };
-    touch2?: { x: number; y: number };
     panStart: { x: number; y: number };
     initialPos: { x: number; y: number };
+    startTime: number;
+    deltaX: number;
+    deltaY: number;
+    isSwiping: boolean;
   }>({
     dist: 0,
     initialScale: 1,
-    touch1: { x: 0, y: 0 },
     panStart: { x: 0, y: 0 },
     initialPos: { x: 0, y: 0 },
+    startTime: 0,
+    deltaX: 0,
+    deltaY: 0,
+    isSwiping: false,
   });
 
   const lastTapRef = useRef<number>(0);
   const isInteractingRef = useRef(false);
 
-  // Mouse dragging state
+  // Mouse drag state for desktop
   const isMouseDownRef = useRef(false);
   const mouseDragStartRef = useRef({ x: 0, y: 0 });
+  const mouseStartTimeRef = useRef(0);
   const posAtDragStartRef = useRef({ x: 0, y: 0 });
 
   const clampPosition = useCallback((newScale: number, x: number, y: number) => {
@@ -63,8 +96,8 @@ export function ZoomableImage({
   // Double tap detection
   const handleDoubleTap = useCallback(
     (clientX: number, clientY: number) => {
-      if (onDoubleTapHeart) {
-        onDoubleTapHeart();
+      if (onDoubleTapHeartRef.current) {
+        onDoubleTapHeartRef.current();
       }
 
       setScale((prevScale) => {
@@ -81,10 +114,10 @@ export function ZoomableImage({
         }
       });
     },
-    [onDoubleTapHeart, clampPosition]
+    [clampPosition]
   );
 
-  // Native touch event listeners attached with passive: false to prevent browser pinch interference
+  // Native touch event listeners
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
@@ -93,28 +126,21 @@ export function ZoomableImage({
       isInteractingRef.current = true;
 
       if (e.touches.length === 2) {
-        // Pinch start
+        // Pinch-to-zoom start
         const t1 = e.touches[0];
         const t2 = e.touches[1];
         const dist = Math.hypot(t1.clientX - t2.clientX, t1.clientY - t2.clientY);
         touchStartRef.current.dist = dist;
-        touchStartRef.current.initialScale = scale;
-        touchStartRef.current.touch1 = { x: t1.clientX, y: t1.clientY };
-        touchStartRef.current.touch2 = { x: t2.clientX, y: t2.clientY };
+        touchStartRef.current.initialScale = scaleRef.current;
       } else if (e.touches.length === 1) {
-        // Single touch start (pan or double tap check)
+        // Single touch start (swipe, pan, or tap)
         const t = e.touches[0];
         touchStartRef.current.panStart = { x: t.clientX, y: t.clientY };
-        touchStartRef.current.initialPos = { ...position };
-
-        const now = Date.now();
-        if (now - lastTapRef.current < 300) {
-          e.preventDefault();
-          handleDoubleTap(t.clientX, t.clientY);
-          lastTapRef.current = 0;
-        } else {
-          lastTapRef.current = now;
-        }
+        touchStartRef.current.initialPos = { ...positionRef.current };
+        touchStartRef.current.startTime = Date.now();
+        touchStartRef.current.deltaX = 0;
+        touchStartRef.current.deltaY = 0;
+        touchStartRef.current.isSwiping = false;
       }
     };
 
@@ -123,7 +149,7 @@ export function ZoomableImage({
 
       if (e.touches.length === 2) {
         // Pinching to zoom
-        e.preventDefault();
+        if (e.cancelable) e.preventDefault();
         const t1 = e.touches[0];
         const t2 = e.touches[1];
         const currentDist = Math.hypot(
@@ -139,31 +165,101 @@ export function ZoomableImage({
           );
           setScale(nextScale);
         }
-      } else if (e.touches.length === 1 && scale > 1) {
-        // Panning while zoomed
-        e.preventDefault();
+      } else if (e.touches.length === 1) {
         const t = e.touches[0];
-        const deltaX = t.clientX - touchStartRef.current.panStart.x;
-        const deltaY = t.clientY - touchStartRef.current.panStart.y;
+        const dx = t.clientX - touchStartRef.current.panStart.x;
+        const dy = t.clientY - touchStartRef.current.panStart.y;
+        touchStartRef.current.deltaX = dx;
+        touchStartRef.current.deltaY = dy;
 
-        const nextX = touchStartRef.current.initialPos.x + deltaX;
-        const nextY = touchStartRef.current.initialPos.y + deltaY;
-
-        setPosition(clampPosition(scale, nextX, nextY));
+        if (scaleRef.current > 1.05) {
+          // Panning while zoomed in
+          if (e.cancelable) e.preventDefault();
+          const nextX = touchStartRef.current.initialPos.x + dx;
+          const nextY = touchStartRef.current.initialPos.y + dy;
+          setPosition(clampPosition(scaleRef.current, nextX, nextY));
+        } else {
+          // At normal 1x zoom: track horizontal swipe gesture
+          if (Math.abs(dx) > Math.abs(dy)) {
+            if (e.cancelable) e.preventDefault();
+            touchStartRef.current.isSwiping = true;
+            setIsDragging(true);
+            // Realtime 1:1 tactile drag displacement
+            setPosition({ x: dx, y: 0 });
+          }
+        }
       }
     };
 
     const onTouchEnd = (e: TouchEvent) => {
       if (e.touches.length === 0) {
         isInteractingRef.current = false;
-        // Snap back if user pinched below 1x
-        setScale((prev) => {
-          if (prev < 1.05) {
-            setPosition({ x: 0, y: 0 });
-            return 1;
+        setIsDragging(false);
+
+        const endTouch = e.changedTouches && e.changedTouches[0] ? e.changedTouches[0] : null;
+        const dx = endTouch
+          ? endTouch.clientX - touchStartRef.current.panStart.x
+          : touchStartRef.current.deltaX;
+        const dy = endTouch
+          ? endTouch.clientY - touchStartRef.current.panStart.y
+          : touchStartRef.current.deltaY;
+        const dist = Math.hypot(dx, dy);
+        const elapsed = Date.now() - touchStartRef.current.startTime;
+
+        // 1. Detect genuine clean tap (no significant drag or movement)
+        if (dist < 15 && elapsed < 280) {
+          const now = Date.now();
+          if (now - lastTapRef.current < 350) {
+            // Second tap of double tap
+            handleDoubleTap(
+              endTouch ? endTouch.clientX : window.innerWidth / 2,
+              endTouch ? endTouch.clientY : window.innerHeight / 2
+            );
+            lastTapRef.current = 0;
+          } else {
+            // First tap
+            lastTapRef.current = now;
           }
-          return prev;
-        });
+          return;
+        }
+
+        // If moved, it's NOT a tap: reset tap timer so swipes never falsely zoom
+        lastTapRef.current = 0;
+
+        // 2. Handle swipe navigation when at normal 1x scale
+        if (scaleRef.current <= 1.05) {
+          const isHorizontal = Math.abs(dx) > Math.abs(dy);
+          // Distance threshold: 35px or quick flick gesture (< 350ms & > 20px)
+          const isFlick = elapsed < 350 && Math.abs(dx) > 20;
+          const isDrag = Math.abs(dx) > 35;
+
+          if (isHorizontal && (isFlick || isDrag)) {
+            if (dx < 0) {
+              // Swiped finger left -> Show NEXT photo
+              if (onSwipeLeftRef.current) {
+                onSwipeLeftRef.current();
+              }
+            } else {
+              // Swiped finger right -> Show PREVIOUS photo
+              if (onSwipeRightRef.current) {
+                onSwipeRightRef.current();
+              }
+            }
+          }
+
+          // Reset horizontal position back to center
+          setPosition({ x: 0, y: 0 });
+          setScale(1);
+        } else {
+          // Snap back if user pinched below 1x
+          setScale((prev) => {
+            if (prev < 1.05) {
+              setPosition({ x: 0, y: 0 });
+              return 1;
+            }
+            return prev;
+          });
+        }
       }
     };
 
@@ -178,27 +274,53 @@ export function ZoomableImage({
       el.removeEventListener("touchend", onTouchEnd);
       el.removeEventListener("touchcancel", onTouchEnd);
     };
-  }, [scale, position, handleDoubleTap, clampPosition]);
+  }, [handleDoubleTap, clampPosition]);
 
-  // Desktop Mouse Handlers
+  // Desktop Mouse Handlers (supports drag-to-pan when zoomed and drag-to-swipe when 1x)
   const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (scale <= 1) return;
     isMouseDownRef.current = true;
     mouseDragStartRef.current = { x: e.clientX, y: e.clientY };
-    posAtDragStartRef.current = { ...position };
+    mouseStartTimeRef.current = Date.now();
+    posAtDragStartRef.current = { ...positionRef.current };
   };
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!isMouseDownRef.current || scale <= 1) return;
+    if (!isMouseDownRef.current) return;
     const deltaX = e.clientX - mouseDragStartRef.current.x;
     const deltaY = e.clientY - mouseDragStartRef.current.y;
-    const nextX = posAtDragStartRef.current.x + deltaX;
-    const nextY = posAtDragStartRef.current.y + deltaY;
-    setPosition(clampPosition(scale, nextX, nextY));
+
+    if (scale > 1.05) {
+      const nextX = posAtDragStartRef.current.x + deltaX;
+      const nextY = posAtDragStartRef.current.y + deltaY;
+      setPosition(clampPosition(scale, nextX, nextY));
+    } else {
+      if (Math.abs(deltaX) > 10) {
+        setIsDragging(true);
+        setPosition({ x: deltaX * 0.8, y: 0 });
+      }
+    }
   };
 
-  const handleMouseUp = () => {
+  const handleMouseUp = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!isMouseDownRef.current) return;
     isMouseDownRef.current = false;
+    setIsDragging(false);
+
+    if (scale <= 1.05) {
+      const deltaX = e.clientX - mouseDragStartRef.current.x;
+      const elapsed = Date.now() - mouseStartTimeRef.current;
+      const isFlick = elapsed < 350 && Math.abs(deltaX) > 30;
+      const isDrag = Math.abs(deltaX) > 60;
+
+      if (isFlick || isDrag) {
+        if (deltaX < 0 && onSwipeLeftRef.current) {
+          onSwipeLeftRef.current();
+        } else if (deltaX > 0 && onSwipeRightRef.current) {
+          onSwipeRightRef.current();
+        }
+      }
+      setPosition({ x: 0, y: 0 });
+    }
   };
 
   // Mouse wheel zoom
@@ -232,18 +354,22 @@ export function ZoomableImage({
         height: "100%",
       }}
     >
-      {/* Zoomed/Transformed Image Layer */}
+      {/* Zoomed / Transformed Image Layer */}
       <motion.div
         animate={{
           scale,
           x: position.x,
           y: position.y,
         }}
-        transition={{
-          type: "spring",
-          stiffness: 300,
-          damping: 30,
-        }}
+        transition={
+          isDragging
+            ? { duration: 0 }
+            : {
+                type: "spring",
+                stiffness: 320,
+                damping: 32,
+              }
+        }
         className="relative w-full h-full min-h-0 flex items-center justify-center transform-gpu will-change-transform"
         style={{ width: "100%", height: "100%" }}
       >

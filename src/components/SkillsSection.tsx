@@ -47,12 +47,12 @@ const DOMAINS: DomainBlock[] = [
       backdropGlow: "rgba(21, 88, 201, 0.07)",
     },
     skills: [
-      { name: "Next.js (App Router)",   appliedIn: "My Pay, Disester IO, Stay Scout",        icon: SiNextdotjs  },
-      { name: "React 19 & Suspense",    appliedIn: "Chill-Bay, Resturent Feedback",           icon: SiReact      },
-      { name: "TypeScript",             appliedIn: "All Shipped Repositories",                icon: SiTypescript },
-      { name: "Tailwind CSS",           appliedIn: "Design Tokens, Cyber-Column System",      icon: SiTailwindcss},
-      { name: "Framer Motion",          appliedIn: "Disester IO, Interactive Cards",          icon: SiFramer     },
-      { name: "React Query & Zustand",  appliedIn: "Chill-Bay State, Checkout Flows",         icon: SiReactquery },
+      { name: "Next.js (App Router)", appliedIn: "My Pay, Disester IO, Stay Scout", icon: SiNextdotjs },
+      { name: "React 19 & Suspense", appliedIn: "Chill-Bay, Resturent Feedback", icon: SiReact },
+      { name: "TypeScript", appliedIn: "All Shipped Repositories", icon: SiTypescript },
+      { name: "Tailwind CSS", appliedIn: "Design Tokens, Cyber-Column System", icon: SiTailwindcss },
+      { name: "Framer Motion", appliedIn: "Disester IO, Interactive Cards", icon: SiFramer },
+      { name: "React Query & Zustand", appliedIn: "Chill-Bay State, Checkout Flows", icon: SiReactquery },
     ],
   },
   {
@@ -67,12 +67,12 @@ const DOMAINS: DomainBlock[] = [
       backdropGlow: "rgba(212, 255, 36, 0.05)",
     },
     skills: [
-      { name: "Node.js (Async I/O)",       appliedIn: "Resturent Feedback, Custom APIs",   icon: SiNodedotjs      },
-      { name: "RESTful API Architecture",  appliedIn: "Stay Scout, My Pay Checkout",        icon: LuNetwork        },
-      { name: "PostgreSQL",                appliedIn: "Resturent Feedback System",           icon: SiPostgresql     },
-      { name: "Prisma ORM",               appliedIn: "Relational Modeling & Migrations",    icon: SiPrisma         },
-      { name: "Socket.io",                appliedIn: "Chill-Bay Real-Time Rooms",           icon: TbBrandSocketIo  },
-      { name: "Redis",                    appliedIn: "Transient Sessions & Rate Limits",    icon: SiRedis          },
+      { name: "Node.js (Async I/O)", appliedIn: "Resturent Feedback, Custom APIs", icon: SiNodedotjs },
+      { name: "RESTful API Architecture", appliedIn: "Stay Scout, My Pay Checkout", icon: LuNetwork },
+      { name: "PostgreSQL", appliedIn: "Resturent Feedback System", icon: SiPostgresql },
+      { name: "Prisma ORM", appliedIn: "Relational Modeling & Migrations", icon: SiPrisma },
+      { name: "Socket.io", appliedIn: "Chill-Bay Real-Time Rooms", icon: TbBrandSocketIo },
+      { name: "Redis", appliedIn: "Transient Sessions & Rate Limits", icon: SiRedis },
     ],
   },
   {
@@ -87,12 +87,12 @@ const DOMAINS: DomainBlock[] = [
       backdropGlow: "rgba(21, 88, 201, 0.06)",
     },
     skills: [
-      { name: "Modular Architecture",        appliedIn: "Full-Stack Project Structuring",        icon: LuLayers      },
-      { name: "Auth & RBAC Guards",          appliedIn: "Resturent Feedback, User Portals",       icon: LuShieldCheck },
-      { name: "Relational Data Modeling",    appliedIn: "Database Schema Normalization",          icon: LuDatabase    },
-      { name: "Validation & Error Handlers", appliedIn: "Zod Schemas, API Route Safeguards",      icon: LuCircleCheck },
-      { name: "Web Performance Profiling",   appliedIn: "Sub-1s LCP & CLS Optimization",          icon: LuGauge       },
-      { name: "State Orchestration",         appliedIn: "Real-Time Sync Fallback States",         icon: LuBoxes       },
+      { name: "Modular Architecture", appliedIn: "Full-Stack Project Structuring", icon: LuLayers },
+      { name: "Auth & RBAC Guards", appliedIn: "Resturent Feedback, User Portals", icon: LuShieldCheck },
+      { name: "Relational Data Modeling", appliedIn: "Database Schema Normalization", icon: LuDatabase },
+      { name: "Validation & Error Handlers", appliedIn: "Zod Schemas, API Route Safeguards", icon: LuCircleCheck },
+      { name: "Web Performance Profiling", appliedIn: "Sub-1s LCP & CLS Optimization", icon: LuGauge },
+      { name: "State Orchestration", appliedIn: "Real-Time Sync Fallback States", icon: LuBoxes },
     ],
   },
   {
@@ -107,12 +107,12 @@ const DOMAINS: DomainBlock[] = [
       backdropGlow: "rgba(212, 255, 36, 0.05)",
     },
     skills: [
-      { name: "Git & GitHub Workflow",     appliedIn: "Atomic PRs, Branch Hygiene",             icon: SiGithub  },
-      { name: "Vercel Platform",           appliedIn: "Edge Deployments, Preview URLs",          icon: SiVercel  },
-      { name: "ESLint & Prettier",         appliedIn: "Static Analysis, CI Verification",        icon: SiEslint  },
-      { name: "Docker (Containers)",       appliedIn: "Development Environment Parity",          icon: SiDocker  },
-      { name: "CI/CD Pipelines",          appliedIn: "Automated Build Verification",             icon: LuWorkflow},
-      { name: "Terminal & HTTP Tooling",  appliedIn: "CLI Automation, API Verification",         icon: LuTerminal},
+      { name: "Git & GitHub Workflow", appliedIn: "Atomic PRs, Branch Hygiene", icon: SiGithub },
+      { name: "Vercel Platform", appliedIn: "Edge Deployments, Preview URLs", icon: SiVercel },
+      { name: "ESLint & Prettier", appliedIn: "Static Analysis, CI Verification", icon: SiEslint },
+      { name: "Docker (Containers)", appliedIn: "Development Environment Parity", icon: SiDocker },
+      { name: "CI/CD Pipelines", appliedIn: "Automated Build Verification", icon: LuWorkflow },
+      { name: "Terminal & HTTP Tooling", appliedIn: "CLI Automation, API Verification", icon: LuTerminal },
     ],
   },
 ];
@@ -191,7 +191,7 @@ function SpotlightDashboardCard({ domain, index }: { domain: DomainBlock; index:
           </div>
 
           {/* Tech grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-4">
+          <div className="grid grid-cols-2 sm:grid-cols-2 gap-2.5 pt-4">
             {domain.skills.map((skill) => {
               const Icon = skill.icon;
               return (

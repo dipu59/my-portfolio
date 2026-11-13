@@ -126,17 +126,43 @@ export function GalleryClient() {
 
   const handleNextPhoto = useCallback(() => {
     setSelectedPhotoIndex((prev) => {
-      if (prev === null) return null;
-      return (prev + 1) % GALLERY_PHOTOS.length;
+      if (prev === null || filteredPhotos.length === 0) return null;
+      const currentPhoto = GALLERY_PHOTOS[prev];
+      const curFilteredIdx = filteredPhotos.findIndex(
+        (p) => p.id === currentPhoto?.id
+      );
+      if (curFilteredIdx === -1) {
+        return (prev + 1) % GALLERY_PHOTOS.length;
+      }
+      const nextPhoto =
+        filteredPhotos[(curFilteredIdx + 1) % filteredPhotos.length];
+      return GALLERY_PHOTOS.findIndex((p) => p.id === nextPhoto.id);
     });
-  }, []);
+  }, [filteredPhotos]);
 
   const handlePrevPhoto = useCallback(() => {
     setSelectedPhotoIndex((prev) => {
-      if (prev === null) return null;
-      return (prev - 1 + GALLERY_PHOTOS.length) % GALLERY_PHOTOS.length;
+      if (prev === null || filteredPhotos.length === 0) return null;
+      const currentPhoto = GALLERY_PHOTOS[prev];
+      const curFilteredIdx = filteredPhotos.findIndex(
+        (p) => p.id === currentPhoto?.id
+      );
+      if (curFilteredIdx === -1) {
+        return (prev - 1 + GALLERY_PHOTOS.length) % GALLERY_PHOTOS.length;
+      }
+      const prevPhoto =
+        filteredPhotos[
+          (curFilteredIdx - 1 + filteredPhotos.length) % filteredPhotos.length
+        ];
+      return GALLERY_PHOTOS.findIndex((p) => p.id === prevPhoto.id);
     });
-  }, []);
+  }, [filteredPhotos]);
+
+  const currentFilteredIndex = useMemo(() => {
+    if (!selectedPhoto) return 0;
+    const idx = filteredPhotos.findIndex((p) => p.id === selectedPhoto.id);
+    return idx !== -1 ? idx : 0;
+  }, [selectedPhoto, filteredPhotos]);
 
   const handleToggleLike = async (photoId: string) => {
     const current = interactions[photoId] || {
@@ -423,6 +449,8 @@ export function GalleryClient() {
           ════════════════════════════════════════════════════════════════ */}
       <InstagramModal
         photo={selectedPhoto}
+        currentIndex={currentFilteredIndex}
+        totalPhotos={filteredPhotos.length}
         onClose={handleCloseModal}
         onNext={handleNextPhoto}
         onPrev={handlePrevPhoto}
