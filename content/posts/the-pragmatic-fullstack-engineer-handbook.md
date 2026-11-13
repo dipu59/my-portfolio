@@ -21,14 +21,14 @@ Don't jump straight into microservices with Kubernetes clusters when a well-stru
 
 A clean directory structure enforces boundaries without external orchestration:
 
-\`\`\`text
+```text
 src/
 ├── modules/
 │   ├── auth/          # Authentication domain logic, db schemas, endpoints
 │   ├── billing/       # Subscriptions, stripe webhooks, invoice generators
 │   └── notifications/ # Email queues, SMS handlers, push services
 └── shared/            # Common UI components, logger, db client
-\`\`\`
+```
 
 > [!NOTE]
 > If a domain boundary doesn't need to scale independently or run under different security parameters, keep it inside the same codebase. You can always split it into an independent microservice later.
@@ -39,7 +39,7 @@ src/
 
 Never assume third-party APIs (Stripe, GitHub, Mailgun) are 100% reliable. Always wrap external integrations in defensive fallbacks:
 
-\`\`\`typescript
+```typescript
 export async function safeFetch<T>(promise: Promise<T>, fallback: T): Promise<T> {
   try {
     return await promise;
@@ -48,7 +48,7 @@ export async function safeFetch<T>(promise: Promise<T>, fallback: T): Promise<T>
     return fallback;
   }
 }
-\`\`\`
+```
 
 ---
 
@@ -60,7 +60,7 @@ Shipping code with confidence requires automated checks on every pull request. A
 2. **Unit & Integration Tests**: Verify business calculations and API contracts.
 3. **Preview Deployments**: Spin up isolated environment URLs for QA testing before production merge.
 
-\`\`\`yaml
+```yaml
 # .github/workflows/deploy.yml
 name: CI/CD Pipeline
 on: [push, pull_request]
@@ -78,7 +78,7 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm run lint
       - run: pnpm run build
-\`\`\`
+```
 
 ---
 

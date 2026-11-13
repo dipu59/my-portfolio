@@ -19,9 +19,9 @@ In this tutorial, we will explore the CSS architecture behind building an immers
 
 ## 1. Tailwind v4 Theme Variables
 
-Tailwind CSS v4 introduces the native \`@theme\` directive, allowing CSS-first token definitions without messy JavaScript configuration files:
+Tailwind CSS v4 introduces the native `@theme` directive, allowing CSS-first token definitions without messy JavaScript configuration files:
 
-\`\`\`css
+```css
 /* globals.css */
 @import "tailwindcss";
 
@@ -40,10 +40,10 @@ Tailwind CSS v4 introduces the native \`@theme\` directive, allowing CSS-first t
   --color-cyber-blue: var(--accent-blue);
   --color-cyber-lime: var(--accent-lime);
 }
-\`\`\`
+```
 
 > [!TIP]
-> Setting \`color-scheme: dark\` on \`:root\` forces native browser controls (inputs, scrollbars, dropdowns) to render in dark mode even if the user's OS has light mode enabled.
+> Setting `color-scheme: dark` on `:root` forces native browser controls (inputs, scrollbars, dropdowns) to render in dark mode even if the user's OS has light mode enabled.
 
 ---
 
@@ -51,7 +51,7 @@ Tailwind CSS v4 introduces the native \`@theme\` directive, allowing CSS-first t
 
 One of the standout visuals is the dynamic glowing gradient border. Using CSS masks and pseudo-elements, we can create a rotating conic light beam:
 
-\`\`\`tsx
+```tsx
 export function NeonCard({ children }: { children: React.ReactNode }) {
   return (
     <div className="relative group rounded-2xl p-[1px] overflow-hidden">
@@ -70,7 +70,7 @@ export function NeonCard({ children }: { children: React.ReactNode }) {
     </div>
   );
 }
-\`\`\`
+```
 
 ---
 
@@ -78,7 +78,7 @@ export function NeonCard({ children }: { children: React.ReactNode }) {
 
 Static hover states feel mechanical. Giving interactive elements physical weight and spring damping makes user clicks tactile and satisfying:
 
-\`\`\`tsx
+```tsx
 "use client";
 
 import { motion } from "framer-motion";
@@ -95,15 +95,15 @@ export function CyberButton({ label }: { label: string }) {
     </motion.button>
   );
 }
-\`\`\`
+```
 
 > [!IMPORTANT]
-> Always pair scale transforms with \`will-change: transform\` and check for reduced motion preferences (\`prefers-reduced-motion\`) to maintain accessibility for all users.
+> Always pair scale transforms with `will-change: transform` and check for reduced motion preferences (`prefers-reduced-motion`) to maintain accessibility for all users.
 
 ---
 
 ## Key Takeaways
 
-- Contrast is king: Combine dark voids (\`#030407\`) with piercing accents (\`#D4FF24\`, \`#1558C9\`).
+- Contrast is king: Combine dark voids (`#030407`) with piercing accents (`#D4FF24`, `#1558C9`).
 - Motion adds life: Use springs instead of linear bezier transitions for interface controls.
-- Glassmorphism works best when subtle: Restrict \`backdrop-blur\` to navigation bars and floating modal panels.
+- Glassmorphism works best when subtle: Restrict `backdrop-blur` to navigation bars and floating modal panels.

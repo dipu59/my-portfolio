@@ -38,11 +38,11 @@ Here is how you add any link:
 
 If your post includes code, write it inside triple backticks like this:
 
-\`\`\`javascript
+```javascript
 // Your code here
 const greeting = "Hello, world!";
 console.log(greeting);
-\`\`\`
+```
 
 ---
 

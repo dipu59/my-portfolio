@@ -14,17 +14,17 @@ featured: true
 The evolution of Next.js 16 coupled with React 19 marks one of the most significant paradigm shifts in modern frontend development. In this guide, we break down real-world architectural patterns, the death of manual memoization, and how to harness asynchronous request APIs for sub-second render pipelines.
 
 > [!NOTE]
-> React 19 completely abstracts away \`useMemo\`, \`useCallback\`, and \`React.memo\` via the React Compiler. Your components are automatically memoized at the AST level during compile time.
+> React 19 completely abstracts away `useMemo`, `useCallback`, and `React.memo` via the React Compiler. Your components are automatically memoized at the AST level during compile time.
 
 ---
 
 ## The Paradigm Shift: React Compiler in Action
 
-Historically, frontend engineers spent hours debugging re-render cascades and writing defensive code with \`useMemo\` and \`useCallback\`. 
+Historically, frontend engineers spent hours debugging re-render cascades and writing defensive code with `useMemo` and `useCallback`. 
 
-With the React Compiler enabled in \`next.config.ts\`, the compiler analyzes dependency graphs and applies automatic memoization without runtime overhead:
+With the React Compiler enabled in `next.config.ts`, the compiler analyzes dependency graphs and applies automatic memoization without runtime overhead:
 
-\`\`\`tsx
+```tsx
 // next.config.ts
 import type { NextConfig } from "next";
 
@@ -36,11 +36,11 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
-\`\`\`
+```
 
 Now, standard component state updates avoid re-rendering heavy child subtrees without requiring manual hook wrappers:
 
-\`\`\`tsx
+```tsx
 export function MetricDashboard({ items }: { items: MetricItem[] }) {
   // No useMemo needed! React Compiler preserves computation automatically.
   const topMetrics = items
@@ -55,7 +55,7 @@ export function MetricDashboard({ items }: { items: MetricItem[] }) {
     </div>
   );
 }
-\`\`\`
+```
 
 ---
 
@@ -63,7 +63,7 @@ export function MetricDashboard({ items }: { items: MetricItem[] }) {
 
 In Next.js 16, access to route parameters, query strings, cookies, and headers has migrated to asynchronous Promises. This enables the server runtime to aggressively stream static layout shells before resolving dynamic request headers.
 
-\`\`\`tsx
+```tsx
 // app/blog/[slug]/page.tsx
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -84,18 +84,18 @@ export default async function BlogPostPage({ params, searchParams }: PageProps) 
     </article>
   );
 }
-\`\`\`
+```
 
 > [!TIP]
-> Always destructure \`params\` inside the page body after \`await\`. Avoid blocking the entire component if only a small child requires query parameter validation.
+> Always destructure `params` inside the page body after `await`. Avoid blocking the entire component if only a small child requires query parameter validation.
 
 ---
 
 ## Server Actions with Optimistic UI
 
-React 19 brings \`useOptimistic\` and the enhanced \`useActionState\` hook. When paired with Server Actions, users experience instantaneous UI feedback before the server round-trip completes:
+React 19 brings `useOptimistic` and the enhanced `useActionState` hook. When paired with Server Actions, users experience instantaneous UI feedback before the server round-trip completes:
 
-\`\`\`tsx
+```tsx
 "use client";
 
 import { useOptimistic, useTransition } from "react";
@@ -126,7 +126,7 @@ export function LikeButton({ initialLikes, slug }: { initialLikes: number; slug:
     </button>
   );
 }
-\`\`\`
+```
 
 ---
 
@@ -135,9 +135,9 @@ export function LikeButton({ initialLikes, slug }: { initialLikes: number; slug:
 Before shipping your Next.js 16 application, verify these core pillars:
 
 1. **Partial Prerendering (PPR)**: Ensure static UI frames are delivered instantly with streaming dynamic holes.
-2. **Font Optimization**: Utilize \`next/font\` to prevent Cumulative Layout Shift (CLS).
-3. **Image Optimization**: Specify \`sizes\` and appropriate \`remotePatterns\` to avoid unoptimized asset payloads.
+2. **Font Optimization**: Utilize `next/font` to prevent Cumulative Layout Shift (CLS).
+3. **Image Optimization**: Specify `sizes` and appropriate `remotePatterns` to avoid unoptimized asset payloads.
 4. **Bundle Analysis**: Keep client component boundaries at the leaf nodes of your DOM tree.
 
 > [!WARNING]
-> Do not mark high-level wrapper components with \`"use client"\` unless necessary. Keep data-fetching, database querying, and file reading firmly within Server Components.
+> Do not mark high-level wrapper components with `"use client"` unless necessary. Keep data-fetching, database querying, and file reading firmly within Server Components.

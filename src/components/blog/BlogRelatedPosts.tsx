@@ -73,14 +73,14 @@ export function BlogRelatedPosts({
           <h3 className="text-lg font-bold text-white mb-6">
             Recommended Reading
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-2 gap-3 sm:gap-6">
             {relatedPosts.map((post) => (
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
                 className="group flex flex-col rounded-2xl border border-[#1a2235] bg-[#0a0d14] overflow-hidden hover:border-[#1558C9] hover:shadow-[0_0_25px_rgba(21,88,201,0.2)] transition-all"
               >
-                <div className="relative h-40 w-full overflow-hidden bg-[#111726]">
+                <div className="relative h-28 sm:h-40 w-full overflow-hidden bg-[#111726]">
                   <Image
                     src={post.coverImage}
                     alt={post.title}
@@ -88,23 +88,23 @@ export function BlogRelatedPosts({
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                     unoptimized
                   />
-                  <span className="absolute top-3 left-3 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-semibold bg-[#030407]/80 backdrop-blur-md text-[#D4FF24] border border-[#D4FF24]/30">
+                  <span className="absolute top-2 left-2 sm:top-3 sm:left-3 px-2 py-0.5 sm:px-2.5 rounded-full text-[9px] sm:text-[10px] font-mono font-semibold bg-[#030407]/80 backdrop-blur-md text-[#D4FF24] border border-[#D4FF24]/30 truncate max-w-[80%]">
                     {post.category}
                   </span>
                 </div>
-                <div className="p-5 flex flex-col flex-1 justify-between">
+                <div className="p-3 sm:p-5 flex flex-col flex-1 justify-between">
                   <div>
-                    <h4 className="font-bold text-white group-hover:text-[#D4FF24] transition-colors line-clamp-2">
+                    <h4 className="font-bold text-xs sm:text-base !text-white group-hover:!text-[#D4FF24] transition-colors line-clamp-2">
                       {post.title}
                     </h4>
-                    <p className="mt-2 text-xs text-slate-400 line-clamp-2 leading-relaxed">
+                    <p className="mt-1.5 text-[11px] sm:text-xs text-slate-400 line-clamp-2 leading-relaxed hidden sm:block">
                       {post.excerpt}
                     </p>
                   </div>
-                  <div className="mt-4 flex items-center justify-between text-[11px] font-mono text-slate-500">
+                  <div className="mt-3 sm:mt-4 flex items-center justify-between text-[10px] sm:text-[11px] font-mono text-slate-500">
                     <span>{post.readingTime}</span>
                     <span className="text-[#3b82f6] group-hover:translate-x-1 transition-transform">
-                      Read article →
+                      <span className="hidden sm:inline">Read article </span>→
                     </span>
                   </div>
                 </div>

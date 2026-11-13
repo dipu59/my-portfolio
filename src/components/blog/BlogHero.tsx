@@ -140,7 +140,7 @@ export function BlogHero({
                     <span>{featuredPost.readingTime}</span>
                   </div>
 
-                  <h2 className="text-xl sm:text-2xl font-bold text-white group-hover:text-[#D4FF24] transition-colors leading-snug">
+                  <h2 className="text-xl sm:text-2xl font-bold !text-white group-hover:!text-[#D4FF24] transition-colors leading-snug">
                     {featuredPost.title}
                   </h2>
 

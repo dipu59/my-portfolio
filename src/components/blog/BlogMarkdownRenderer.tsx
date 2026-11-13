@@ -7,6 +7,146 @@ interface BlogMarkdownRendererProps {
   fontSize?: "normal" | "large" | "xlarge";
 }
 
+// ── Syntax Tokenizer for Code Highlighting ──────────────────────────────────
+const KEYWORDS = new Set([
+  "import", "export", "from", "default", "const", "let", "var",
+  "function", "return", "if", "else", "switch", "case", "break",
+  "for", "while", "do", "try", "catch", "finally", "throw",
+  "async", "await", "yield", "class", "extends", "implements",
+  "interface", "type", "enum", "new", "this", "super", "typeof",
+  "instanceof", "in", "of", "void", "delete", "def", "self", "as"
+]);
+
+const TYPES = new Set([
+  "string", "number", "boolean", "any", "unknown", "never", "void",
+  "null", "undefined", "symbol", "bigint", "Object", "Function",
+  "Array", "Promise", "Record", "Partial", "Pick", "Omit",
+  "React", "ReactNode", "NextConfig", "NextResponse", "Request", "Response",
+  "Metadata", "BlogPost", "BlogComment"
+]);
+
+const BUILTINS = new Set([
+  "useState", "useEffect", "useMemo", "useCallback", "useRef",
+  "useContext", "useOptimistic", "useTransition", "useActionState",
+  "console", "window", "document", "process", "JSON", "Math",
+  "fetch", "setTimeout", "setInterval", "log", "error", "warn", "info"
+]);
+
+const LITERALS = new Set(["true", "false", "null", "undefined", "NaN", "Infinity"]);
+
+function highlightLine(line: string, lang: string): React.ReactNode {
+  if (!line || !line.trim()) return " ";
+
+  const trimmed = line.trim();
+
+  // Full-line comment
+  if (
+    trimmed.startsWith("//") ||
+    trimmed.startsWith("/*") ||
+    trimmed.startsWith("*") ||
+    ((lang === "bash" || lang === "yaml" || lang === "python" || lang === "sh") && trimmed.startsWith("#"))
+  ) {
+    return <span className="text-slate-500 italic">{line}</span>;
+  }
+
+  // Token regex for code elements
+  const tokenRegex =
+    /(\/\/[^\n]*|\/\*[\s\S]*?\*\/|"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|`(?:\\.|[^`\\])*`|<\/?[A-Za-z0-9_.-]+|\b\d+(?:\.\d+)?\b|\b[A-Za-z_$][A-Za-z0-9_$]*\b|[^\s\w"'`]+|\s+)/g;
+
+  const tokens = line.match(tokenRegex) || [line];
+
+  return tokens.map((token, idx) => {
+    // Inline comment
+    if (token.startsWith("//") || token.startsWith("/*")) {
+      return (
+        <span key={idx} className="text-slate-500 italic">
+          {token}
+        </span>
+      );
+    }
+
+    // Strings
+    if (
+      (token.startsWith('"') && token.endsWith('"')) ||
+      (token.startsWith("'") && token.endsWith("'")) ||
+      (token.startsWith("`") && token.endsWith("`"))
+    ) {
+      return (
+        <span key={idx} className="text-[#a3e635]">
+          {token}
+        </span>
+      );
+    }
+
+    // JSX Tags
+    if (token.startsWith("<") && token.length > 1) {
+      return (
+        <span key={idx} className="text-[#f87171] font-medium">
+          {token}
+        </span>
+      );
+    }
+
+    // Numbers
+    if (/^\d+(?:\.\d+)?$/.test(token)) {
+      return (
+        <span key={idx} className="text-[#fb923c]">
+          {token}
+        </span>
+      );
+    }
+
+    // Literals
+    if (LITERALS.has(token)) {
+      return (
+        <span key={idx} className="text-[#f97316] font-medium">
+          {token}
+        </span>
+      );
+    }
+
+    // Keywords
+    if (KEYWORDS.has(token)) {
+      return (
+        <span key={idx} className="text-[#38bdf8] font-semibold">
+          {token}
+        </span>
+      );
+    }
+
+    // Types
+    if (TYPES.has(token)) {
+      return (
+        <span key={idx} className="text-[#fbbf24]">
+          {token}
+        </span>
+      );
+    }
+
+    // Builtins / Hooks
+    if (BUILTINS.has(token)) {
+      return (
+        <span key={idx} className="text-[#818cf8] font-medium">
+          {token}
+        </span>
+      );
+    }
+
+    // Punctuation
+    if (/^[{}()[\].,;:?!=<>+\-*/%&|^~]+$/.test(token)) {
+      return (
+        <span key={idx} className="text-slate-400">
+          {token}
+        </span>
+      );
+    }
+
+    // Default identifier
+    return <span key={idx} className="text-slate-200">{token}</span>;
+  });
+}
+
+// ── Code Block Component ────────────────────────────────────────────────────
 function CodeBlock({ code, language }: { code: string; language: string }) {
   const [copied, setCopied] = useState(false);
 
@@ -20,10 +160,10 @@ function CodeBlock({ code, language }: { code: string; language: string }) {
     }
   };
 
-  const lines = code.trim().split("\n");
+  const lines = code.split("\n");
 
   return (
-    <div className="relative my-6 rounded-xl border border-[#1a2235] bg-[#07090e] overflow-hidden group shadow-lg">
+    <div className="relative my-6 rounded-2xl border border-[#1a2235] bg-[#07090e] overflow-hidden group shadow-2xl">
       <div className="flex items-center justify-between px-4 py-2.5 bg-[#0d121c] border-b border-[#1a2235] text-xs font-mono text-slate-400">
         <div className="flex items-center gap-2">
           <span className="flex gap-1.5">
@@ -31,14 +171,14 @@ function CodeBlock({ code, language }: { code: string; language: string }) {
             <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/70 inline-block" />
             <span className="w-2.5 h-2.5 rounded-full bg-green-500/70 inline-block" />
           </span>
-          <span className="ml-2 uppercase text-[11px] font-semibold text-slate-300">
+          <span className="ml-2 uppercase text-[11px] font-semibold text-[#D4FF24]">
             {language || "code"}
           </span>
         </div>
         <button
           onClick={handleCopy}
           aria-label="Copy code to clipboard"
-          className="flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-sans border border-[#1a2235] bg-[#111726] hover:bg-[#1a233a] hover:border-[#1558C9] text-slate-300 hover:text-white transition-all active:scale-95"
+          className="flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-sans border border-[#1a2235] bg-[#111726] hover:bg-[#1a233a] hover:border-[#1558C9] text-slate-300 hover:text-white transition-all active:scale-95 cursor-pointer"
         >
           {copied ? (
             <>
@@ -62,12 +202,12 @@ function CodeBlock({ code, language }: { code: string; language: string }) {
         <table className="w-full border-collapse">
           <tbody>
             {lines.map((line, idx) => (
-              <tr key={idx} className="hover:bg-white/[0.02]">
+              <tr key={idx} className="hover:bg-white/[0.03]">
                 <td className="pr-4 text-right select-none text-slate-600 text-[11px] w-8 align-top">
                   {idx + 1}
                 </td>
                 <td className="text-slate-200 whitespace-pre">
-                  {line || " "}
+                  {highlightLine(line, language.toLowerCase())}
                 </td>
               </tr>
             ))}
@@ -78,6 +218,7 @@ function CodeBlock({ code, language }: { code: string; language: string }) {
   );
 }
 
+// ── Markdown Parser Engine ──────────────────────────────────────────────────
 export function BlogMarkdownRenderer({
   content,
   fontSize = "normal",
@@ -89,56 +230,66 @@ export function BlogMarkdownRenderer({
       ? "text-xl leading-loose"
       : "text-base leading-relaxed";
 
-  // Parse markdown into structured blocks
   const renderBlocks = () => {
-    const rawBlocks = content.trim().split("\n\n");
-    const elements: React.ReactNode[] = [];
-    let i = 0;
+    const normalized = content.replace(/\r\n/g, "\n").trim();
+    // Regex matching code blocks reliably (handling both regular and escaped backticks)
+    const codeBlockRegex = /(?:```|\\```)(\w*)\n([\s\S]*?)\n(?:```|\\```)/g;
 
-    while (i < rawBlocks.length) {
-      let block = rawBlocks[i].trim();
-      if (!block) {
-        i++;
-        continue;
+    interface BlockItem {
+      type: "code" | "text";
+      lang?: string;
+      code?: string;
+      raw?: string;
+    }
+
+    const blocks: BlockItem[] = [];
+    let lastIdx = 0;
+    let match;
+
+    while ((match = codeBlockRegex.exec(normalized)) !== null) {
+      const before = normalized.slice(lastIdx, match.index).trim();
+      if (before) {
+        before.split(/\n{2,}/).forEach((chunk) => {
+          if (chunk.trim()) blocks.push({ type: "text", raw: chunk.trim() });
+        });
       }
 
-      // ── Code Block ──────────────────────────────────────────────────────────
-      if (block.startsWith("```")) {
-        let codeLines = block.split("\n");
-        const firstLine = codeLines[0];
-        const language = firstLine.replace("```", "").trim();
-        let codeContent = codeLines.slice(1).join("\n");
+      blocks.push({
+        type: "code",
+        lang: match[1] || "code",
+        code: match[2],
+      });
 
-        if (codeContent.endsWith("```")) {
-          codeContent = codeContent.slice(0, -3);
-        } else {
-          // If block spans multiple chunks
-          while (i + 1 < rawBlocks.length && !codeContent.includes("```")) {
-            i++;
-            codeContent += "\n\n" + rawBlocks[i];
-          }
-          if (codeContent.endsWith("```")) {
-            codeContent = codeContent.slice(0, -3);
-          }
-        }
+      lastIdx = match.index + match[0].length;
+    }
 
-        elements.push(
+    const remaining = normalized.slice(lastIdx).trim();
+    if (remaining) {
+      remaining.split(/\n{2,}/).forEach((chunk) => {
+        if (chunk.trim()) blocks.push({ type: "text", raw: chunk.trim() });
+      });
+    }
+
+    return blocks.map((block, i) => {
+      // ── Render Code Block ─────────────────────────────────────────────────
+      if (block.type === "code" && block.code !== undefined) {
+        return (
           <CodeBlock
             key={`code-${i}`}
-            code={codeContent}
-            language={language}
+            code={block.code}
+            language={block.lang || "code"}
           />
         );
-        i++;
-        continue;
       }
 
-      // ── Alert Callouts (> [!NOTE], etc.) ──────────────────────────────────
-      if (block.startsWith("> [!")) {
-        const match = block.match(/^>\s*\[!(NOTE|TIP|WARNING|IMPORTANT)\]\s*\n?([\s\S]*)$/i);
-        if (match) {
-          const type = match[1].toUpperCase();
-          const text = match[2]
+      const text = block.raw || "";
+
+      // ── Render Callouts (> [!NOTE], etc.) ─────────────────────────────────
+      if (text.startsWith("> [!")) {
+        const cMatch = text.match(/^>\s*\[!(NOTE|TIP|WARNING|IMPORTANT)\]\s*\n?([\s\S]*)$/i);
+        if (cMatch) {
+          const type = cMatch[1].toUpperCase();
+          const body = cMatch[2]
             .split("\n")
             .map((line) => line.replace(/^>\s?/, ""))
             .join("\n")
@@ -177,7 +328,7 @@ export function BlogMarkdownRenderer({
 
           const cfg = configs[type as keyof typeof configs] || configs.NOTE;
 
-          elements.push(
+          return (
             <div
               key={`callout-${i}`}
               className={`my-6 p-4 rounded-xl border ${cfg.border} ${cfg.bg} text-slate-300 text-sm`}
@@ -186,22 +337,20 @@ export function BlogMarkdownRenderer({
                 <span>{cfg.icon}</span>
                 <span>{cfg.title}</span>
               </div>
-              <p className="leading-relaxed">{parseInline(text)}</p>
+              <p className="leading-relaxed">{parseInline(body)}</p>
             </div>
           );
-          i++;
-          continue;
         }
       }
 
-      // ── Blockquote ────────────────────────────────────────────────────────
-      if (block.startsWith(">")) {
-        const quoteText = block
+      // ── Render Blockquote ─────────────────────────────────────────────────
+      if (text.startsWith(">")) {
+        const quoteText = text
           .split("\n")
           .map((l) => l.replace(/^>\s?/, ""))
           .join(" ");
 
-        elements.push(
+        return (
           <blockquote
             key={`quote-${i}`}
             className="my-6 pl-4 border-l-2 border-[#1558C9] italic text-slate-300 bg-[#0a0e1a]/40 py-2.5 rounded-r-lg"
@@ -209,23 +358,21 @@ export function BlogMarkdownRenderer({
             {parseInline(quoteText)}
           </blockquote>
         );
-        i++;
-        continue;
       }
 
-      // ── Headings ─────────────────────────────────────────────────────────
-      if (block.startsWith("#")) {
-        const hMatch = block.match(/^(#{1,4})\s+(.+)$/);
+      // ── Render Headings ───────────────────────────────────────────────────
+      if (text.startsWith("#")) {
+        const hMatch = text.match(/^(#{1,4})\s+(.+)$/);
         if (hMatch) {
           const level = hMatch[1].length;
-          const text = hMatch[2];
-          const id = text
+          const hText = hMatch[2];
+          const id = hText
             .toLowerCase()
             .replace(/[^\w\s-]/g, "")
             .replace(/\s+/g, "-");
 
           if (level === 2) {
-            elements.push(
+            return (
               <h2
                 key={`h2-${i}`}
                 id={id}
@@ -235,7 +382,7 @@ export function BlogMarkdownRenderer({
                   href={`#${id}`}
                   className="inline-flex items-center gap-2 hover:text-[#D4FF24] transition-colors"
                 >
-                  {parseInline(text)}
+                  {parseInline(hText)}
                   <span className="opacity-0 group-hover:opacity-100 text-slate-500 hover:text-[#D4FF24] text-base transition-opacity">
                     #
                   </span>
@@ -243,7 +390,7 @@ export function BlogMarkdownRenderer({
               </h2>
             );
           } else if (level === 3) {
-            elements.push(
+            return (
               <h3
                 key={`h3-${i}`}
                 id={id}
@@ -253,7 +400,7 @@ export function BlogMarkdownRenderer({
                   href={`#${id}`}
                   className="inline-flex items-center gap-2 hover:text-[#D4FF24] transition-colors"
                 >
-                  {parseInline(text)}
+                  {parseInline(hText)}
                   <span className="opacity-0 group-hover:opacity-100 text-slate-500 hover:text-[#D4FF24] text-sm transition-opacity">
                     #
                   </span>
@@ -261,36 +408,32 @@ export function BlogMarkdownRenderer({
               </h3>
             );
           } else {
-            elements.push(
+            return (
               <h4
                 key={`h4-${i}`}
                 id={id}
                 className="mt-6 mb-2 text-lg font-medium text-slate-200 scroll-mt-24"
               >
-                {parseInline(text)}
+                {parseInline(hText)}
               </h4>
             );
           }
-          i++;
-          continue;
         }
       }
 
-      // ── Horizontal Rule ──────────────────────────────────────────────────
-      if (block === "---" || block === "***") {
-        elements.push(
+      // ── Render Horizontal Rule ────────────────────────────────────────────
+      if (text === "---" || text === "***") {
+        return (
           <hr
             key={`hr-${i}`}
             className="my-10 border-0 h-[1px] bg-gradient-to-r from-transparent via-[#1a2235] to-transparent"
           />
         );
-        i++;
-        continue;
       }
 
-      // ── Markdown Table ───────────────────────────────────────────────────
-      if (block.includes("|") && block.includes("-|-")) {
-        const rows = block.trim().split("\n");
+      // ── Render Markdown Table ─────────────────────────────────────────────
+      if (text.includes("|") && text.includes("-|-")) {
+        const rows = text.trim().split("\n");
         const headerCols = rows[0]
           .split("|")
           .map((c) => c.trim())
@@ -302,7 +445,7 @@ export function BlogMarkdownRenderer({
             .filter(Boolean)
         );
 
-        elements.push(
+        return (
           <div key={`table-${i}`} className="my-6 overflow-x-auto rounded-xl border border-[#1a2235] bg-[#07090e]">
             <table className="w-full text-left text-xs md:text-sm">
               <thead className="bg-[#0f1420] text-slate-200 border-b border-[#1a2235] uppercase font-mono text-[11px]">
@@ -328,65 +471,56 @@ export function BlogMarkdownRenderer({
             </table>
           </div>
         );
-        i++;
-        continue;
       }
 
-      // ── Lists ────────────────────────────────────────────────────────────
-      const lines = block.split("\n");
+      // ── Render Lists ──────────────────────────────────────────────────────
+      const lines = text.split("\n");
       const isUnordered = lines.every((l) => /^\s*[-*]\s+/.test(l));
       const isOrdered = lines.every((l) => /^\s*\d+\.\s+/.test(l));
 
       if (isUnordered) {
-        elements.push(
+        return (
           <ul key={`ul-${i}`} className="my-4 space-y-2 list-none">
             {lines.map((line, lIdx) => {
-              const text = line.replace(/^\s*[-*]\s+/, "");
+              const itemText = line.replace(/^\s*[-*]\s+/, "");
               return (
                 <li key={lIdx} className="flex items-start gap-2.5 text-slate-300">
                   <span className="text-[#D4FF24] mt-1 text-xs select-none">▸</span>
-                  <span className="flex-1 leading-relaxed">{parseInline(text)}</span>
+                  <span className="flex-1 leading-relaxed">{parseInline(itemText)}</span>
                 </li>
               );
             })}
           </ul>
         );
-        i++;
-        continue;
       }
 
       if (isOrdered) {
-        elements.push(
+        return (
           <ol key={`ol-${i}`} className="my-4 space-y-2.5 list-none">
             {lines.map((line, lIdx) => {
-              const match = line.match(/^\s*(\d+)\.\s+(.*)$/);
-              const num = match ? match[1] : `${lIdx + 1}`;
-              const text = match ? match[2] : line;
+              const oMatch = line.match(/^\s*(\d+)\.\s+(.*)$/);
+              const num = oMatch ? oMatch[1] : `${lIdx + 1}`;
+              const itemText = oMatch ? oMatch[2] : line;
               return (
                 <li key={lIdx} className="flex items-start gap-3 text-slate-300">
                   <span className="flex-shrink-0 flex items-center justify-center w-5 h-5 rounded-md bg-[#111726] border border-[#1a2235] text-[11px] font-mono text-[#D4FF24]">
                     {num}
                   </span>
-                  <span className="flex-1 leading-relaxed">{parseInline(text)}</span>
+                  <span className="flex-1 leading-relaxed">{parseInline(itemText)}</span>
                 </li>
               );
             })}
           </ol>
         );
-        i++;
-        continue;
       }
 
-      // ── Standard Paragraph ───────────────────────────────────────────────
-      elements.push(
+      // ── Render Standard Paragraph ─────────────────────────────────────────
+      return (
         <p key={`p-${i}`} className={`my-4 text-slate-300 ${fontSizeClass}`}>
-          {parseInline(block)}
+          {parseInline(text)}
         </p>
       );
-      i++;
-    }
-
-    return elements;
+    });
   };
 
   return <div className="blog-prose w-full">{renderBlocks()}</div>;
@@ -394,7 +528,6 @@ export function BlogMarkdownRenderer({
 
 // ── Inline Markdown Parser (Bold, Code, Links, Italics) ──────────────────────
 function parseInline(text: string): React.ReactNode[] {
-  // Regex to split tokens: `code`, **bold**, *italic*, [link](url)
   const regex = /(`[^`]+`|\*\*[^*]+\*\*|\*[^*]+\*|\[[^\]]+\]\([^)]+\))/g;
   const parts = text.split(regex);
 
@@ -406,7 +539,7 @@ function parseInline(text: string): React.ReactNode[] {
       return (
         <code
           key={index}
-          className="mx-1 px-1.5 py-0.5 rounded-md bg-[#0e1422] border border-[#1a2235] text-[#D4FF24] text-[0.88em] font-mono"
+          className="mx-1 px-1.5 py-0.5 rounded-md bg-[#0e1422] border border-[#1a2235] text-[#D4FF24] text-[0.88em] font-mono font-medium"
         >
           {part.slice(1, -1)}
         </code>
@@ -444,7 +577,7 @@ function parseInline(text: string): React.ReactNode[] {
           href={linkHref}
           target={isExternal ? "_blank" : undefined}
           rel={isExternal ? "noopener noreferrer" : undefined}
-          className="text-[#3b82f6] hover:text-[#D4FF24] underline underline-offset-4 decoration-blue-500/40 hover:decoration-[#D4FF24] transition-colors"
+          className="text-[#38bdf8] hover:text-[#D4FF24] underline underline-offset-4 decoration-blue-500/40 hover:decoration-[#D4FF24] transition-colors"
         >
           {linkText}
         </a>

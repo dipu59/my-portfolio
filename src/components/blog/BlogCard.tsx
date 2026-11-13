@@ -40,8 +40,8 @@ export function BlogCard({
               </span>
             </div>
 
-            <Link href={`/blog/${post.slug}`} className="block">
-              <h3 className="text-lg sm:text-xl font-bold text-white group-hover:text-[#D4FF24] transition-colors leading-snug">
+            <Link href={`/blog/${post.slug}`} className="block text-white">
+              <h3 className="text-lg sm:text-xl font-bold !text-white group-hover:!text-[#D4FF24] transition-colors leading-snug">
                 {post.title}
               </h3>
             </Link>
@@ -117,7 +117,7 @@ export function BlogCard({
   return (
     <article className="group relative flex flex-col rounded-2xl border border-[#1a2235] bg-[#0a0d14]/90 overflow-hidden hover:border-[#1558C9] hover:shadow-[0_0_30px_rgba(21,88,201,0.25)] transition-all duration-300">
       {/* Cover Image */}
-      <div className="relative h-48 sm:h-52 w-full overflow-hidden bg-[#111726]">
+      <div className="relative h-28 sm:h-48 md:h-52 w-full overflow-hidden bg-[#111726]">
         <Image
           src={post.coverImage}
           alt={post.title}
@@ -127,8 +127,8 @@ export function BlogCard({
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0a0d14] via-transparent to-transparent opacity-90" />
 
-        <div className="absolute top-3 left-3 right-3 flex items-center justify-between">
-          <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-semibold bg-[#030407]/80 backdrop-blur-md text-[#D4FF24] border border-[#D4FF24]/40 shadow-sm">
+        <div className="absolute top-2 left-2 right-2 sm:top-3 sm:left-3 sm:right-3 flex items-center justify-between">
+          <span className="px-2 py-0.5 sm:px-2.5 rounded-full text-[9px] sm:text-[10px] font-mono font-semibold bg-[#030407]/80 backdrop-blur-md text-[#D4FF24] border border-[#D4FF24]/40 shadow-sm truncate max-w-[75%]">
             {post.category}
           </span>
 
@@ -138,14 +138,14 @@ export function BlogCard({
               onToggleBookmark(post.slug);
             }}
             title={isBookmarked ? "Remove Bookmark" : "Save for later"}
-            className={`p-1.5 rounded-xl border backdrop-blur-md transition-all ${
+            className={`p-1 sm:p-1.5 rounded-lg sm:rounded-xl border backdrop-blur-md transition-all ${
               isBookmarked
                 ? "border-[#D4FF24] bg-[#D4FF24]/20 text-[#D4FF24]"
                 : "border-white/10 bg-black/50 text-white/70 hover:text-white hover:bg-black/80"
             }`}
           >
             <svg
-              className="w-4 h-4"
+              className="w-3.5 h-3.5 sm:w-4 sm:h-4"
               fill={isBookmarked ? "currentColor" : "none"}
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -162,27 +162,27 @@ export function BlogCard({
       </div>
 
       {/* Body Content */}
-      <div className="p-5 flex flex-col flex-1 justify-between space-y-4">
-        <div className="space-y-2.5">
-          <div className="flex items-center gap-2 text-[11px] font-mono text-slate-500">
+      <div className="p-3 sm:p-5 flex flex-col flex-1 justify-between space-y-2.5 sm:space-y-4">
+        <div className="space-y-1.5 sm:space-y-2.5">
+          <div className="flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-[11px] font-mono text-slate-500">
             <span>{formatDate(post.publishedAt)}</span>
             <span>•</span>
             <span>{post.readingTime}</span>
           </div>
 
-          <Link href={`/blog/${post.slug}`} className="block">
-            <h3 className="text-lg font-bold text-white group-hover:text-[#D4FF24] transition-colors leading-snug line-clamp-2">
+          <Link href={`/blog/${post.slug}`} className="block text-white">
+            <h3 className="text-xs sm:text-base md:text-lg font-bold !text-white group-hover:!text-[#D4FF24] transition-colors leading-snug line-clamp-2">
               {post.title}
             </h3>
           </Link>
 
-          <p className="text-xs text-slate-400 line-clamp-2 leading-relaxed">
+          <p className="text-[11px] sm:text-xs text-slate-400 line-clamp-2 leading-relaxed hidden sm:block">
             {post.excerpt}
           </p>
         </div>
 
-        <div className="space-y-3 pt-2 border-t border-[#1a2235]/60">
-          <div className="flex flex-wrap items-center gap-1.5">
+        <div className="space-y-2 sm:space-y-3 pt-1.5 sm:pt-2 border-t border-[#1a2235]/60">
+          <div className="hidden sm:flex flex-wrap items-center gap-1.5">
             {post.tags.slice(0, 3).map((tag) => (
               <span
                 key={tag}
@@ -193,16 +193,17 @@ export function BlogCard({
             ))}
           </div>
 
-          <div className="flex items-center justify-between text-xs font-mono text-slate-500 pt-1">
-            <div className="flex items-center gap-2.5">
+          <div className="flex items-center justify-between text-[10px] sm:text-xs font-mono text-slate-500 pt-0.5 sm:pt-1">
+            <div className="flex items-center gap-1.5 sm:gap-2.5">
               <span>👁 {views}</span>
               <span>❤️ {likes}</span>
             </div>
             <Link
               href={`/blog/${post.slug}`}
-              className="text-[#3b82f6] group-hover:text-[#D4FF24] group-hover:translate-x-1 transition-all flex items-center gap-1"
+              className="text-[#3b82f6] group-hover:text-[#D4FF24] group-hover:translate-x-1 transition-all flex items-center gap-0.5 sm:gap-1"
             >
-              <span>Read article</span>
+              <span className="hidden sm:inline">Read article</span>
+              <span className="sm:hidden">Read</span>
               <span>→</span>
             </Link>
           </div>

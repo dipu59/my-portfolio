@@ -110,6 +110,23 @@ body {
   overflow-x: hidden;
 }
 
+/* ── Prevent visited/default links from turning dark blue/purple ───────────── */
+a,
+a:visited {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ── Enforce pure white for all headers by default ────────────────────────── */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #ffffff;
+}
+
 /* ═══════════════════════════════════════════════════════════════════════════
    KEYFRAMES
    ═══════════════════════════════════════════════════════════════════════════ */

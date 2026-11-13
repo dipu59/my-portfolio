@@ -11,7 +11,7 @@ featured: false
 
 ## Why Edge Computing Matters
 
-When your server sits in a single data center (e.g. \`us-east-1\`), users accessing your site from Singapore or London suffer 150ms+ of inescapable speed-of-light network latency before the first byte arrives.
+When your server sits in a single data center (e.g. `us-east-1`), users accessing your site from Singapore or London suffer 150ms+ of inescapable speed-of-light network latency before the first byte arrives.
 
 Edge functions execute your code in hundreds of points of presence (PoPs) worldwide, bringing business logic right next to the client.
 
@@ -23,11 +23,11 @@ Edge functions execute your code in hundreds of points of presence (PoPs) worldw
 | :--- | :--- | :--- |
 | **Cold Starts** | 200ms – 1500ms | < 5ms |
 | **Global Deployment** | Single region / Cluster | 300+ Edge nodes worldwide |
-| **API Availability** | Full Node APIs (\`fs\`, \`net\`) | Standard Web APIs (\`fetch\`, \`crypto\`, \`Request\`) |
+| **API Availability** | Full Node APIs (`fs`, `net`) | Standard Web APIs (`fetch`, `crypto`, `Request`) |
 | **Memory Footprint** | ~50MB+ per process | < 5MB per isolate |
 
 > [!NOTE]
-> The Edge runtime uses lightweight V8 isolates rather than booting a full Node virtual machine. As a result, native Node modules like \`fs\` are unavailable, but standard Web APIs thrive.
+> The Edge runtime uses lightweight V8 isolates rather than booting a full Node virtual machine. As a result, native Node modules like `fs` are unavailable, but standard Web APIs thrive.
 
 ---
 
@@ -35,7 +35,7 @@ Edge functions execute your code in hundreds of points of presence (PoPs) worldw
 
 In Next.js, switching an API route to the Edge runtime is as simple as exporting the runtime config:
 
-\`\`\`typescript
+```typescript
 // app/api/weather/route.ts
 import { NextResponse } from "next/server";
 
@@ -46,14 +46,14 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const city = searchParams.get("city") || "Kolkata";
 
-  const res = await fetch(\`https://api.weatherapi.com/v1/current.json?q=\${city}\`, {
+  const res = await fetch(`https://api.weatherapi.com/v1/current.json?q=\${city}`, {
     headers: { "Cache-Control": "s-maxage=60, stale-while-revalidate=300" },
   });
 
   const data = await res.json();
   return NextResponse.json(data);
 }
-\`\`\`
+```
 
 ---
 
@@ -61,11 +61,11 @@ export async function GET(request: Request) {
 
 The secret to sub-30ms response times is multi-tier caching:
 
-1. **L1 Edge CDN Cache**: Cache responses at the edge gateway using HTTP \`Cache-Control\` with \`stale-while-revalidate\`.
+1. **L1 Edge CDN Cache**: Cache responses at the edge gateway using HTTP `Cache-Control` with `stale-while-revalidate`.
 2. **L2 Distributed Key-Value Store**: Upstash Redis or Cloudflare KV for user sessions and rate limiting.
 3. **L3 Geo-Replicated Database**: Turso (libSQL) or Supabase with read replicas located in primary user clusters.
 
-\`\`\`typescript
+```typescript
 import { Redis } from "@upstash/redis/cloudflare";
 
 const redis = new Redis({
@@ -83,7 +83,7 @@ export async function getCachedData(key: string) {
   await redis.set(key, fresh, { ex: 300 }); // 5 min TTL
   return fresh;
 }
-\`\`\`
+```
 
 > [!WARNING]
 > Watch out for cache stampedes. When a popular cache key expires, thousands of concurrent requests can slam your origin database. Always implement staggered TTLs or mutex locks for high-throughput routes.
