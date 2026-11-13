@@ -260,7 +260,7 @@ export function NeonSnakeGame({ onClose, onSwitchToBugHunter }: NeonSnakeGamePro
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [gameState, resetGame, setDirection]);
 
-  // Touch Swipe listener
+  // Touch Swipe listener with instant movement response (no finger-lift needed)
   const touchStartRef = useRef<{ x: number; y: number } | null>(null);
 
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -270,20 +270,36 @@ export function NeonSnakeGame({ onClose, onSwitchToBugHunter }: NeonSnakeGamePro
     };
   };
 
-  const handleTouchEnd = (e: React.TouchEvent) => {
+  const handleTouchMove = (e: React.TouchEvent) => {
     if (!touchStartRef.current || gameState !== "playing") return;
-    const dx = e.changedTouches[0].clientX - touchStartRef.current.x;
-    const dy = e.changedTouches[0].clientY - touchStartRef.current.y;
+
+    const currentX = e.touches[0].clientX;
+    const currentY = e.touches[0].clientY;
+
+    const dx = currentX - touchStartRef.current.x;
+    const dy = currentY - touchStartRef.current.y;
     const absX = Math.abs(dx);
     const absY = Math.abs(dy);
 
-    if (Math.max(absX, absY) > 20) {
+    // Ultra-sensitive threshold (14px): instant direction change mid-swipe!
+    const SWIPE_THRESHOLD = 14;
+
+    if (Math.max(absX, absY) >= SWIPE_THRESHOLD) {
       if (absX > absY) {
         setDirection(dx > 0 ? "RIGHT" : "LEFT");
       } else {
         setDirection(dy > 0 ? "DOWN" : "UP");
       }
+      // Reset start coordinates to current point to allow continuous fluid steering
+      // without ever lifting the finger
+      touchStartRef.current = {
+        x: currentX,
+        y: currentY,
+      };
     }
+  };
+
+  const handleTouchEnd = () => {
     touchStartRef.current = null;
   };
 
@@ -528,6 +544,7 @@ export function NeonSnakeGame({ onClose, onSwitchToBugHunter }: NeonSnakeGamePro
       className="relative w-full max-w-sm sm:max-w-md mx-auto rounded-2xl sm:rounded-3xl p-4 sm:p-5 border border-[#1a2235] bg-[#0a0d14]/95 backdrop-blur-xl shadow-2xl flex flex-col items-center select-none touch-none"
       style={{ touchAction: "none" }}
       onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
       {/* Top Arcade Header */}
