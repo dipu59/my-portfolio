@@ -13,6 +13,7 @@ import {
   faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
 import { NeonSnakeGame } from "./NeonSnakeGame";
+import { CyberBugHunterGame } from "./CyberBugHunterGame";
 
 const SOCIAL_LINKS = [
   { label: "GitHub", href: "https://github.com/dipu59", icon: faGithub },
@@ -22,7 +23,7 @@ const SOCIAL_LINKS = [
 ] as const;
 
 export function HeroSection() {
-  const [isGameActive, setIsGameActive] = useState(false);
+  const [activeView, setActiveView] = useState<"profile" | "snake" | "bughunter">("profile");
 
   return (
     <section
@@ -39,7 +40,7 @@ export function HeroSection() {
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           className="w-full md:col-span-7 flex flex-col items-start gap-6 sm:gap-7"
         >
-          {/* Status Pill & Game Toggle Badge */}
+          {/* Status Pill & Arcade Switcher */}
           <div className="flex flex-wrap items-center gap-3">
             <div
               className="inline-flex items-center gap-2.5 rounded-full px-3.5 py-1.5 text-xs font-medium text-white"
@@ -59,21 +60,32 @@ export function HeroSection() {
               <span>Available for premium collaborations</span>
             </div>
 
-            <button
-              onClick={() => setIsGameActive((prev) => !prev)}
-              className="inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-mono font-medium border transition-all cursor-pointer select-none active:scale-95"
-              style={{
-                borderColor: isGameActive ? "#1558C9" : "rgba(212,255,36,0.35)",
-                backgroundColor: isGameActive ? "rgba(21,88,201,0.15)" : "rgba(212,255,36,0.08)",
-                color: isGameActive ? "#60a5fa" : "#D4FF24",
-                boxShadow: isGameActive
-                  ? "0 0 15px rgba(21,88,201,0.3)"
-                  : "0 0 15px rgba(212,255,36,0.2)",
-              }}
-            >
-              <span>🎮</span>
-              <span>{isGameActive ? "View Profile" : "Play Cyber Snake"}</span>
-            </button>
+            {/* Arcade Game Switcher Pills */}
+            <div className="inline-flex items-center rounded-full p-0.5 border border-[#1a2235] bg-[#0a0d14]">
+              <button
+                onClick={() => setActiveView(activeView === "snake" ? "profile" : "snake")}
+                className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium transition-all cursor-pointer select-none active:scale-95 ${
+                  activeView === "snake"
+                    ? "bg-[#1558C9] text-white shadow-[0_0_12px_rgba(21,88,201,0.5)]"
+                    : "text-slate-400 hover:text-[#D4FF24]"
+                }`}
+              >
+                <span>🐍</span>
+                <span>{activeView === "snake" ? "Close" : "Snake"}</span>
+              </button>
+
+              <button
+                onClick={() => setActiveView(activeView === "bughunter" ? "profile" : "bughunter")}
+                className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium transition-all cursor-pointer select-none active:scale-95 ${
+                  activeView === "bughunter"
+                    ? "bg-rose-600 text-white shadow-[0_0_12px_rgba(244,63,94,0.5)]"
+                    : "text-slate-400 hover:text-[#38bdf8]"
+                }`}
+              >
+                <span>👾</span>
+                <span>{activeView === "bughunter" ? "Close" : "Bug Hunter"}</span>
+              </button>
+            </div>
           </div>
 
           {/* Headline */}
@@ -163,7 +175,7 @@ export function HeroSection() {
           </div>
         </motion.div>
 
-        {/* ── Right Column: Profile Card OR Neon Snake Arcade Console ─────── */}
+        {/* ── Right Column: Profile Card OR Arcade Game Console ─────────── */}
         <motion.div
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -171,7 +183,7 @@ export function HeroSection() {
           className="w-full md:col-span-5 flex justify-center md:justify-end"
         >
           <AnimatePresence mode="wait">
-            {isGameActive ? (
+            {activeView === "snake" ? (
               <motion.div
                 key="snake-arcade"
                 initial={{ opacity: 0, scale: 0.92, rotateY: 15 }}
@@ -180,7 +192,24 @@ export function HeroSection() {
                 transition={{ duration: 0.35, ease: "easeOut" }}
                 className="w-full"
               >
-                <NeonSnakeGame onClose={() => setIsGameActive(false)} />
+                <NeonSnakeGame
+                  onClose={() => setActiveView("profile")}
+                  onSwitchToBugHunter={() => setActiveView("bughunter")}
+                />
+              </motion.div>
+            ) : activeView === "bughunter" ? (
+              <motion.div
+                key="bughunter-arcade"
+                initial={{ opacity: 0, scale: 0.92, rotateY: 15 }}
+                animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+                exit={{ opacity: 0, scale: 0.92, rotateY: -15 }}
+                transition={{ duration: 0.35, ease: "easeOut" }}
+                className="w-full"
+              >
+                <CyberBugHunterGame
+                  onClose={() => setActiveView("profile")}
+                  onSwitchToSnake={() => setActiveView("snake")}
+                />
               </motion.div>
             ) : (
               <motion.div
@@ -196,15 +225,6 @@ export function HeroSection() {
                   boxShadow: "0 20px 60px rgba(0,0,0,0.70)",
                 }}
               >
-                {/* Floating Game Trigger Pill On Top of Image */}
-                <button
-                  onClick={() => setIsGameActive(true)}
-                  className="absolute top-7 right-7 z-20 flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-semibold bg-[#030407]/80 backdrop-blur-md border border-[#D4FF24]/50 text-[#D4FF24] shadow-[0_0_15px_rgba(212,255,36,0.3)] hover:scale-105 active:scale-95 transition-all cursor-pointer"
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#D4FF24] animate-ping" />
-                  <span>🎮 Play Snake</span>
-                </button>
-
                 {/* Image */}
                 <div
                   className="relative aspect-4/5 sm:aspect-square md:aspect-4/5 w-full overflow-hidden rounded-xl sm:rounded-2xl"

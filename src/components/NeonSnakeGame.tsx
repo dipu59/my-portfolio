@@ -94,16 +94,45 @@ const sfx = new SoundFX();
 
 interface NeonSnakeGameProps {
   onClose?: () => void;
+  onSwitchToBugHunter?: () => void;
 }
 
-export function NeonSnakeGame({ onClose }: NeonSnakeGameProps) {
+export function NeonSnakeGame({ onClose, onSwitchToBugHunter }: NeonSnakeGameProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
   const [gameState, setGameState] = useState<"idle" | "playing" | "paused" | "gameover">("idle");
   const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
   const [soundOn, setSoundOn] = useState(true);
   const [lastEaten, setLastEaten] = useState<string | null>(null);
+
+  // Lock body scroll while game is playing so swipes never scroll the website
+  useEffect(() => {
+    if (gameState === "playing") {
+      const prevOverflow = document.body.style.overflow;
+      const prevTouchAction = document.body.style.touchAction;
+
+      document.body.style.overflow = "hidden";
+      document.body.style.touchAction = "none";
+
+      const handleGlobalTouchMove = (e: TouchEvent) => {
+        if (e.cancelable) {
+          e.preventDefault();
+        }
+      };
+
+      window.addEventListener("touchmove", handleGlobalTouchMove, {
+        passive: false,
+      });
+
+      return () => {
+        document.body.style.overflow = prevOverflow;
+        document.body.style.touchAction = prevTouchAction;
+        window.removeEventListener("touchmove", handleGlobalTouchMove);
+      };
+    }
+  }, [gameState]);
 
   // Snake engine refs for 60fps glitch-free physics
   const snakeRef = useRef<Point[]>([...INITIAL_SNAKE]);
@@ -495,15 +524,27 @@ export function NeonSnakeGame({ onClose }: NeonSnakeGameProps) {
 
   return (
     <div
-      className="relative w-full max-w-sm sm:max-w-md mx-auto rounded-2xl sm:rounded-3xl p-4 sm:p-5 border border-[#1a2235] bg-[#0a0d14]/95 backdrop-blur-xl shadow-2xl flex flex-col items-center select-none"
+      ref={containerRef}
+      className="relative w-full max-w-sm sm:max-w-md mx-auto rounded-2xl sm:rounded-3xl p-4 sm:p-5 border border-[#1a2235] bg-[#0a0d14]/95 backdrop-blur-xl shadow-2xl flex flex-col items-center select-none touch-none"
+      style={{ touchAction: "none" }}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
       {/* Top Arcade Header */}
       <div className="w-full flex items-center justify-between pb-3 mb-2 border-b border-[#1a2235] text-xs font-mono">
-        <div className="flex items-center gap-2">
-          <span className="flex h-2 w-2 rounded-full bg-[#D4FF24] animate-pulse" />
-          <span className="font-bold tracking-wider text-white">NEON SNAKE</span>
+        {/* Game Switcher Tabs */}
+        <div className="flex items-center gap-1 p-0.5 rounded-lg bg-[#030407] border border-[#1a2235]">
+          <button className="px-2.5 py-1 rounded-md text-[11px] font-mono font-bold bg-[#1558C9] text-white shadow-sm">
+            🐍 Snake
+          </button>
+          {onSwitchToBugHunter && (
+            <button
+              onClick={onSwitchToBugHunter}
+              className="px-2.5 py-1 rounded-md text-[11px] font-mono text-slate-400 hover:text-white transition-all cursor-pointer"
+            >
+              👾 Bug Hunter
+            </button>
+          )}
         </div>
 
         <div className="flex items-center gap-3">
@@ -542,12 +583,16 @@ export function NeonSnakeGame({ onClose }: NeonSnakeGameProps) {
       </div>
 
       {/* Game Canvas Container */}
-      <div className="relative aspect-square w-full max-w-[340px] rounded-xl overflow-hidden border border-[#1a2235] bg-[#07090e] shadow-[0_0_20px_rgba(21,88,201,0.2)]">
+      <div
+        className="relative aspect-square w-full max-w-[340px] rounded-xl overflow-hidden border border-[#1a2235] bg-[#07090e] shadow-[0_0_20px_rgba(21,88,201,0.2)] touch-none"
+        style={{ touchAction: "none" }}
+      >
         <canvas
           ref={canvasRef}
           width={340}
           height={340}
-          className="w-full h-full block"
+          className="w-full h-full block touch-none"
+          style={{ touchAction: "none" }}
         />
 
         {/* Floating Eaten Tech Badge */}
@@ -576,12 +621,22 @@ export function NeonSnakeGame({ onClose }: NeonSnakeGameProps) {
                 Eat tech stacks (React, Next.js, Turbo) to grow!
               </p>
             </div>
-            <button
-              onClick={resetGame}
-              className="px-6 py-2.5 rounded-xl font-mono text-xs font-bold text-black bg-[#D4FF24] hover:bg-[#c4f018] shadow-[0_0_15px_rgba(212,255,36,0.5)] active:scale-95 transition-all cursor-pointer"
-            >
-              PLAY GAME [SPACE]
-            </button>
+            <div className="flex flex-col gap-2 w-full max-w-[220px]">
+              <button
+                onClick={resetGame}
+                className="w-full py-2.5 rounded-xl font-mono text-xs font-bold text-black bg-[#D4FF24] hover:bg-[#c4f018] shadow-[0_0_15px_rgba(212,255,36,0.5)] active:scale-95 transition-all cursor-pointer"
+              >
+                PLAY SNAKE [SPACE]
+              </button>
+              {onSwitchToBugHunter && (
+                <button
+                  onClick={onSwitchToBugHunter}
+                  className="w-full py-2 rounded-xl font-mono text-[11px] font-semibold text-slate-300 border border-[#1a2235] bg-[#111726] hover:bg-[#1a233a] hover:border-[#1558C9] active:scale-95 transition-all cursor-pointer"
+                >
+                  👾 Play Bug Hunter Instead
+                </button>
+              )}
+            </div>
             <p className="text-[10px] text-slate-500 font-mono">
               Desktop: WASD / Arrows • Mobile: Touch D-Pad
             </p>
