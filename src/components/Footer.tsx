@@ -42,6 +42,14 @@ export function Footer() {
         </div>
 
         <div className="flex flex-col gap-3 text-xs sm:items-end" style={{ color: "#64748b" }}>
+          <div className="flex flex-wrap gap-4 text-xs font-mono sm:justify-end text-slate-400">
+            <a href="/" className="hover:text-white transition-colors">Home</a>
+            <a href="/#projects" className="hover:text-white transition-colors">Projects</a>
+            <a href="/blog" className="text-[#D4FF24] hover:underline">Blog</a>
+            <a href="/gallery" className="hover:text-white transition-colors">Gallery</a>
+            <a href="/about" className="hover:text-white transition-colors">About</a>
+            <a href="/feed.xml" target="_blank" className="hover:text-[#3b82f6] transition-colors">RSS</a>
+          </div>
           <div className="flex flex-wrap gap-4 sm:justify-end">
             <a
               href="tel:+919239005171"

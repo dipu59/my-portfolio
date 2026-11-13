@@ -11,11 +11,12 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 
-type SectionId = "home" | "projects" | "about" | "gallery" | "skills" | "contact";
+type SectionId = "home" | "projects" | "blog" | "about" | "gallery" | "skills" | "contact";
 
 const navLinks: { label: string; href: string; section: SectionId }[] = [
   { label: "Home",     href: "/",         section: "home"    },
   { label: "Projects", href: "/#projects", section: "projects"},
+  { label: "Blog",     href: "/blog",      section: "blog"    },
   { label: "About",    href: "/about",     section: "about"   },
   { label: "Gallery",  href: "/gallery",   section: "gallery" },
   { label: "Skills",   href: "/#skills",   section: "skills"  },
@@ -73,6 +74,8 @@ export function Navbar() {
       ? "about"
       : pathname === "/gallery"
       ? "gallery"
+      : pathname.startsWith("/blog")
+      ? "blog"
       : "home";
 
   const scrollToSection = (section: SectionId) => {
@@ -88,7 +91,7 @@ export function Navbar() {
     href: string,
     section: SectionId
   ) => {
-    if (href === "/about" || href === "/gallery") {
+    if (href === "/about" || href === "/gallery" || href.startsWith("/blog")) {
       handleCloseMenu();
       return;
     }
