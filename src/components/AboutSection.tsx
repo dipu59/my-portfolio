@@ -124,7 +124,7 @@ export function AboutSection() {
           >
             {/* Profile image */}
             <div
-              className="group relative w-full aspect-[4/5] sm:aspect-square lg:aspect-[4/5] overflow-hidden rounded-xl mb-6 transform-gpu will-change-transform"
+              className="group relative w-full aspect-4/5 sm:aspect-square lg:aspect-4/5 overflow-hidden rounded-xl mb-6 transform-gpu will-change-transform"
               style={{ border: "1px solid #1a2235", backgroundColor: "#0a0d14" }}
             >
               <Image
@@ -133,8 +133,9 @@ export function AboutSection() {
                 fill
                 sizes="(min-width: 1024px) 340px, (min-width: 640px) 50vw, 100vw"
                 priority
-                className="object-cover object-center grayscale contrast-115 transition-all duration-500 ease-out group-hover:grayscale-0 group-hover:scale-[1.03]"
+                className="object-cover object-center  contrast-115 transition-all duration-500 ease-out group-hover:grayscale-0 group-hover:scale-[1.03]"
               />
+              {/* grayscale */}
               <div
                 className="pointer-events-none absolute inset-x-0 bottom-0 h-24"
                 style={{ background: "linear-gradient(to top, rgba(21,88,201,0.35), transparent)" }}

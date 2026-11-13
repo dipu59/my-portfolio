@@ -13,10 +13,10 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 
 const SOCIAL_LINKS = [
-  { label: "GitHub",    href: "https://github.com/dipu59",                              icon: faGithub     },
-  { label: "Twitter",   href: "https://x.com/dipu_biswas_dev",                         icon: faTwitter    },
-  { label: "LinkedIn",  href: "https://in.linkedin.com/in/dipu-biswas-b0b06a381",      icon: faLinkedinIn },
-  { label: "Instagram", href: "https://www.instagram.com/dipubiswas_official_/",        icon: faInstagram  },
+  { label: "GitHub", href: "https://github.com/dipu59", icon: faGithub },
+  { label: "Twitter", href: "https://x.com/dipu_biswas_dev", icon: faTwitter },
+  { label: "LinkedIn", href: "https://in.linkedin.com/in/dipu-biswas-b0b06a381", icon: faLinkedinIn },
+  { label: "Instagram", href: "https://www.instagram.com/dipubiswas_official_/", icon: faInstagram },
 ] as const;
 
 export function HeroSection() {
@@ -55,7 +55,7 @@ export function HeroSection() {
           </div>
 
           {/* Headline */}
-          <h1 className="w-full text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.12]">
+          <h1 className="w-full text-4xl  md:text-5xl  font-bold tracking-tight text-white leading-[1.12]">
             Trust me, I&apos;m a{" "}
             <span
               className="relative inline-block"
@@ -73,11 +73,11 @@ export function HeroSection() {
           </p>
 
           {/* Action Buttons */}
-          <div className="flex flex-wrap items-center gap-3.5 pt-2 w-full sm:w-auto">
+          <div className="flex  items-center gap-3.5 pt-2 w-full sm:w-auto">
             {/* Primary */}
             <a
               href="#projects"
-              className="transform-gpu will-change-transform inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-xs sm:text-sm font-semibold tracking-wide transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 w-full sm:w-auto"
+              className="transform-gpu will-change-transform inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-xs sm:text-sm font-semibold tracking-wide transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 w-auto"
               style={{
                 backgroundColor: "#1558C9",
                 color: "#ffffff",
@@ -98,14 +98,14 @@ export function HeroSection() {
             <a
               href="/resume.pdf"
               download
-              className="transform-gpu will-change-transform inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-xs sm:text-sm font-semibold tracking-wide text-white transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 w-full sm:w-auto"
+              className="transform-gpu will-change-transform inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-xs sm:text-sm font-semibold tracking-wide text-white transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 w-auto"
               style={{
                 border: "1px solid rgba(212,255,36,0.35)",
                 backgroundColor: "transparent",
                 color: "#D4FF24",
               }}
             >
-              <span>Download Resume</span>
+              <span>Resume</span>
               <LuDownload className="h-4 w-4" />
             </a>
           </div>
@@ -139,9 +139,9 @@ export function HeroSection() {
 
             <span className="hidden sm:inline-block h-3 w-px" style={{ backgroundColor: "#1a2235" }} />
 
-            <p className="text-xs font-mono" style={{ color: "#64748b" }}>
+            {/* <p className="text-xs font-mono" style={{ color: "#64748b" }}>
               BALAGARH, WEST BENGAL // OPEN TO REMOTE
-            </p>
+            </p> */}
           </div>
         </motion.div>
 

@@ -24,18 +24,18 @@ import { FaNodeJs } from "react-icons/fa";
 import { TbBrandSocketIo } from "react-icons/tb";
 
 const techIcons: Record<string, IconType> = {
-  "Next.js":       SiNextdotjs,
-  React:           SiReact,
-  TypeScript:      SiTypescript,
-  "Tailwind CSS":  SiTailwindcss,
-  "Node.js":       FaNodeJs,
+  "Next.js": SiNextdotjs,
+  React: SiReact,
+  TypeScript: SiTypescript,
+  "Tailwind CSS": SiTailwindcss,
+  "Node.js": FaNodeJs,
   "Framer Motion": SiFramer,
-  Prisma:          SiPrisma,
-  Stripe:          SiStripe,
-  PlanetScale:     LuDatabase,
-  "Socket.io":     TbBrandSocketIo,
-  PostgreSQL:      LuDatabase,
-  Redis:           LuServerCog,
+  Prisma: SiPrisma,
+  Stripe: SiStripe,
+  PlanetScale: LuDatabase,
+  "Socket.io": TbBrandSocketIo,
+  PostgreSQL: LuDatabase,
+  Redis: LuServerCog,
 };
 
 const projects = [
@@ -108,12 +108,6 @@ export function ProjectsSection() {
           style={{ borderBottom: "1px solid #1a2235" }}
         >
           <div className="space-y-3">
-            <div className="inline-flex items-center gap-2">
-              <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: "#1558C9" }} />
-              <p className="font-mono text-xs font-semibold uppercase tracking-[0.25em]" style={{ color: "#64748b" }}>
-                02 // Selected Works
-              </p>
-            </div>
             <h2
               id="projects-heading"
               className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white"

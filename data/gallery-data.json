@@ -1,7 +1,9 @@
 {
   "photo-001": {
-    "likes": 42,
-    "likedBy": []
+    "likes": 43,
+    "likedBy": [
+      "client_1794508490836_kzh8yy"
+    ]
   },
   "photo-002": {
     "likes": 39,
@@ -32,5 +34,17 @@
   "photo-008": {
     "likes": 51,
     "likedBy": []
+  },
+  "photo-012": {
+    "likes": 1,
+    "likedBy": [
+      "client_1794508490836_kzh8yy"
+    ]
+  },
+  "photo-010": {
+    "likes": 1,
+    "likedBy": [
+      "client_1794508490836_kzh8yy"
+    ]
   }
 }

@@ -39,8 +39,8 @@ export default function RootLayout({
       <head>
         {/*
          * This inline script runs BEFORE first paint — it re-enforces the
-         * dark background and color-scheme so there is ZERO flash of white,
-         * even on devices with OS-level light mode.
+         * dark background, color-scheme, and checks session storage to prevent
+         * any flash of light mode or re-triggering of the intro loader on reloads.
          */}
         <script
           dangerouslySetInnerHTML={{
@@ -48,6 +48,11 @@ export default function RootLayout({
               document.documentElement.style.colorScheme = 'dark';
               document.documentElement.style.backgroundColor = '#030407';
               document.body && (document.body.style.backgroundColor = '#030407');
+              try {
+                if (sessionStorage.getItem('dipu_portfolio_intro_seen') === 'true') {
+                  document.documentElement.classList.add('intro-seen');
+                }
+              } catch (e) {}
             `,
           }}
         />
