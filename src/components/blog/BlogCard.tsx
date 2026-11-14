@@ -46,7 +46,7 @@ export function BlogCard({
               </h3>
             </Link>
 
-            <p className="text-sm text-slate-400 line-clamp-2 leading-relaxed">
+            <p className="text-base text-slate-300 line-clamp-2 leading-relaxed">
               {post.excerpt}
             </p>
 
@@ -176,7 +176,7 @@ export function BlogCard({
             </h3>
           </Link>
 
-          <p className="text-[11px] sm:text-xs text-slate-400 line-clamp-2 leading-relaxed hidden sm:block">
+          <p className="text-xs sm:text-sm text-slate-300 line-clamp-2 leading-relaxed hidden sm:block">
             {post.excerpt}
           </p>
         </div>

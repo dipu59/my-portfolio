@@ -89,7 +89,7 @@ export function ContactSection() {
               <span style={{ color: "#D4FF24" }}>exceptional.</span>
             </h2>
 
-            <p className="text-sm sm:text-[16px] leading-relaxed" style={{ color: "#94a3b8" }}>
+            <p className="text-base sm:text-lg leading-relaxed" style={{ color: "#cbd5e1" }}>
               Have a high-impact product, an architectural challenge, or an engineering opening?
               Reach out directly—I typically review and reply within 24 hours.
             </p>
@@ -156,7 +156,7 @@ export function ContactSection() {
 
             {/* Meta stack */}
             <div
-              className="pt-4 space-y-3 font-mono text-xs"
+              className="pt-4 space-y-3 font-mono text-xs sm:text-sm"
               style={{ borderTop: "1px solid #1a2235", color: "#64748b" }}
             >
               <div className="flex items-center gap-2.5">

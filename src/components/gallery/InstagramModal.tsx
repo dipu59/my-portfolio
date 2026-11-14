@@ -287,7 +287,7 @@ export function InstagramModal({
             </div>
 
             {/* Caption */}
-            <div className="text-xs sm:text-sm leading-relaxed">
+            <div className="text-sm sm:text-base leading-relaxed">
               <span className="font-semibold text-white mr-1.5">
                 dipu_biswas
               </span>

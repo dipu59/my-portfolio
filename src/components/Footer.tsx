@@ -25,7 +25,7 @@ export function Footer() {
             Designed &amp; built by{" "}
             <span className="font-medium text-white">Dipu Biswas</span>
           </p>
-          <p className="text-xs" style={{ color: "#64748b" }}>
+          <p className="text-xs sm:text-sm" style={{ color: "#94a3b8" }}>
             Building fast, premium web experiences with React &amp; Next.js.
           </p>
           <div className="pt-1.5">

@@ -654,8 +654,8 @@ export function NeonSnakeGame({ onClose, onSwitchToBugHunter }: NeonSnakeGamePro
                 </button>
               )}
             </div>
-            <p className="text-[10px] text-slate-500 font-mono">
-              Desktop: WASD / Arrows • Mobile: Touch D-Pad
+            <p className="text-[10px] text-slate-400 font-mono">
+              Desktop: WASD / Arrows • Mobile: Swipe Screen
             </p>
           </div>
         )}
@@ -697,53 +697,10 @@ export function NeonSnakeGame({ onClose, onSwitchToBugHunter }: NeonSnakeGamePro
         )}
       </div>
 
-      {/* ── Mobile Virtual D-Pad ────────────────────────────────────────── */}
-      <div className="w-full mt-3 pt-3 border-t border-[#1a2235]/60 flex flex-col items-center gap-1.5 md:hidden">
-        <button
-          onClick={() => setDirection("UP")}
-          aria-label="Move Up"
-          className="w-12 h-10 rounded-xl border border-[#1a2235] bg-[#111726] active:bg-[#1558C9] active:text-white text-slate-300 flex items-center justify-center text-sm font-bold shadow-md transition-all active:scale-90"
-        >
-          ▲
-        </button>
-        <div className="flex items-center gap-4">
-          <button
-            onClick={() => setDirection("LEFT")}
-            aria-label="Move Left"
-            className="w-12 h-10 rounded-xl border border-[#1a2235] bg-[#111726] active:bg-[#1558C9] active:text-white text-slate-300 flex items-center justify-center text-sm font-bold shadow-md transition-all active:scale-90"
-          >
-            ◀
-          </button>
-          <button
-            onClick={() => {
-              if (gameState === "idle" || gameState === "gameover") resetGame();
-              else setGameState(gameState === "playing" ? "paused" : "playing");
-            }}
-            className="px-3 h-10 rounded-xl border border-[#D4FF24]/40 bg-[#D4FF24]/10 text-[#D4FF24] text-[10px] font-mono font-bold flex items-center justify-center active:scale-95"
-          >
-            {gameState === "playing" ? "PAUSE" : "START"}
-          </button>
-          <button
-            onClick={() => setDirection("RIGHT")}
-            aria-label="Move Right"
-            className="w-12 h-10 rounded-xl border border-[#1a2235] bg-[#111726] active:bg-[#1558C9] active:text-white text-slate-300 flex items-center justify-center text-sm font-bold shadow-md transition-all active:scale-90"
-          >
-            ▶
-          </button>
-        </div>
-        <button
-          onClick={() => setDirection("DOWN")}
-          aria-label="Move Down"
-          className="w-12 h-10 rounded-xl border border-[#1a2235] bg-[#111726] active:bg-[#1558C9] active:text-white text-slate-300 flex items-center justify-center text-sm font-bold shadow-md transition-all active:scale-90"
-        >
-          ▼
-        </button>
-      </div>
-
-      {/* Desktop Keybind Hint */}
-      <div className="hidden md:flex items-center justify-between w-full mt-3 pt-2 text-[10px] font-mono text-slate-500">
-        <span>Controls: Arrow Keys or W A S D</span>
-        <span>Space: Pause/Play</span>
+      {/* Keybind / Gesture Hint */}
+      <div className="flex items-center justify-between w-full mt-3 pt-2 text-[10px] font-mono text-slate-400 border-t border-[#1a2235]/40">
+        <span>Desktop: Arrow Keys / WASD</span>
+        <span>Mobile: Swipe Screen</span>
       </div>
     </div>
   );

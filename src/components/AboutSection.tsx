@@ -54,7 +54,7 @@ export function AboutSection() {
                 production-grade web applications where code clarity and user experience
                 reinforce each other.
               </p>
-              <p className="text-sm leading-relaxed" style={{ color: "#94a3b8" }}>
+              <p className="text-base sm:text-lg leading-relaxed" style={{ color: "#cbd5e1" }}>
                 Rather than treating frontend and backend as detached silos, I bridge the full
                 lifecycle: from architecting type-safe data schemas and resilient REST/real-time
                 services to choreographing 60&nbsp;FPS compositor-driven user interfaces.
@@ -93,8 +93,8 @@ export function AboutSection() {
                   <h3 className="font-mono text-xs uppercase tracking-wider" style={{ color: "#64748b" }}>
                     {code}
                   </h3>
-                  <p className="text-sm font-semibold text-white">{title}</p>
-                  <p className="text-xs leading-relaxed" style={{ color: "#64748b" }}>{desc}</p>
+                  <p className="text-sm sm:text-base font-semibold text-white">{title}</p>
+                  <p className="text-sm sm:text-[14.5px] leading-relaxed" style={{ color: "#94a3b8" }}>{desc}</p>
                 </div>
               ))}
             </div>
@@ -163,8 +163,8 @@ export function AboutSection() {
               {/* Location */}
               <div className="py-3.5 space-y-1" style={{ borderBottom: "1px solid #1a2235" }}>
                 <p className="font-mono text-[11px] uppercase tracking-wider" style={{ color: "#64748b" }}>Location</p>
-                <p className="text-sm font-medium text-white">Balagarh, West Bengal, India</p>
-                <p className="text-xs" style={{ color: "#64748b" }}>Standard Time (UTC +05:30)</p>
+                <p className="text-sm sm:text-base font-medium text-white">Balagarh, West Bengal, India</p>
+                <p className="text-xs sm:text-[13px]" style={{ color: "#94a3b8" }}>Standard Time (UTC +05:30)</p>
               </div>
 
               {/* Availability */}
@@ -172,9 +172,9 @@ export function AboutSection() {
                 <p className="font-mono text-[11px] uppercase tracking-wider" style={{ color: "#64748b" }}>Availability</p>
                 <div className="flex items-center gap-2">
                   <span className="h-2 w-2 rounded-full" style={{ backgroundColor: "#D4FF24" }} />
-                  <p className="text-sm font-medium text-white">Open for opportunities</p>
+                  <p className="text-sm sm:text-base font-medium text-white">Open for opportunities</p>
                 </div>
-                <p className="text-xs" style={{ color: "#64748b" }}>Full-time remote roles &amp; high-impact contracts</p>
+                <p className="text-xs sm:text-[13px]" style={{ color: "#94a3b8" }}>Full-time remote roles &amp; high-impact contracts</p>
               </div>
 
               {/* Core Stack */}

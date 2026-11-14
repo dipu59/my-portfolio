@@ -98,11 +98,11 @@ export function ProjectsSection() {
     <section
       id="projects"
       aria-labelledby="projects-heading"
-      className="relative w-full py-20 md:py-28"
+      className="relative w-full py-14 md:py-18"
       style={{ backgroundColor: "#030407" }}
     >
       {/* ── Section Header ────────────────────────────────────────────────── */}
-      <div className="mx-auto w-full max-w-5xl px-4 sm:px-6 md:px-8 mb-12 lg:mb-16">
+      <div className="mx-auto w-full max-w-5xl px-2 md:px-2 mb-12 lg:mb-16">
         <div
           className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8"
           style={{ borderBottom: "1px solid #1a2235" }}
@@ -110,25 +110,17 @@ export function ProjectsSection() {
           <div className="space-y-3">
             <h2
               id="projects-heading"
-              className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white"
+              className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white md:w-xl "
             >
               Crafted with{" "}
               <span style={{ color: "#D4FF24" }}>purpose.</span>
             </h2>
-            <p className="max-w-xl text-sm sm:text-[16px] leading-relaxed" style={{ color: "#94a3b8" }}>
+            <p className="max-w-xl text-base sm:text-lg leading-relaxed" style={{ color: "#94a3b8" }}>
               A curated lineup of full-stack systems focusing on architectural
               integrity, measured performance, and refined interaction design.
             </p>
           </div>
 
-          <div className="flex items-center gap-3 font-mono text-xs" style={{ color: "#64748b" }}>
-            <span className="hidden sm:inline">ARCHITECTURE // PERFORMANCE</span>
-            <span
-              className="inline-block h-2 w-2 rounded-full"
-              style={{ border: "1px solid #1a2235" }}
-            />
-            <span>4 PROJECTS SHIPPED</span>
-          </div>
         </div>
       </div>
 
@@ -204,7 +196,7 @@ export function ProjectsSection() {
                     </div>
 
                     {/* Description */}
-                    <p className="text-sm sm:text-[15px] leading-relaxed" style={{ color: "#94a3b8" }}>
+                    <p className="text-base sm:text-[17px] leading-relaxed" style={{ color: "#cbd5e1" }}>
                       {project.description}
                     </p>
 
@@ -221,7 +213,7 @@ export function ProjectsSection() {
                         className="h-1.5 w-1.5 rounded-full shrink-0"
                         style={{ backgroundColor: "#D4FF24" }}
                       />
-                      <span className="font-medium text-[11px] tracking-wide">{project.highlight}</span>
+                      <span className="font-medium text-xs sm:text-[12.5px] tracking-wide">{project.highlight}</span>
                     </div>
 
                     {/* Tech Stack */}

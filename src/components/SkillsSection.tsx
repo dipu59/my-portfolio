@@ -185,7 +185,7 @@ function SpotlightDashboardCard({ domain, index }: { domain: DomainBlock; index:
                 {domain.code}
               </span>
             </div>
-            <p className="text-xs leading-relaxed" style={{ color: "#64748b" }}>
+            <p className="text-sm sm:text-[14.5px] leading-relaxed" style={{ color: "#94a3b8" }}>
               {domain.summary}
             </p>
           </div>
@@ -216,7 +216,7 @@ function SpotlightDashboardCard({ domain, index }: { domain: DomainBlock; index:
                     <p className="text-xs sm:text-sm font-semibold text-white tracking-tight truncate">
                       {skill.name}
                     </p>
-                    <p className="font-mono text-[10px] sm:text-[11px] truncate mt-0.5" style={{ color: "#64748b" }}>
+                    <p className="font-mono text-[11px] sm:text-xs truncate mt-0.5" style={{ color: "#94a3b8" }}>
                       Applied in: {skill.appliedIn}
                     </p>
                   </div>
@@ -269,7 +269,7 @@ export function SkillsSection() {
               <span style={{ color: "#1558C9" }}>scale</span> &amp;{" "}
               <span style={{ color: "#D4FF24" }}>reliability.</span>
             </h2>
-            <p className="max-w-xl text-sm sm:text-[16px] leading-relaxed" style={{ color: "#94a3b8" }}>
+            <p className="max-w-xl text-base sm:text-lg leading-relaxed" style={{ color: "#94a3b8" }}>
               Production capabilities evaluated through delivered projects—emphasizing
               clean architecture, end-to-end type safety, and real-world system constraints.
             </p>

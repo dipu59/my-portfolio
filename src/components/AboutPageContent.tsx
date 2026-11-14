@@ -130,7 +130,7 @@ export function AboutPageContent() {
                 <br />
                 Developer.
               </h1>
-              <p className="max-w-2xl text-[16px] leading-8 text-slate-600 sm:text-lg">
+              <p className="max-w-2xl text-[17px] leading-8 text-slate-600 sm:text-lg md:text-[19px]">
                 I&apos;m Dipu Biswas, a full-stack developer from West Bengal,
                 India. I build modern websites and web apps with Next.js, React,
                 TypeScript, and Node.js, with a strong focus on performance,
@@ -164,7 +164,7 @@ export function AboutPageContent() {
                     <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-400">
                       {fact.label}
                     </p>
-                    <p className="text-sm leading-6 text-slate-700">
+                    <p className="text-[15px] sm:text-base leading-6 text-slate-700">
                       {fact.value}
                     </p>
                   </motion.div>
@@ -184,7 +184,7 @@ export function AboutPageContent() {
                 <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-400">
                   How I work
                 </p>
-                <p className="mt-3 max-w-xs text-sm leading-7 text-slate-600 sm:text-[15px]">
+                <p className="mt-3 max-w-xs text-[15px] leading-7 text-slate-600 sm:text-base">
                   I enjoy projects where thoughtful design and dependable code
                   need to move together, not compete with each other.
                 </p>
@@ -196,7 +196,7 @@ export function AboutPageContent() {
                     className="flex gap-3 border-b border-slate-200/80 pb-4 last:border-b-0 last:pb-0"
                   >
                     <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-sky-600" />
-                    <p className="text-sm leading-7 text-slate-600 sm:text-[15px]">
+                    <p className="text-[15px] leading-7 text-slate-600 sm:text-base">
                       {item}
                     </p>
                   </div>
@@ -235,7 +235,7 @@ export function AboutPageContent() {
                   <h2 className="text-2xl font-semibold text-slate-950">
                     Dipu Biswas
                   </h2>
-                  <p className="mt-1 text-sm leading-6 text-slate-600">
+                  <p className="mt-1 text-[15px] sm:text-base leading-6 text-slate-600">
                     Full-stack developer building elegant web experiences with
                     React, Next.js, TypeScript, and Node.js.
                   </p>
@@ -311,7 +311,7 @@ export function AboutPageContent() {
               <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-400">
                 What I care about
               </p>
-              <div className="mt-5 space-y-4 text-sm leading-7 text-slate-600 sm:text-[15px]">
+              <div className="mt-5 space-y-4 text-[15px] leading-7 text-slate-600 sm:text-base">
                 <p>
                   I like clean layouts, meaningful detail, and products that
                   feel calm to use. My work usually balances visual polish with

@@ -14,11 +14,13 @@ config.autoAddCss = false;
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = defaultMetadata;
@@ -35,7 +37,11 @@ export default function RootLayout({
      * (inputs, selects, scrollbars, date pickers) into dark mode
      * even when the user's OS is set to light mode.
      */
-    <html lang="en" style={{ colorScheme: "dark", backgroundColor: "#030407" }}>
+    <html
+      lang="en"
+      className={`${geistSans.variable} ${geistMono.variable}`}
+      style={{ colorScheme: "dark", backgroundColor: "#030407" }}
+    >
       <head>
         {/*
          * This inline script runs BEFORE first paint — it re-enforces the
@@ -68,7 +74,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden`}
+        className={`${geistSans.className} ${geistSans.variable} ${geistMono.variable} font-sans antialiased overflow-x-hidden`}
         style={{ backgroundColor: "#030407", color: "#ffffff" }}
       >
         <LoadingScreen />

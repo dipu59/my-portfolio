@@ -286,7 +286,7 @@ export function GalleryClient() {
               </span>
             </div>
 
-            <p className="text-neutral-300 leading-snug">
+            <p className="text-neutral-200 text-sm sm:text-base leading-relaxed">
               Full-Stack Developer building scalable web applications with React, Next.js, and Node.js.
             </p>
 

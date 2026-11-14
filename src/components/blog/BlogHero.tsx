@@ -41,7 +41,7 @@ export function BlogHero({
           </span>
         </h1>
 
-        <p className="text-sm sm:text-base text-slate-400 max-w-2xl leading-relaxed">
+        <p className="text-base sm:text-lg text-slate-300 max-w-2xl leading-relaxed">
           Deep technical explorations into Next.js 16, React 19, distributed
           edge systems, resilient micro-frontends, and futuristic UI engineering.
         </p>
@@ -144,7 +144,7 @@ export function BlogHero({
                     {featuredPost.title}
                   </h2>
 
-                  <p className="text-sm text-slate-300 leading-relaxed line-clamp-3">
+                  <p className="text-base sm:text-[17px] text-slate-300 leading-relaxed line-clamp-3">
                     {featuredPost.excerpt}
                   </p>
                 </div>
