@@ -72,7 +72,7 @@ function highlightLine(line: string, lang: string): React.ReactNode {
       (token.startsWith("`") && token.endsWith("`"))
     ) {
       return (
-        <span key={idx} className="text-[#a3e635]">
+        <span key={idx} className="text-[#86efac]">
           {token}
         </span>
       );
@@ -90,7 +90,7 @@ function highlightLine(line: string, lang: string): React.ReactNode {
     // Numbers
     if (/^\d+(?:\.\d+)?$/.test(token)) {
       return (
-        <span key={idx} className="text-[#fb923c]">
+        <span key={idx} className="text-[#fdba74]">
           {token}
         </span>
       );
@@ -99,7 +99,7 @@ function highlightLine(line: string, lang: string): React.ReactNode {
     // Literals
     if (LITERALS.has(token)) {
       return (
-        <span key={idx} className="text-[#f97316] font-medium">
+        <span key={idx} className="text-[#fb923c] font-medium">
           {token}
         </span>
       );
@@ -117,7 +117,7 @@ function highlightLine(line: string, lang: string): React.ReactNode {
     // Types
     if (TYPES.has(token)) {
       return (
-        <span key={idx} className="text-[#fbbf24]">
+        <span key={idx} className="text-[#fcd34d]">
           {token}
         </span>
       );
@@ -126,7 +126,7 @@ function highlightLine(line: string, lang: string): React.ReactNode {
     // Builtins / Hooks
     if (BUILTINS.has(token)) {
       return (
-        <span key={idx} className="text-[#818cf8] font-medium">
+        <span key={idx} className="text-[#a78bfa] font-medium">
           {token}
         </span>
       );
@@ -163,29 +163,29 @@ function CodeBlock({ code, language }: { code: string; language: string }) {
   const lines = code.split("\n");
 
   return (
-    <div className="relative my-6 rounded-2xl border border-[#1a2235] bg-[#07090e] overflow-hidden group shadow-2xl">
-      <div className="flex items-center justify-between px-4 py-2.5 bg-[#0d121c] border-b border-[#1a2235] text-xs font-mono text-slate-400">
+    <div className="relative my-6 rounded-2xl border border-[#1e2638] bg-[#07090e] overflow-hidden group shadow-2xl">
+      <div className="flex items-center justify-between px-4 py-2.5 bg-[#0e1320] border-b border-[#1e2638] text-xs font-mono text-slate-400">
         <div className="flex items-center gap-2">
           <span className="flex gap-1.5">
             <span className="w-2.5 h-2.5 rounded-full bg-red-500/70 inline-block" />
             <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/70 inline-block" />
             <span className="w-2.5 h-2.5 rounded-full bg-green-500/70 inline-block" />
           </span>
-          <span className="ml-2 uppercase text-[11px] font-semibold text-[#D4FF24]">
+          <span className="ml-2 uppercase text-[11px] font-mono font-medium text-slate-300">
             {language || "code"}
           </span>
         </div>
         <button
           onClick={handleCopy}
           aria-label="Copy code to clipboard"
-          className="flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-sans border border-[#1a2235] bg-[#111726] hover:bg-[#1a233a] hover:border-[#1558C9] text-slate-300 hover:text-white transition-all active:scale-95 cursor-pointer"
+          className="flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-sans border border-[#1e2638] bg-[#131926] hover:bg-[#1a233a] hover:border-sky-500/50 text-slate-300 hover:text-white transition-all active:scale-95 cursor-pointer"
         >
           {copied ? (
             <>
-              <svg className="w-3.5 h-3.5 text-[#D4FF24]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-3.5 h-3.5 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
               </svg>
-              <span className="text-[#D4FF24]">Copied!</span>
+              <span className="text-sky-400 font-medium">Copied!</span>
             </>
           ) : (
             <>
@@ -223,16 +223,17 @@ export function BlogMarkdownRenderer({
   content,
   fontSize = "normal",
 }: BlogMarkdownRendererProps) {
+  // Comfortable reading typography metrics
   const fontSizeClass =
     fontSize === "large"
-      ? "text-lg leading-relaxed"
+      ? "text-[19px] sm:text-[20px] leading-[1.85] sm:leading-[1.9]"
       : fontSize === "xlarge"
-      ? "text-xl leading-loose"
-      : "text-base leading-relaxed";
+      ? "text-[21px] sm:text-[22px] leading-[1.9] sm:leading-[1.95]"
+      : "text-[17px] sm:text-[18px] leading-[1.8] sm:leading-[1.85]";
 
   const renderBlocks = () => {
     const normalized = content.replace(/\r\n/g, "\n").trim();
-    // Regex matching code blocks reliably (handling both regular and escaped backticks)
+    // Regex matching code blocks reliably
     const codeBlockRegex = /(?:```|\\```)(\w*)\n([\s\S]*?)\n(?:```|\\```)/g;
 
     interface BlockItem {
@@ -297,30 +298,30 @@ export function BlogMarkdownRenderer({
 
           const configs = {
             NOTE: {
-              border: "border-blue-500/40",
-              bg: "bg-blue-950/20",
-              text: "text-blue-400",
+              border: "border-sky-500/40",
+              bg: "bg-sky-950/25",
+              text: "text-sky-400",
               title: "Note",
               icon: "ℹ️",
             },
             TIP: {
-              border: "border-[#D4FF24]/40",
-              bg: "bg-[#D4FF24]/5",
-              text: "text-[#D4FF24]",
+              border: "border-emerald-500/40",
+              bg: "bg-emerald-950/25",
+              text: "text-emerald-400",
               title: "Tip",
               icon: "💡",
             },
             WARNING: {
               border: "border-amber-500/40",
-              bg: "bg-amber-950/20",
+              bg: "bg-amber-950/25",
               text: "text-amber-400",
               title: "Warning",
               icon: "⚠️",
             },
             IMPORTANT: {
-              border: "border-cyan-500/40",
-              bg: "bg-cyan-950/20",
-              text: "text-cyan-400",
+              border: "border-indigo-500/40",
+              bg: "bg-indigo-950/25",
+              text: "text-indigo-400",
               title: "Important",
               icon: "⚡",
             },
@@ -353,7 +354,7 @@ export function BlogMarkdownRenderer({
         return (
           <blockquote
             key={`quote-${i}`}
-            className="my-6 pl-4 border-l-2 border-[#1558C9] italic text-slate-300 bg-[#0a0e1a]/40 py-2.5 rounded-r-lg"
+            className="my-6 pl-5 border-l-2 border-sky-500 italic text-slate-300 bg-[#0e1424]/40 py-3 rounded-r-xl"
           >
             {parseInline(quoteText)}
           </blockquote>
@@ -376,14 +377,14 @@ export function BlogMarkdownRenderer({
               <h2
                 key={`h2-${i}`}
                 id={id}
-                className="group relative mt-10 mb-4 text-2xl font-bold tracking-tight text-white scroll-mt-24 border-b border-[#1a2235]/60 pb-2"
+                className="group relative mt-12 mb-4 text-2xl sm:text-3xl font-bold tracking-tight text-white scroll-mt-24 border-b border-[#1e2638] pb-3"
               >
                 <a
                   href={`#${id}`}
-                  className="inline-flex items-center gap-2 hover:text-[#D4FF24] transition-colors"
+                  className="inline-flex items-center gap-2 hover:text-sky-400 transition-colors"
                 >
                   {parseInline(hText)}
-                  <span className="opacity-0 group-hover:opacity-100 text-slate-500 hover:text-[#D4FF24] text-base transition-opacity">
+                  <span className="opacity-0 group-hover:opacity-100 text-slate-500 hover:text-sky-400 text-base transition-opacity">
                     #
                   </span>
                 </a>
@@ -394,14 +395,14 @@ export function BlogMarkdownRenderer({
               <h3
                 key={`h3-${i}`}
                 id={id}
-                className="group relative mt-8 mb-3 text-xl font-semibold tracking-tight text-slate-100 scroll-mt-24"
+                className="group relative mt-10 mb-3 text-xl sm:text-2xl font-semibold tracking-tight text-slate-100 scroll-mt-24"
               >
                 <a
                   href={`#${id}`}
-                  className="inline-flex items-center gap-2 hover:text-[#D4FF24] transition-colors"
+                  className="inline-flex items-center gap-2 hover:text-sky-400 transition-colors"
                 >
                   {parseInline(hText)}
-                  <span className="opacity-0 group-hover:opacity-100 text-slate-500 hover:text-[#D4FF24] text-sm transition-opacity">
+                  <span className="opacity-0 group-hover:opacity-100 text-slate-500 hover:text-sky-400 text-sm transition-opacity">
                     #
                   </span>
                 </a>
@@ -412,7 +413,7 @@ export function BlogMarkdownRenderer({
               <h4
                 key={`h4-${i}`}
                 id={id}
-                className="mt-6 mb-2 text-lg font-medium text-slate-200 scroll-mt-24"
+                className="mt-8 mb-2 text-lg font-medium text-slate-200 scroll-mt-24"
               >
                 {parseInline(hText)}
               </h4>
@@ -426,7 +427,7 @@ export function BlogMarkdownRenderer({
         return (
           <hr
             key={`hr-${i}`}
-            className="my-10 border-0 h-[1px] bg-gradient-to-r from-transparent via-[#1a2235] to-transparent"
+            className="my-10 border-0 h-[1px] bg-gradient-to-r from-transparent via-[#1e2638] to-transparent"
           />
         );
       }
@@ -446,9 +447,9 @@ export function BlogMarkdownRenderer({
         );
 
         return (
-          <div key={`table-${i}`} className="my-6 overflow-x-auto rounded-xl border border-[#1a2235] bg-[#07090e]">
+          <div key={`table-${i}`} className="my-6 overflow-x-auto rounded-xl border border-[#1e2638] bg-[#07090e]">
             <table className="w-full text-left text-xs md:text-sm">
-              <thead className="bg-[#0f1420] text-slate-200 border-b border-[#1a2235] uppercase font-mono text-[11px]">
+              <thead className="bg-[#0e1422] text-slate-200 border-b border-[#1e2638] uppercase font-mono text-[11px]">
                 <tr>
                   {headerCols.map((col, idx) => (
                     <th key={idx} className="px-4 py-3 font-semibold">
@@ -457,7 +458,7 @@ export function BlogMarkdownRenderer({
                   ))}
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#1a2235] text-slate-300">
+              <tbody className="divide-y divide-[#1e2638] text-slate-300">
                 {dataRows.map((row, rIdx) => (
                   <tr key={rIdx} className="hover:bg-white/[0.02]">
                     {row.map((cell, cIdx) => (
@@ -480,13 +481,15 @@ export function BlogMarkdownRenderer({
 
       if (isUnordered) {
         return (
-          <ul key={`ul-${i}`} className="my-4 space-y-2 list-none">
+          <ul key={`ul-${i}`} className="my-5 space-y-2.5 list-none">
             {lines.map((line, lIdx) => {
               const itemText = line.replace(/^\s*[-*]\s+/, "");
               return (
-                <li key={lIdx} className="flex items-start gap-2.5 text-slate-300">
-                  <span className="text-[#D4FF24] mt-1 text-xs select-none">▸</span>
-                  <span className="flex-1 leading-relaxed">{parseInline(itemText)}</span>
+                <li key={lIdx} className="flex items-start gap-3 text-slate-300">
+                  <span className="h-2 w-2 rounded-full bg-sky-400/80 mt-2.5 shrink-0 inline-block" />
+                  <span className="flex-1 leading-relaxed text-[16px] sm:text-[17px]">
+                    {parseInline(itemText)}
+                  </span>
                 </li>
               );
             })}
@@ -496,17 +499,19 @@ export function BlogMarkdownRenderer({
 
       if (isOrdered) {
         return (
-          <ol key={`ol-${i}`} className="my-4 space-y-2.5 list-none">
+          <ol key={`ol-${i}`} className="my-5 space-y-3 list-none">
             {lines.map((line, lIdx) => {
               const oMatch = line.match(/^\s*(\d+)\.\s+(.*)$/);
               const num = oMatch ? oMatch[1] : `${lIdx + 1}`;
               const itemText = oMatch ? oMatch[2] : line;
               return (
                 <li key={lIdx} className="flex items-start gap-3 text-slate-300">
-                  <span className="flex-shrink-0 flex items-center justify-center w-5 h-5 rounded-md bg-[#111726] border border-[#1a2235] text-[11px] font-mono text-[#D4FF24]">
+                  <span className="shrink-0 flex items-center justify-center w-5 h-5 rounded-md bg-[#131926] border border-[#1e293b] text-[11px] font-mono font-medium text-sky-400 mt-0.5">
                     {num}
                   </span>
-                  <span className="flex-1 leading-relaxed">{parseInline(itemText)}</span>
+                  <span className="flex-1 leading-relaxed text-[16px] sm:text-[17px]">
+                    {parseInline(itemText)}
+                  </span>
                 </li>
               );
             })}
@@ -516,7 +521,7 @@ export function BlogMarkdownRenderer({
 
       // ── Render Standard Paragraph ─────────────────────────────────────────
       return (
-        <p key={`p-${i}`} className={`my-4 text-slate-300 ${fontSizeClass}`}>
+        <p key={`p-${i}`} className={`my-5 text-[#cbd5e1] font-normal ${fontSizeClass}`}>
           {parseInline(text)}
         </p>
       );
@@ -539,7 +544,7 @@ function parseInline(text: string): React.ReactNode[] {
       return (
         <code
           key={index}
-          className="mx-1 px-1.5 py-0.5 rounded-md bg-[#0e1422] border border-[#1a2235] text-[#D4FF24] text-[0.88em] font-mono font-medium"
+          className="mx-1 px-1.5 py-0.5 rounded-md bg-[#131926] border border-[#1e293b] text-[#7dd3fc] text-[0.88em] font-mono font-medium"
         >
           {part.slice(1, -1)}
         </code>
@@ -577,7 +582,7 @@ function parseInline(text: string): React.ReactNode[] {
           href={linkHref}
           target={isExternal ? "_blank" : undefined}
           rel={isExternal ? "noopener noreferrer" : undefined}
-          className="text-[#38bdf8] hover:text-[#D4FF24] underline underline-offset-4 decoration-blue-500/40 hover:decoration-[#D4FF24] transition-colors"
+          className="text-sky-400 hover:text-sky-300 underline underline-offset-4 decoration-sky-500/40 hover:decoration-sky-400 transition-colors"
         >
           {linkText}
         </a>
